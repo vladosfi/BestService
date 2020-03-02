@@ -7,5 +7,9 @@
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public BaseCategory BaseCategory { get; set; }
+
+        public Company Company { get; set; }
     }
 }

@@ -28,6 +28,8 @@
 
         public DbSet<Category> Categories { get; set; }
 
+        public DbSet<Company> Companies { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
@@ -82,6 +84,11 @@
             where T : class, IDeletableEntity
         {
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
+
+            builder.Entity<Company>()
+        .HasOne(c => c.Category)
+        .WithOne(ct => ct.Company)
+        .HasForeignKey<Category>(ct => ct.Id);
         }
 
         // Applies configurations
