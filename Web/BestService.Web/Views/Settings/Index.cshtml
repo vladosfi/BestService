@@ -4,11 +4,59 @@
     this.ViewData["Title"] = "Settings";
 }
 
-<h1>@this.ViewData["Title"]</h1>
 
-@foreach (var setting in this.Model.Settings)
-{
-    <div>@setting.Id: @setting.NameAndValue</div>
-}
+<!-- Courses -->
+<div id="courses" class="section">
 
-<a asp-action="InsertSetting" class="btn btn-primary">Insert new</a>
+    <!-- container -->
+    <div class="container">
+
+        <!-- row -->
+        <div class="row">
+            <div class="section-header text-center">
+                <h1>@this.ViewData["Title"]</h1>
+            </div>
+
+
+            @foreach (var setting in this.Model.Settings)
+            {
+                <div>@setting.Id: @setting.NameAndValue</div>
+            }
+
+            <a asp-action="InsertSetting" class="btn btn-primary">Insert new</a>
+        </div>
+        <!-- /row -->
+        <!-- row -->
+        <div class="row">
+            <div class="section-header text-center">
+                <h2>Explore Courses</h2>
+                <p class="lead">Libris vivendo eloquentiam ex ius, nec id splendide abhorreant.</p>
+            </div>
+        </div>
+        <!-- /row -->
+        <!-- courses -->
+        <div id="courses-wrapper">
+
+            <!-- row -->
+            <div class="row">
+
+                <!-- single course -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="course">
+                        <a href="#" class="course-img">
+                            <img src="./img/course01.jpg" alt="">
+                            <i class="course-link-icon fa fa-link"></i>
+                        </a>
+                        <a class="course-title" href="#">Beginner to Pro in Excel: Financial Modeling and Valuation</a>
+                        <div class="course-details">
+                            <span class="course-category">Business</span>
+                            <span class="course-price course-free">Free</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- /single course -->
+            </div>
+            <!-- /row -->
+
+        </div>
+        <!-- /courses -->

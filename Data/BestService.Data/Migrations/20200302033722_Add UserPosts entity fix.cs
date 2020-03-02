@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace BestService.Data.Migrations
+﻿namespace BestService.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddUserPostsentityfix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
