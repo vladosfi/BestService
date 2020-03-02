@@ -30,6 +30,8 @@
 
         public DbSet<Company> Companies { get; set; }
 
+        public DbSet<UserPost> UsersPosts { get; set; }
+
         public DbSet<Setting> Settings { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
