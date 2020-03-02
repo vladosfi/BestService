@@ -7,10 +7,16 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
 
     <environment names="Development">
+        <link href="~/css/modern-business.css" rel="stylesheet" asp-append-version="true" />
+        <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+        <!-- Google font -->
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
-        <link href="~/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/css/font-awesome.min.css" rel="stylesheet" asp-append-version="true" />
-        <link href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="~/css/font-awesome.min.css">
+        <link rel="stylesheet" href="~/css/style.css">
+
     </environment>
     <environment names="Staging,Production">
         <link href="https://fonts.googleapis.com/css?family=Lato:700%7CMontserrat:400,600" rel="stylesheet">
@@ -19,49 +25,65 @@
         <link href="~/css/style.css" rel="stylesheet" asp-append-version="true" />
     </environment>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
 
-    <!-- Header -->
-    <header id="header">
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-
-            <div class="navbar-header">
-                <!-- Logo -->
-                <div class="navbar-brand">
-                    <a class="logo" href="index.html">
-                        <img src="./img/logo.png" alt="logo">
-                    </a>
-                </div>
-                <!-- /Logo -->
-                <!-- Mobile toggle -->
-                <button class="navbar-toggle">
-                    <span></span>
-                </button>
-                <!-- /Mobile toggle -->
-            </div>
-
-            <!-- Navigation -->
-            <nav id="nav">
-                <ul class="main-menu nav navbar-nav navbar-right">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Settings" asp-action="Index">Settings</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+            <a class="navbar-brand" href="index.html">@GlobalConstants.SystemName</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Settings" asp-action="Index">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Portfolio
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                            <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
+                            <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
+                            <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
+                            <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
+                            <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Blog
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                            <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
+                            <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
+                            <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Other Pages
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+                            <a class="dropdown-item" href="full-width.html">Full Width Page</a>
+                            <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
+                            <a class="dropdown-item" href="faq.html">FAQ</a>
+                            <a class="dropdown-item" href="404.html">404</a>
+                            <a class="dropdown-item" href="pricing.html">Pricing Table</a>
+                        </div>
+                    </li>
                 </ul>
-            </nav>
-            <!-- /Navigation -->
-
+            </div>
         </div>
-    </header>
-    <!-- /Header -->
+    </nav>
 
 
     <partial name="_CookieConsentPartial" />
@@ -69,8 +91,9 @@
         @this.RenderBody()
     </main>
 
+    
     <!-- Footer -->
-    <footer id="footer" class="section">
+    <footer id="footer" class="section-footer bg-dark">
 
         <!-- container -->
         <div class="container">
@@ -82,7 +105,7 @@
                 <div class="col-md-6">
                     <div class="footer-logo">
                         <a class="logo" href="index.html">
-                            <img src="./img/logo.png" alt="logo">
+                            <img src="~/img/logo.png" alt="logo">
                         </a>
                     </div>
                 </div>
@@ -117,7 +140,7 @@
                 <!-- copyright -->
                 <div class="col-md-8 col-md-pull-4">
                     <div class="footer-copyright">
-                        <span>&copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></span>
+                        <span>&copy; Copyright @DateTime.UtcNow.Year. All Rights Reserved. | This web site is made by <a href="https://github.com/vladosfi">VGIvanov</a></span>
                     </div>
                 </div>
                 <!-- /copyright -->
@@ -130,15 +153,15 @@
 
     </footer>
     <!-- /Footer -->
+
+
     <environment names="Development">
-        <script src="~/js/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
-        <script src="~/js/main.js" asp-append-version="true"></script>
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="~/js/jquery.min.js" asp-append-version="true"></script>
-        <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
-        <script src="~/js/main.js" asp-append-version="true"></script>
+        <script src="~/vendor/jquery/jquery.min.js"></script>
+        <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     </environment>
 
 
