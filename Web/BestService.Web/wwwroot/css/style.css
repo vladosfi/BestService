@@ -29,6 +29,8 @@ Fonts: Lato & Montserrat
 	color: #798696;
 	font-weight: 700;
 	color: #FFF;
+    margin: 0;
+    padding-right: 10px;
 }
 
 #footer a:hover,
@@ -45,6 +47,15 @@ Fonts: Lato & Montserrat
     list-style: none
 }
 
+footer li.nav-item{
+	margin: 0;
+    padding: 0;
+}
+
+footer a.nav-link{
+	margin: 2px;
+    padding: 5px;
+}
 
 #bottom-footer {
 	margin-top: 40px;
@@ -71,7 +82,7 @@ Fonts: Lato & Montserrat
 .footer-nav li {
 	display:inline-block;
 	margin-left:15px;
-	line-height:35px;
+	/* line-height:35px; */
 }
 
 .footer-nav li a {
@@ -125,6 +136,7 @@ Fonts: Lato & Montserrat
 	display:block;
 	width:40px;
 	height:40px;
+	padding-left: 10px;
 	line-height:40px;
 	text-align:center;
 	border-radius:50%;
@@ -167,6 +179,7 @@ Fonts: Lato & Montserrat
 	/*-- Footer --*/
 	.footer-logo {
 		text-align:center;
+		padding-bottom: 30px;
 	}
 	
 	.footer-nav {
@@ -187,6 +200,23 @@ Fonts: Lato & Montserrat
 		text-align:center;
 		line-height:inherit;
 		margin-top:20px;
+	}
+	
+	#footer .col-md-6 {
+		-ms-flex: 0 0 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+@media (min-width: 992px){
+	
+	#footer .col-md-4 {
+    flex: 0 0 37%;
+    max-width: 37%;
+	}
+	#footer .col-md-8 {
+    flex: 0 0 63%;
+    max-width: 63%;
 	}
 }
 
