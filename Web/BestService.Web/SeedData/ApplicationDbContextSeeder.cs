@@ -9,10 +9,54 @@
 
     public class ApplicationDbContextSeeder
     {
-        public async Task SeedDataAsync(IServiceProvider serviceProvider, ApplicationDbContext dbContext)
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ApplicationDbContext dbContext;
+
+        private const string UserName = "Admin";
+        private const string Email = "sfi@abv.bg";
+        private const string Password = "123";
+
+        public ApplicationDbContextSeeder(IServiceProvider serviceProvider, ApplicationDbContext dbContext)
         {
-            var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
-            var roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+            this.userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+            this.roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+            this.dbContext = dbContext;
+        }
+
+        public async Task SeedDataAsync()
+        {
+            await SeedUsersAsync();
+            await SeedRolesAsync();
+            await SeedUserToRolesAsync();
+        }
+
+        private async Task SeedUserToRolesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task SeedRolesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task SeedUsersAsync()
+        {
+            var user = await this.userManager.FindByNameAsync(UserName);
+
+            if (user != null)
+            {
+                return;
+            }
+
+            await this.userManager.CreateAsync(
+                new IdentityUser
+                {
+                    UserName = UserName,
+                    Email = Email,
+                },
+                Password);
         }
     }
 }
