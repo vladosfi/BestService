@@ -1,4 +1,5 @@
 ﻿using System;
+
 using BestService.Data;
 using BestService.Data.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 [assembly: HostingStartup(typeof(BestService.Web.Areas.Identity.IdentityHostingStartup))]
+
 namespace BestService.Web.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
