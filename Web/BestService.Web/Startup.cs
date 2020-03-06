@@ -37,7 +37,7 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddDefaultIdentity<IdentityUser>(IdentityOptionsProvider.GetIdentityOptions)
+            // services.AddDefaultIdentity<IdentityUser>(IdentityOptionsProvider.GetIdentityOptions)
             //    .AddRoles<IdentityRole>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
@@ -80,7 +80,7 @@
                     dbContext.Database.Migrate();
                 }
 
-                 //new ApplicationDbContextSeeder1(dbContext, serviceScope.ServiceProvider).SeedAsync().GetAwaiter().GetResult();
+                 // new ApplicationDbContextSeeder1(dbContext, serviceScope.ServiceProvider).SeedAsync().GetAwaiter().GetResult();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
