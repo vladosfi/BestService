@@ -37,9 +37,6 @@
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
-            // services.AddDefaultIdentity<IdentityUser>(IdentityOptionsProvider.GetIdentityOptions)
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -61,7 +58,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
             services.AddTransient<ISettingsService, SettingsService>();
         }
 
@@ -80,7 +77,6 @@
                     dbContext.Database.Migrate();
                 }
 
-                 // new ApplicationDbContextSeeder1(dbContext, serviceScope.ServiceProvider).SeedAsync().GetAwaiter().GetResult();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 

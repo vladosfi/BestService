@@ -82,9 +82,12 @@
                     <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
                 </div>
             </form>
-            <div class="collapse navbar-collapse" id="ftco-nav">
+            <div class="collapse navbar-collapse font-weight-bold" id="ftco-nav">
                 <ul class="navbar-nav mr-auto">
                     <partial name="~/Views/Shared/Partials/_NavigationPartial.cshtml" />
+                </ul>
+                <ul class="navbar-nav return-right">
+                    <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml" />
                 </ul>
             </div>
         </div>
@@ -143,12 +146,9 @@
                     <div class="ftco-footer-widget mb-5 ml-md-4">
                         <h2 class="ftco-heading-2">Links</h2>
                         <ul class="list-unstyled">
-                            <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Home</a></li>
-                            <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>About</a></li>
-                            <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Services</a></li>
-                            <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Projects</a></li>
-                            <li><a href="#"><span class="ion-ios-arrow-round-forward mr-2"></span>Contact</a></li>
+                            <partial name="~/Views/Shared/Partials/_BottomMenuPartial.cshtml" />
                         </ul>
+                        
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">

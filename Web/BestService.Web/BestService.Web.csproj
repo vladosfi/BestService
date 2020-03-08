@@ -645,7 +645,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\site.webmanifest">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
