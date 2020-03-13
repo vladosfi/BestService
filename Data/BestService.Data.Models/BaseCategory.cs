@@ -15,6 +15,6 @@
 
         public string Description { get; set; }
 
-        public IEnumerable<Category> Categories { get; set; }
+        public virtual IEnumerable<Category> Categories { get; set; }
     }
 }
