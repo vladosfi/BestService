@@ -30,7 +30,7 @@
 
         public DbSet<Company> Companies { get; set; }
 
-        public DbSet<UserPost> UsersPosts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Setting> Settings { get; set; }
 
