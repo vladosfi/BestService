@@ -171,8 +171,10 @@ namespace BestService.Data.Migrations
 
             modelBuilder.Entity("BestService.Data.Models.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BaseCategoryId")
                         .HasColumnType("nvarchar(450)");
@@ -204,10 +206,55 @@ namespace BestService.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("BestService.Data.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId1");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("BestService.Data.Models.Company", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -236,14 +283,11 @@ namespace BestService.Data.Migrations
                     b.Property<float>("Rating")
                         .HasColumnType("real");
 
-                    b.Property<string>("UserPostId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("IsDeleted");
+                    b.HasIndex("CategoryId");
 
-                    b.HasIndex("UserPostId");
+                    b.HasIndex("IsDeleted");
 
                     b.ToTable("Companies");
                 });
@@ -278,38 +322,6 @@ namespace BestService.Data.Migrations
                     b.HasIndex("IsDeleted");
 
                     b.ToTable("Settings");
-                });
-
-            modelBuilder.Entity("BestService.Data.Models.UserPost", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PostText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UsersPosts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -421,26 +433,26 @@ namespace BestService.Data.Migrations
                     b.HasOne("BestService.Data.Models.BaseCategory", "BaseCategory")
                         .WithMany("Categories")
                         .HasForeignKey("BaseCategoryId");
+                });
 
+            modelBuilder.Entity("BestService.Data.Models.Comment", b =>
+                {
                     b.HasOne("BestService.Data.Models.Company", "Company")
-                        .WithOne("Category")
-                        .HasForeignKey("BestService.Data.Models.Category", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithMany("Comments")
+                        .HasForeignKey("CompanyId1");
+
+                    b.HasOne("BestService.Data.Models.ApplicationUser", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("BestService.Data.Models.Company", b =>
                 {
-                    b.HasOne("BestService.Data.Models.UserPost", null)
+                    b.HasOne("BestService.Data.Models.Category", "Category")
                         .WithMany("Companies")
-                        .HasForeignKey("UserPostId");
-                });
-
-            modelBuilder.Entity("BestService.Data.Models.UserPost", b =>
-                {
-                    b.HasOne("BestService.Data.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

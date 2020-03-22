@@ -11,6 +11,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191224074400_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191224074400_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200302024851_Add base categories and category entities.cs" />
+    <Compile Remove="Migrations\20200302024851_Add base categories and category entities.Designer.cs" />
+    <Compile Remove="Migrations\20200302032439_Add Company entity.cs" />
+    <Compile Remove="Migrations\20200302032439_Add Company entity.Designer.cs" />
+    <Compile Remove="Migrations\20200302033139_Add UserPosts entity.cs" />
+    <Compile Remove="Migrations\20200302033139_Add UserPosts entity.Designer.cs" />
+    <Compile Remove="Migrations\20200302033722_Add UserPosts entity fix.cs" />
+    <Compile Remove="Migrations\20200302033722_Add UserPosts entity fix.Designer.cs" />
+    <Compile Remove="Migrations\20200302070246_Initial from Wor.cs" />
+    <Compile Remove="Migrations\20200302070246_Initial from Wor.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
 
