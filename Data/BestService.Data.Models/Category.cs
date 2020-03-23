@@ -15,6 +15,8 @@
 
         public string Description { get; set; }
 
+        public string Link { get; set; }
+
         public string BaseCategoryId { get; set; }
 
         public virtual BaseCategory BaseCategory { get; set; }
