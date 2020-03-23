@@ -1,6 +1,9 @@
 ﻿namespace BestService.Web.ViewModels.Home
 {
-    public class IndexCategoryViewModel
+    using BestService.Data.Models;
+    using BestService.Services.Mapping;
+
+    public class IndexCategoryViewModel : IMapFrom<Category>
     {
         public string Name { get; set; }
 

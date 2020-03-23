@@ -5,6 +5,7 @@
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
+    using BestService.Services.Mapping;
     using BestService.Web.ViewModels;
     using BestService.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,9 @@
         {
             var viewModel = new IndexViewModel();
 
-            var categories = this.categoriesRepository.All().Select(x => new IndexCategoryViewModel
-            {
-                Description = x.Description,
-                Name = x.Name,
-            }).ToList();
+            var categories = this.categoriesRepository.All()
+                .To<IndexCategoryViewModel>()
+                .ToList();
 
             viewModel.Categories = categories;
 
