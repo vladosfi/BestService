@@ -1,33 +1,27 @@
 ﻿namespace BestService.Web.Controllers
 {
     using System.Diagnostics;
-    using System.Linq;
 
-    using BestService.Data.Common.Repositories;
-    using BestService.Data.Models;
-    using BestService.Services.Mapping;
+    using BestService.Services.Data;
     using BestService.Web.ViewModels;
     using BestService.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
-        private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly ICategoriesService categoriesService;
 
-        public HomeController(IDeletableEntityRepository<Category> categoriesRepository)
+        public HomeController(ICategoriesService categoriesService)
         {
-            this.categoriesRepository = categoriesRepository;
+            this.categoriesService = categoriesService;
         }
 
         public IActionResult Index()
         {
-            var viewModel = new IndexViewModel();
-
-            var categories = this.categoriesRepository.All()
-                .To<IndexCategoryViewModel>()
-                .ToList();
-
-            viewModel.Categories = categories;
+            var viewModel = new IndexViewModel
+            {
+                Categories = this.categoriesService.GetAll<IndexCategoryViewModel>(),
+            };
 
             return this.View(viewModel);
         }
