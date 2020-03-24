@@ -9,6 +9,8 @@
 
         public string Description { get; set; }
 
+        public int CompaniesCount { get; set; }
+
         public string Url => $"/c/{this.Name.Replace(' ', '-')}";
     }
 }
