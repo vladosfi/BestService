@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    using BestService.Common;
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Services.Data;
@@ -23,6 +24,7 @@
             this.repository = repository;
         }
 
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Index()
         {
             var settings = this.settingsService.GetAll<SettingViewModel>();
