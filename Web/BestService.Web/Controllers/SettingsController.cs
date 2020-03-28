@@ -7,9 +7,10 @@
     using BestService.Data.Models;
     using BestService.Services.Data;
     using BestService.Web.ViewModels.Settings;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     public class SettingsController : BaseController
     {
         private readonly ISettingsService settingsService;
