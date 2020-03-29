@@ -6,6 +6,8 @@
     {
         public string Content { get; set; }
 
+        public float Rating { get; set; }
+
         public int CompanyId { get; set; }
 
         public virtual Company Company { get; set; }
