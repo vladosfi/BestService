@@ -23,6 +23,8 @@
     <Compile Remove="Migrations\20200302033722_Add UserPosts entity fix.Designer.cs" />
     <Compile Remove="Migrations\20200302070246_Initial from Wor.cs" />
     <Compile Remove="Migrations\20200302070246_Initial from Wor.Designer.cs" />
+    <Compile Remove="Migrations\20200329153410_Add comment constraints.cs" />
+    <Compile Remove="Migrations\20200329153410_Add comment constraints.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BestService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200329153410_Add comment constraints")]
-    partial class Addcommentconstraints
+    [Migration("20200329155656_Edit comment entity")]
+    partial class Editcommententity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

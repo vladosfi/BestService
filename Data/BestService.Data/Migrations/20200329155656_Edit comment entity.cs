@@ -2,7 +2,7 @@
 
 namespace BestService.Data.Migrations
 {
-    public partial class Addcommentconstraints : Migration
+    public partial class Editcommententity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
