@@ -3,10 +3,24 @@
     ViewData["Title"] = "New comment";
 }
 
-<h1>@this.ViewData["Title"]</h1>
 
-<form method="post" asp-action="Create">
-    <input asp-for="Content" />
-    <input type="submit" class="brn btn-primary" />
-</form>
+<div class="ftco-section">
+    <div class="container">
+        <div class="row d-flex">
+            <div class="media">
+                <div class="media-body">
+                    <h1>@this.ViewData["Title"]</h1>
+
+                    <form method="post" asp-action="Create">
+                        <input asp-for="Content" />
+                        <input asp-for="Rating" min="1" max="5" />
+                        <input type="submit" class="brn btn-primary" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 

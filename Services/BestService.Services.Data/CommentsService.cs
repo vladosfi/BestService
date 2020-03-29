@@ -14,7 +14,7 @@
             this.commentRepo = commentRepo;
         }
 
-        public async Task<int> CreateAsync(string content, string userId, int companyId, int rating)
+        public async Task<int> CreateAsync(string content, string userId, int companyId, byte rating)
         {
             var comment = new Comment
             {

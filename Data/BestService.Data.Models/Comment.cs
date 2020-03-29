@@ -11,7 +11,7 @@
         public string Content { get; set; }
 
         [Required]
-        public int Rating { get; set; }
+        public byte Rating { get; set; }
 
         [Required]
         public int CompanyId { get; set; }

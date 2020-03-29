@@ -4,7 +4,7 @@
     {
         public string Content { get; set; }
 
-        public int Rating { get; set; }
+        public byte Rating { get; set; }
 
         public int CompanyId { get; set; }
 
