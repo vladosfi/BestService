@@ -7,6 +7,7 @@
     public class Comment : BaseDeletableModel<int>
     {
         [Required]
+        [MaxLength(3000)]
         public string Content { get; set; }
 
         [Required]

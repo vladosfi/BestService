@@ -13,9 +13,11 @@
         }
 
         [Required]
+        [MaxLength(50)]
         public string Name { get; set; }
 
         [Required]
+        [MaxLength(3000)]
         public string Description { get; set; }
 
         public float Rating { get; set; }
