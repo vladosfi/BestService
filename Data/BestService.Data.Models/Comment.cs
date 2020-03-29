@@ -1,12 +1,16 @@
 ﻿namespace BestService.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     using BestService.Data.Common.Models;
 
     public class Comment : BaseDeletableModel<int>
     {
+        [Required]
         public string Content { get; set; }
 
-        public float Rating { get; set; }
+        [Required]
+        public int Rating { get; set; }
 
         public int CompanyId { get; set; }
 
