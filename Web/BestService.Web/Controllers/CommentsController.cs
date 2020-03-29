@@ -27,6 +27,13 @@
                 return this.View(inputModel);
             }
 
+            var comment = new Comment
+            {
+                Content = inputModel.Content,
+                Rating = inputModel.Rating,
+                CompanyId = inputModel.CompanyId,
+            };
+
             return this.View();
         }
     }
