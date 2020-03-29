@@ -1,24 +1,25 @@
 ﻿namespace BestService.Web.Controllers
 {
-    using BestService.Data.Common.Repositories;
+    using System.Threading.Tasks;
+
     using BestService.Data.Models;
+    using BestService.Services.Data;
     using BestService.Web.ViewModels.Comments;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     public class CommentsController : Controller
     {
-        private readonly IDeletableEntityRepository<Comment> commentRepo;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly ICommentsService commentsService;
 
         public CommentsController(
-            IDeletableEntityRepository<Comment> commentRepo,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            ICommentsService commentsService)
         {
-            this.commentRepo = commentRepo;
             this.userManager = userManager;
+            this.commentsService = commentsService;
         }
 
         [Authorize]
@@ -29,23 +30,20 @@
 
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Create(CommentCreateInputModel inputModel)
+        public async Task<IActionResult> Create(CommentCreateInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(inputModel);
+                return this.View(input);
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
+            var commentId = await this.commentsService.CreateAsync(input.Content, user.Id, input.CompanyId, input.Rating);
+            return this.RedirectToAction(nameof(this.ById), new { id = commentId });
+        }
 
-            var comment = new Comment
-            {
-                Content = inputModel.Content,
-                Rating = inputModel.Rating,
-                CompanyId = inputModel.CompanyId,
-                UserId = user.Id,
-            };
-
+        public IActionResult ById(int id)
+        {
             return this.View();
         }
     }
