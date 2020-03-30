@@ -1,0 +1,39 @@
+﻿@model BestService.Web.ViewModels.Companies.CompanyViewModel
+@{
+    ViewData["Title"] = "List Of All Companies";
+}
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread">@ViewData["Title"]</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="index.html">Blog <i class="ion-ios-arrow-forward"></i></a></span> <span>Blog Single <i class="ion-ios-arrow-forward"></i></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-8 text-center heading-section ftco-animate">
+                <h2 class="mb-4">@ViewData["Title"]</h2>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var company in Model.Companies)
+            {
+            <div class="media col-lg-4 d-flex">
+                <img width="100" src="@company.Image" class="mr-3" alt="@company.Name">
+                <div class="media-body">
+                    <a href="@company.Image"><h5 class="mt-0">@company.Name (count)</h5></a>
+                    @company.ShortDescription
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+

@@ -18,7 +18,7 @@
             return this.View();
         }
 
-        public IActionResult GetAll()
+        public IActionResult GetList()
         {
             var viewModel = new CompanyViewModel
             {
@@ -27,5 +27,7 @@
 
             return this.View(viewModel);
         }
+
+        // public IActionResult
     }
 }

@@ -1953,16 +1953,17 @@ textarea.form-control {
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); }
 
 .form-inline {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center; }
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
   .form-inline .form-check {
     width: 100%; }
   @media (min-width: 576px) {
@@ -2566,6 +2567,11 @@ input[type="button"].btn-block {
 .dropdown-menu-right {
   right: 0;
   left: auto; }
+
+#nav-menu-btn {
+    height: 100%;
+    color:#fff;
+}
 
 @media (min-width: 576px) {
   .dropdown-menu-sm-left {

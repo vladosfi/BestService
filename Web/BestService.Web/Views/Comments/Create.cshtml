@@ -11,10 +11,29 @@
                 <div class="media-body">
                     <h1>@this.ViewData["Title"]</h1>
 
+                    <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                        tinymce.init({
+                            selector: "textarea",
+                            plugins: [
+                                "image paste table link code media"
+                            ]
+                        });
+                    </script>
                     <form method="post" asp-action="Create">
-                        <input asp-for="Content" />
-                        <input asp-for="Rating" min="1" max="5" />
-                        <input type="submit" class="brn btn-primary" />
+                        <div>
+                            <label asp-for="Content"></label>
+                            <textarea asp-for="Content" class="form-control" ></textarea>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Rating"></label>
+                            <input asp-for="Rating" min="1" max="5" class="form-control" />
+                            <span asp-validation-for="Rating" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <p><input type="submit" class="btn py-2 px-3 btn-primary" /> </p>
+                        </div>
                     </form>
                 </div>
             </div>

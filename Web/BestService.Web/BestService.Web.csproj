@@ -14,6 +14,13 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Shared\Components\**" />
+    <Content Remove="Views\Shared\Components\**" />
+    <EmbeddedResource Remove="Views\Shared\Components\**" />
+    <None Remove="Views\Shared\Components\**" />
+  </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\..\stylecop.json" />
   </ItemGroup>
@@ -223,6 +230,9 @@
     </Content>
     <Content Update="wwwroot\images\bg_5.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\images\companies\mentormate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\images\image_1.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -671,9 +681,5 @@
     <Content Update="wwwroot\vendor\jquery\jquery.slim.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Shared\Components\" />
   </ItemGroup>
 </Project>
