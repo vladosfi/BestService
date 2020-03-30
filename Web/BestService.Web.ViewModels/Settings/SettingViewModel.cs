@@ -1,9 +1,8 @@
 ﻿namespace BestService.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

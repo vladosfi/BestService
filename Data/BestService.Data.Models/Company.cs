@@ -1,5 +1,6 @@
 ﻿namespace BestService.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -9,6 +10,7 @@
     {
         public Company()
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
         }
 
