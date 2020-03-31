@@ -28,6 +28,10 @@
             return this.View(viewModel);
         }
 
-        // public IActionResult
+        public IActionResult Add(AddCompanyInputModel input)
+        {
+
+            return this.View();
+        }
     }
 }
