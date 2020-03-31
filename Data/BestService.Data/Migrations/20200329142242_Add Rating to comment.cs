@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace BestService.Data.Migrations
+﻿namespace BestService.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddRatingtocomment : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

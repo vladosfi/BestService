@@ -87,10 +87,10 @@
         {
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
 
-        //    builder.Entity<Company>()
-        //.HasOne(c => c.Category)
-        //.WithOne(ct => ct.Company)
-        //.HasForeignKey<Category>(ct => ct.Id);
+        // builder.Entity<Company>()
+        // .HasOne(c => c.Category)
+        // .WithOne(ct => ct.Company)
+        // .HasForeignKey<Category>(ct => ct.Id);
         }
 
         // Applies configurations

@@ -1,0 +1,58 @@
+﻿@model BestService.Web.ViewModels.Companies.AddCompanyInputModel
+@{
+    ViewData["Title"] = "Add";
+}
+<section class="ftco-section contact-section">
+    <div class="container">
+        <div class="row block-9 justify-content-center mb-5">
+            <div class="col-md-8 mb-md-5">
+                <h2 class="text-center">Add your company information</h2>
+                <form method="post" class="bg-light p-5 contact-form" asp-action="Add">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+                        <input asp-for="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="OfficialSite"></label>
+                        <input asp-for="OfficialSite" class="form-control" />
+                        <span asp-validation-for="OfficialSite" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image"></label>
+                        <input asp-for="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CategoryId"></label>
+                        <select asp-for="CategoryId" asp-items="Model.Categories.Select(c=> new SelectListItem(c.Name, c.Id.ToString()))"><option disabled selected>--- SELECT ---</option></select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <p><input type="submit" class="btn py-2 px-3 btn-primary" /> </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    tinymce.init({
+        selector: "textarea",
+        plugins: [
+            "image paste table link code media"
+        ]
+    });
+</script>

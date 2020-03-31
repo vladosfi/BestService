@@ -15,9 +15,6 @@
         private const string AdminEmail = "admin@gmail.com";
         private const string CompanyEmail = "company@gmail.com";
         private const string UserEmail = "user@gmail.com";
-        //private const string AdminUserName = "admin";
-        //private const string CompanyUserName = "company";
-        //private const string UserUserName = "user";
 
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {

@@ -1,26 +1,30 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Text;
 
     public class AddCompanyInputModel
     {
         [Required]
-        [Range(2, 50)]
+        [MaxLength(100)]
+        [Display(Name = "Company Name:")]
         public string Name { get; set; }
 
         [Required]
-        [Range(20, 3000)]
+        [MaxLength(3000)]
+        [Display(Name = "Description:")]
         public string Description { get; set; }
 
+        [Display(Name = "Upload Image:")]
         public string Image { get; set; }
 
+        [Display(Name = "Official Site:")]
         public string OfficialSite { get; set; }
 
-        //public int CategoryId { get; set; }
+        [Range(1, int.MaxValue)]
+        [Display(Name = "Category:")]
+        public int CategoryId { get; set; }
 
-        //public virtual Category Category { get; set; }
+        public IEnumerable<CategoryDropdownViewModel> Categories { get; set; }
     }
 }

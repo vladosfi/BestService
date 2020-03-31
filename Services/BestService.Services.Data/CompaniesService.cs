@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
@@ -26,6 +27,22 @@
             }
 
             return query.To<T>().ToList();
+        }
+
+        public async Task<string> AddAsync(string name, string description, string image, string officialSite, ApplicationUser user)
+        {
+            var company = new Company
+            {
+                Name = name,
+                Description = description,
+                Image = image,
+                OfficialSite = officialSite,
+                User = user,
+            };
+
+            await this.companyRepository.AddAsync(company);
+            await this.companyRepository.SaveChangesAsync();
+            return company.Id;
         }
     }
 }

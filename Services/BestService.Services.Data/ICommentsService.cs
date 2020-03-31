@@ -4,6 +4,6 @@
 
     public interface ICommentsService
     {
-        Task<int> CreateAsync(string content, string userId, int companyId, byte rating);
+        Task<int> CreateAsync(string content, string userId, string companyId, byte rating);
     }
 }
