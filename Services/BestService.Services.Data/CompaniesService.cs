@@ -29,7 +29,7 @@
             return query.To<T>().ToList();
         }
 
-        public async Task<string> AddAsync(string name, string description, string image, string officialSite, ApplicationUser user)
+        public async Task<int> AddAsync(string name, string description, string image, string officialSite, ApplicationUser user, string categoryId)
         {
             var company = new Company
             {
@@ -38,6 +38,7 @@
                 Image = image,
                 OfficialSite = officialSite,
                 User = user,
+                CategoryId = categoryId,
             };
 
             await this.companyRepository.AddAsync(company);

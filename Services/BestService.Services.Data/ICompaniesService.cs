@@ -9,6 +9,6 @@
     {
         IEnumerable<T> GetAll<T>(int? count = null);
 
-        Task<string> AddAsync(string name, string description, string image, string officialSite, ApplicationUser user);
+        Task<int> AddAsync(string name, string description, string image, string officialSite, ApplicationUser user, string categoryId);
     }
 }

@@ -18,7 +18,7 @@ namespace BestService.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,7 +47,7 @@ namespace BestService.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -64,7 +64,7 @@ namespace BestService.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -199,14 +199,14 @@ namespace BestService.Data.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(nullable: false),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 3000, nullable: false),
+                    Link = table.Column<string>(nullable: true),
                     BaseCategoryId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -224,25 +224,34 @@ namespace BestService.Data.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 3000, nullable: false),
                     Rating = table.Column<float>(nullable: false),
                     Image = table.Column<string>(nullable: true),
                     OfficialSite = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: false)
+                    UserId = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false),
+                    CategoryId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Companies_Categories_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Companies_Categories_CategoryId1",
+                        column: x => x.CategoryId1,
                         principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Companies_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -257,10 +266,11 @@ namespace BestService.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Content = table.Column<string>(nullable: true),
-                    CompanyId = table.Column<int>(nullable: false),
-                    CompanyId1 = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    Content = table.Column<string>(maxLength: 3000, nullable: false),
+                    Rating = table.Column<byte>(nullable: false),
+                    CompanyId = table.Column<string>(nullable: false),
+                    CompanyId1 = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -359,14 +369,19 @@ namespace BestService.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_CategoryId",
+                name: "IX_Companies_CategoryId1",
                 table: "Companies",
-                column: "CategoryId");
+                column: "CategoryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_IsDeleted",
                 table: "Companies",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Companies_UserId",
+                table: "Companies",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_IsDeleted",
@@ -404,10 +419,10 @@ namespace BestService.Data.Migrations
                 name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "BaseCategories");

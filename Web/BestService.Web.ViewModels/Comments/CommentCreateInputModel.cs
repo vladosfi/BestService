@@ -12,7 +12,7 @@
         [Display(Name = "Rating:")]
         public byte Rating { get; set; }
 
-        public int CompanyId { get; set; }
+        public string CompanyId { get; set; }
 
         public string UserId { get; set; }
     }

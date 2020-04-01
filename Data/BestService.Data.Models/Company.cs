@@ -6,11 +6,10 @@
 
     using BestService.Data.Common.Models;
 
-    public class Company : BaseDeletableModel<string>
+    public class Company : BaseDeletableModel<int>
     {
         public Company()
         {
-            this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
         }
 
@@ -30,7 +29,7 @@
 
         public virtual ApplicationUser User { get; set; }
 
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
 

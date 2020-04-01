@@ -12,7 +12,7 @@
     using BestService.Services.Mapping;
     using BestService.Services.Messaging;
     using BestService.Web.ViewModels;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -67,6 +67,16 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICompaniesService, CompaniesService>();
+
+            // Add Cloudinary configuration and service
+            Account account = new Account(
+                            this.configuration["Cloudinary:ApiName"],
+                            this.configuration["Cloudinary:ApiKey"],
+                            this.configuration["Cloudinary:ApiSecret"]);
+
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

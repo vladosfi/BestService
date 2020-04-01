@@ -23,8 +23,34 @@
     <Compile Remove="Migrations\20200302033722_Add UserPosts entity fix.Designer.cs" />
     <Compile Remove="Migrations\20200302070246_Initial from Wor.cs" />
     <Compile Remove="Migrations\20200302070246_Initial from Wor.Designer.cs" />
+    <Compile Remove="Migrations\20200322123711_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200322123711_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200323091127_Category Change.cs" />
+    <Compile Remove="Migrations\20200323091127_Category Change.Designer.cs" />
+    <Compile Remove="Migrations\20200324141716_Add user property to Company.cs" />
+    <Compile Remove="Migrations\20200324141716_Add user property to Company.Designer.cs" />
+    <Compile Remove="Migrations\20200329142242_Add Rating to comment.cs" />
+    <Compile Remove="Migrations\20200329142242_Add Rating to comment.Designer.cs" />
+    <Compile Remove="Migrations\20200329144920_Edit Rating property type.cs" />
+    <Compile Remove="Migrations\20200329144920_Edit Rating property type.Designer.cs" />
+    <Compile Remove="Migrations\20200329145146_Edit Rating properties type.cs" />
+    <Compile Remove="Migrations\20200329145146_Edit Rating properties type.Designer.cs" />
+    <Compile Remove="Migrations\20200329152147_Edit entities constraints.cs" />
+    <Compile Remove="Migrations\20200329152147_Edit entities constraints.Designer.cs" />
     <Compile Remove="Migrations\20200329153410_Add comment constraints.cs" />
     <Compile Remove="Migrations\20200329153410_Add comment constraints.Designer.cs" />
+    <Compile Remove="Migrations\20200329155656_Edit comment entity.cs" />
+    <Compile Remove="Migrations\20200329155656_Edit comment entity.Designer.cs" />
+    <Compile Remove="Migrations\20200329163218_Edit comment entity two.cs" />
+    <Compile Remove="Migrations\20200329163218_Edit comment entity two.Designer.cs" />
+    <Compile Remove="Migrations\20200329165738_Edit comment entity three.cs" />
+    <Compile Remove="Migrations\20200329165738_Edit comment entity three.Designer.cs" />
+    <Compile Remove="Migrations\20200331172523_Edit Company.cs" />
+    <Compile Remove="Migrations\20200331172523_Edit Company.Designer.cs" />
+    <Compile Remove="Migrations\20200401063738_Create entities.cs" />
+    <Compile Remove="Migrations\20200401063738_Create entities.Designer.cs" />
+    <Compile Remove="Migrations\20200401064825_Create entities.cs" />
+    <Compile Remove="Migrations\20200401064825_Create entities.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

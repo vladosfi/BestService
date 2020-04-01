@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BestService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200329142242_Add Rating to comment")]
-    partial class AddRatingtocomment
+    [Migration("20200401075948_Update company entity")]
+    partial class Updatecompanyentity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,10 +173,8 @@ namespace BestService.Data.Migrations
 
             modelBuilder.Entity("BestService.Data.Models.Category", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BaseCategoryId")
                         .HasColumnType("nvarchar(450)");
@@ -188,7 +186,9 @@ namespace BestService.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(3000)")
+                        .HasMaxLength(3000);
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -200,7 +200,9 @@ namespace BestService.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.HasKey("Id");
 
@@ -218,14 +220,17 @@ namespace BestService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CompanyId")
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CompanyId1")
                         .HasColumnType("int");
 
-                    b.Property<string>("CompanyId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(3000)")
+                        .HasMaxLength(3000);
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -239,10 +244,11 @@ namespace BestService.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<float>("Rating")
-                        .HasColumnType("real");
+                    b.Property<byte>("Rating")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -258,11 +264,13 @@ namespace BestService.Data.Migrations
 
             modelBuilder.Entity("BestService.Data.Models.Company", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -271,7 +279,9 @@ namespace BestService.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(3000)")
+                        .HasMaxLength(3000);
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -283,7 +293,9 @@ namespace BestService.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("OfficialSite")
                         .HasColumnType("nvarchar(max)");
@@ -456,16 +468,16 @@ namespace BestService.Data.Migrations
 
                     b.HasOne("BestService.Data.Models.ApplicationUser", "User")
                         .WithMany("Comments")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BestService.Data.Models.Company", b =>
                 {
                     b.HasOne("BestService.Data.Models.Category", "Category")
                         .WithMany("Companies")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.HasOne("BestService.Data.Models.ApplicationUser", "User")
                         .WithMany()

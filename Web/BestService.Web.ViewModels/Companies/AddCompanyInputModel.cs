@@ -21,9 +21,9 @@
         [Display(Name = "Official Site:")]
         public string OfficialSite { get; set; }
 
-        [Range(1, int.MaxValue)]
+        [Required]
         [Display(Name = "Category:")]
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
 
         public IEnumerable<CategoryDropdownViewModel> Categories { get; set; }
     }

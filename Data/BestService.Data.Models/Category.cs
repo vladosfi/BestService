@@ -1,15 +1,17 @@
 ﻿namespace BestService.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using BestService.Data.Common.Models;
 
-    public class Category : BaseDeletableModel<int>
+    public class Category : BaseDeletableModel<string>
     {
         public Category()
         {
             this.Companies = new HashSet<Company>();
+            this.Id = Guid.NewGuid().ToString();
         }
 
         [Required]
