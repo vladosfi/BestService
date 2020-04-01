@@ -75,23 +75,32 @@
             return this.RedirectToAction(nameof(this.Details), new { id = companyId });
         }
 
-        [HttpPost]
-        // public async Task<IActionResult> UploadImage(ICollection<FormFile> files)
-        public async Task<IActionResult> UploadImage(ICollection<FormFile> files)
+        private async Task<string> UploadImage(ModifyTeamCommand request)
         {
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(@"c:\my_image.jpg"),
-            };
+            var url = await this.cloudinary.UploadImage(
+                    request.TeamImage,
+                    name: $"{request.TeamImage}-team-main-shot",
+                    transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT));
 
-            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
-
-            if (uploadResult.StatusCode != HttpStatusCode.OK)
-            {
-                return this.RedirectToAction(nameof(this.Add));
-            }
-
-            return null;
+            return url;
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> UploadImage(ICollection<FormFile> files)
+        //{
+        //    var uploadParams = new ImageUploadParams()
+        //    {
+        //        File = new FileDescription(@"c:\my_image.jpg"),
+        //    };
+
+        //    var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+
+        //    if (uploadResult.StatusCode != HttpStatusCode.OK)
+        //    {
+        //        return this.RedirectToAction(nameof(this.Add));
+        //    }
+
+        //    return null;
+        //}
     }
 }
