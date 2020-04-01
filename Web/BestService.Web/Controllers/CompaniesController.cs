@@ -21,17 +21,20 @@
         private readonly ICompaniesService companiesService;
         private readonly ICategoriesService categoriesService;
         private readonly CloudinariesService cloudinariesService;
+        private readonly Cloudinary cloudinary;
 
         public CompaniesController(
             UserManager<ApplicationUser> userManager,
             ICompaniesService companiesService,
             ICategoriesService categoriesService,
-            CloudinariesService cloudinariesService)
+            CloudinariesService cloudinariesService,
+            Cloudinary cloudinary)
         {
             this.userManager = userManager;
             this.companiesService = companiesService;
             this.categoriesService = categoriesService;
             this.cloudinariesService = cloudinariesService;
+            this.cloudinary = cloudinary;
         }
 
         public IActionResult Details()
@@ -71,7 +74,7 @@
                 return this.View(input);
             }
 
-            await this.UploadImage(request)
+            //await this.UploadImage(input.Images, imageName);
 
             var user = await this.userManager.GetUserAsync(this.User);
             var companyId = await this.companiesService.AddAsync(input.Name, input.Description, input.Image, input.OfficialSite, user, input.CategoryId);
@@ -88,22 +91,22 @@
             return url;
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> UploadImage(ICollection<FormFile> files)
-        //{
-        //    var uploadParams = new ImageUploadParams()
-        //    {
-        //        File = new FileDescription(@"c:\my_image.jpg"),
-        //    };
+        [HttpPost]
+        public async Task<IActionResult> Upload(ICollection<FormFile> files)
+        {
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(@"c:\my_image.jpg"),
+            };
 
-        //    var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
 
-        //    if (uploadResult.StatusCode != HttpStatusCode.OK)
-        //    {
-        //        return this.RedirectToAction(nameof(this.Add));
-        //    }
+            if (uploadResult.StatusCode != HttpStatusCode.OK)
+            {
+                return this.RedirectToAction(nameof(this.Add));
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
     }
 }

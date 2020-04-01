@@ -7,7 +7,7 @@
         <div class="row block-9 justify-content-center mb-5">
             <div class="col-md-8 mb-md-5">
                 <h2 class="text-center">Add your company information</h2>
-                <form method="post" enctype="multipart/form-data" asp-controller="Files" class="bg-light p-5 contact-form" asp-action="Add">
+                <form method="post" asp-controller="Companies" class="bg-light p-5 contact-form" asp-action="Add">
                     <div class="form-group">
                         <label asp-for="Name"></label>
                         <input asp-for="Name" class="form-control" />
@@ -24,11 +24,6 @@
                         <span asp-validation-for="OfficialSite" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Image"></label>
-                        <input type="file" multiple asp-for="Image" class="form-control" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
                         <label asp-for="CategoryId"></label>
                         <select asp-for="CategoryId" asp-items="Model.Categories.Select(c=> new SelectListItem(c.Name, c.Id.ToString()))"><option disabled selected>--- SELECT ---</option></select>
                         <span asp-validation-for="CategoryId" class="text-danger"></span>
@@ -40,6 +35,12 @@
                     </div>
                     <div class="form-group">
                         <p><input type="submit" class="btn py-2 px-3 btn-primary" /> </p>
+                    </div>
+                </form>
+
+                <form method="post" enctype="multipart/form-data" asp-controller="Companies" class="bg-light p-5 contact-form" asp-action="Upload">
+                    <div class="form-group">
+                        <input type="file" name="files" multiple class="form-control" />
                     </div>
                 </form>
             </div>
