@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
 
     using BestService.Data.Models;
+    using BestService.Services;
     using BestService.Services.Data;
     using BestService.Web.ViewModels.Companies;
     using CloudinaryDotNet;
@@ -19,18 +20,18 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICompaniesService companiesService;
         private readonly ICategoriesService categoriesService;
-        private readonly Cloudinary cloudinary;
+        private readonly CloudinariesService cloudinariesService;
 
         public CompaniesController(
             UserManager<ApplicationUser> userManager,
             ICompaniesService companiesService,
             ICategoriesService categoriesService,
-            Cloudinary cloudinary)
+            CloudinariesService cloudinariesService)
         {
             this.userManager = userManager;
             this.companiesService = companiesService;
             this.categoriesService = categoriesService;
-            this.cloudinary = cloudinary;
+            this.cloudinariesService = cloudinariesService;
         }
 
         public IActionResult Details()
@@ -70,17 +71,19 @@
                 return this.View(input);
             }
 
+            await this.UploadImage(request)
+
             var user = await this.userManager.GetUserAsync(this.User);
             var companyId = await this.companiesService.AddAsync(input.Name, input.Description, input.Image, input.OfficialSite, user, input.CategoryId);
             return this.RedirectToAction(nameof(this.Details), new { id = companyId });
         }
 
-        private async Task<string> UploadImage(ModifyTeamCommand request)
+        private async Task<string> UploadImage(IFormFile formFile, string imageName)
         {
-            var url = await this.cloudinary.UploadImage(
-                    request.TeamImage,
-                    name: $"{request.TeamImage}-team-main-shot",
-                    transformation: new Transformation().Width(TEAM_AVATAR_WIDTH).Height(TEAM_AVATAR_HEIGHT));
+            var url = await this.cloudinariesService.UploadImage(
+                    formFile,
+                    name: $"{imageName}",
+                    transformation: new Transformation().Width(300).Height(300));
 
             return url;
         }
