@@ -18,13 +18,11 @@
 
         public string Description { get; set; }
 
-        public string DecodedDescriptin 
+        public string DecodedDescriptin
         {
             get
             {
-                var description = Regex.Replace(this.Description, @"<[br]>", Environment.NewLine);
-                description = Regex.Replace(this.Description, @"<[p]>", Environment.NewLine);
-                //description = WebUtility.HtmlDecode(Regex.Replace(description, @"<[^>]*>", string.Empty));
+                var description = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]*>", string.Empty));
                 return description;
             }
         }
