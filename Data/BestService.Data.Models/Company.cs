@@ -23,9 +23,11 @@
 
         public float Rating { get; set; }
 
-        public string Image { get; set; }
+        public string LogoImage { get; set; }
 
         public string OfficialSite { get; set; }
+
+        public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
 

@@ -9,5 +9,13 @@
         public const string CompanyRoleName = "Company";
 
         public const string UserRoleName = "User";
+
+        public const string CloudinaryUploadDir = "http://res.cloudinary.com/duvkeibua/image/upload/";
+
+        public const int ImageWidth = 600;
+
+        public const int ImageHeight = 400;
+
+        public const string CropImageScale = "scale";
     }
 }

@@ -1,15 +1,13 @@
 ﻿namespace BestService.Web.Controllers
 {
-    using System.Collections.Generic;
-    using System.Net;
     using System.Threading.Tasks;
 
+    using BestService.Common;
     using BestService.Data.Models;
-    using BestService.Services;
+    using BestService.Services.CloudinaryHelper;
     using BestService.Services.Data;
     using BestService.Web.ViewModels.Companies;
     using CloudinaryDotNet;
-    using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
@@ -20,26 +18,24 @@
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICompaniesService companiesService;
         private readonly ICategoriesService categoriesService;
-        private readonly CloudinariesService cloudinariesService;
         private readonly Cloudinary cloudinary;
 
         public CompaniesController(
             UserManager<ApplicationUser> userManager,
             ICompaniesService companiesService,
             ICategoriesService categoriesService,
-            CloudinariesService cloudinariesService,
             Cloudinary cloudinary)
         {
             this.userManager = userManager;
             this.companiesService = companiesService;
             this.categoriesService = categoriesService;
-            this.cloudinariesService = cloudinariesService;
             this.cloudinary = cloudinary;
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return this.View();
+            var viewModel = this.companiesService.GetById<CompanyDetailsViewModel>(id);
+            return this.View(viewModel);
         }
 
         public IActionResult GetList()
@@ -74,39 +70,23 @@
                 return this.View(input);
             }
 
-            //await this.UploadImage(input.Images, imageName);
+            var transformation = new Transformation()
+                .Height(GlobalConstants.ImageHeight)
+                .Crop(GlobalConstants.CropImageScale);
+
+            var imageUri = await CloudinaryExtension.UploadAsync(this.cloudinary, input.LogoImg, transformation);
+            var imagePath = imageUri.Replace(GlobalConstants.CloudinaryUploadDir, string.Empty);
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var companyId = await this.companiesService.AddAsync(input.Name, input.Description, input.Image, input.OfficialSite, user, input.CategoryId);
+            var companyId = await this.companiesService.AddAsync(
+                input.Name,
+                input.Description,
+                imagePath,
+                input.OfficialSite,
+                user.Id,
+                input.CategoryId);
+
             return this.RedirectToAction(nameof(this.Details), new { id = companyId });
-        }
-
-        private async Task<string> UploadImage(IFormFile formFile, string imageName)
-        {
-            var url = await this.cloudinariesService.UploadImage(
-                    formFile,
-                    name: $"{imageName}",
-                    transformation: new Transformation().Width(300).Height(300));
-
-            return url;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Upload(ICollection<FormFile> files)
-        {
-            var uploadParams = new ImageUploadParams()
-            {
-                File = new FileDescription(@"c:\my_image.jpg"),
-            };
-
-            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
-
-            if (uploadResult.StatusCode != HttpStatusCode.OK)
-            {
-                return this.RedirectToAction(nameof(this.Add));
-            }
-
-            return null;
         }
     }
 }

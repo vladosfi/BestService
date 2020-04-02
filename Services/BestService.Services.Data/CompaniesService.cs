@@ -29,21 +29,30 @@
             return query.To<T>().ToList();
         }
 
-        public async Task<int> AddAsync(string name, string description, string image, string officialSite, ApplicationUser user, string categoryId)
+        public async Task<int> AddAsync(string name, string description, string logoImg, string officialSite, string userId, string categoryId)
         {
             var company = new Company
             {
                 Name = name,
                 Description = description,
-                Image = image,
+                LogoImage = logoImg,
                 OfficialSite = officialSite,
-                User = user,
+                UserId = userId,
                 CategoryId = categoryId,
             };
 
             await this.companyRepository.AddAsync(company);
             await this.companyRepository.SaveChangesAsync();
             return company.Id;
+        }
+
+        public T GetById<T>(int id)
+        {
+            var company = this.companyRepository.All().Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefault();
+
+            return company;
         }
     }
 }

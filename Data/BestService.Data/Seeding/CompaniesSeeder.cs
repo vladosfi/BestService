@@ -32,7 +32,7 @@
                         Name = company.Name,
                         Description = company.Description,
                         Rating = company.Rating,
-                        Image = company.ImageUrl,
+                        LogoImage = company.ImageUrl,
                         OfficialSite = company.OfficialSite,
                         CategoryId = categoryId,
                     });

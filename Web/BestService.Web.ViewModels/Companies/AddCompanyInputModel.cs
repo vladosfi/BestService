@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.AspNetCore.Http.Internal;
+    using Microsoft.AspNetCore.Http;
 
     public class AddCompanyInputModel
     {
@@ -26,6 +26,10 @@
         [Required]
         [Display(Name = "Category:")]
         public string CategoryId { get; set; }
+
+        [Required]
+        [Display(Name = "Logo Image:")]
+        public IFormFile LogoImg{ get; set; }
 
         public IEnumerable<CategoryDropdownViewModel> Categories { get; set; }
     }
