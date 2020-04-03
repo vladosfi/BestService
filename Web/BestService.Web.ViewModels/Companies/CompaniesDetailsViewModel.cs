@@ -1,8 +1,10 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
+    using System.Collections.Generic;
     using System.Net;
     using System.Text.RegularExpressions;
 
+    using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
 
@@ -12,7 +14,9 @@
 
         public float Rating { get; set; }
 
-        public string Image { get; set; }
+        public string LogoImage { get; set; }
+
+        public string ImagePath => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
         public string Description { get; set; }
 
@@ -26,5 +30,7 @@
         }
 
         public string UserUsername { get; set; }
+
+        public IEnumerable<CategoryViewModel> Categories { get; set; }
     }
 }
