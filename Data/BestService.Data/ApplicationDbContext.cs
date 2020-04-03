@@ -34,6 +34,8 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Rate> Ratings { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

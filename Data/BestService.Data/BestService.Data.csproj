@@ -51,6 +51,14 @@
     <Compile Remove="Migrations\20200401063738_Create entities.Designer.cs" />
     <Compile Remove="Migrations\20200401064825_Create entities.cs" />
     <Compile Remove="Migrations\20200401064825_Create entities.Designer.cs" />
+    <Compile Remove="Migrations\20200403173347_AddRateing.cs" />
+    <Compile Remove="Migrations\20200403173347_AddRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200403173711_AddRateing.cs" />
+    <Compile Remove="Migrations\20200403173711_AddRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200403181439_EditRateing.cs" />
+    <Compile Remove="Migrations\20200403181439_EditRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200403182150_AddRateing.cs" />
+    <Compile Remove="Migrations\20200403182150_AddRateing.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

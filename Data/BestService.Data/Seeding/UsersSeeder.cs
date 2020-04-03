@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+
     using BestService.Common;
     using BestService.Data.Models;
     using Microsoft.AspNetCore.Identity;
@@ -10,12 +11,6 @@
 
     internal class UsersSeeder : ISeeder
     {
-        private const string Pass = "123456";
-        private const string PhoneNumber = "0877390025";
-        private const string AdminEmail = "admin@gmail.com";
-        private const string CompanyEmail = "company@gmail.com";
-        private const string UserEmail = "user@gmail.com";
-
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
@@ -29,33 +24,33 @@
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = AdminEmail,
-                    Email = AdminEmail,
+                    UserName = SeederConstants.AdminEmail,
+                    Email = SeederConstants.AdminEmail,
                     EmailConfirmed = true,
-                    PhoneNumber = PhoneNumber,
-                }, Pass);
+                    PhoneNumber = SeederConstants.PhoneNumber,
+                }, SeederConstants.Pass);
 
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = CompanyEmail,
-                    Email = CompanyEmail,
+                    UserName = SeederConstants.CompanyEmail,
+                    Email = SeederConstants.CompanyEmail,
                     EmailConfirmed = true,
-                    PhoneNumber = PhoneNumber,
-                }, Pass);
+                    PhoneNumber = SeederConstants.PhoneNumber,
+                }, SeederConstants.Pass);
 
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = UserEmail,
-                    Email = UserEmail,
+                    UserName = SeederConstants.UserEmail,
+                    Email = SeederConstants.UserEmail,
                     EmailConfirmed = true,
-                    PhoneNumber = PhoneNumber,
-                }, Pass);
+                    PhoneNumber = SeederConstants.PhoneNumber,
+                }, SeederConstants.Pass);
 
-            var adminUser = this.GetUserByUserName(dbContext, AdminEmail);
-            var companyUser = this.GetUserByUserName(dbContext, CompanyEmail);
-            var userUser = this.GetUserByUserName(dbContext, UserEmail);
+            var adminUser = this.GetUserByUserName(dbContext, SeederConstants.AdminEmail);
+            var companyUser = this.GetUserByUserName(dbContext, SeederConstants.CompanyEmail);
+            var userUser = this.GetUserByUserName(dbContext, SeederConstants.UserEmail);
 
             await this.AddRolesToUsers(userManager, adminUser, GlobalConstants.AdministratorRoleName);
             await this.AddRolesToUsers(userManager, companyUser, GlobalConstants.CompanyRoleName);

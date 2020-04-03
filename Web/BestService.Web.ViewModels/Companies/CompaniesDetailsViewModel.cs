@@ -10,13 +10,15 @@
 
     public class CompaniesDetailsViewModel : IMapFrom<Company>
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public float Rating { get; set; }
 
         public string LogoImage { get; set; }
 
-        public string ImagePath => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
+        public string LogoImagePath => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
         public string Description { get; set; }
 
@@ -24,13 +26,13 @@
         {
             get
             {
-                string description = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]>", string.Empty));
+                string description = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]*>", string.Empty));
                 return description?.Length > 150 ? description.Substring(0, 150) + "..." : description;
             }
         }
 
         public string UserUsername { get; set; }
 
-        public IEnumerable<CategoryViewModel> Categories { get; set; }
+        public Category Category { get; set; }
     }
 }

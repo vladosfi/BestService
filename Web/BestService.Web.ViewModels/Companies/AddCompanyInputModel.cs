@@ -29,7 +29,7 @@
 
         [Required]
         [Display(Name = "Logo Image:")]
-        public IFormFile LogoImg{ get; set; }
+        public IFormFile LogoImg { get; set; }
 
         public IEnumerable<CategoryDropdownViewModel> Categories { get; set; }
     }

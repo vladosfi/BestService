@@ -67,6 +67,7 @@
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<ICompaniesService, CompaniesService>();
+            services.AddTransient<IRatingsService, RatingsService>();
 
             // Add Cloudinary configuration and service
             Account account = new Account(

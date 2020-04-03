@@ -35,9 +35,15 @@
                         LogoImage = company.ImageUrl,
                         OfficialSite = company.OfficialSite,
                         CategoryId = categoryId,
+                        User = this.GetUserByUserName(dbContext, SeederConstants.CompanyEmail),
                     });
                 }
             }
+        }
+
+        private ApplicationUser GetUserByUserName(ApplicationDbContext dbContext, string userName)
+        {
+            return dbContext.Users.Where(x => x.UserName == userName).FirstOrDefault();
         }
     }
 }

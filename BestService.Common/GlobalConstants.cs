@@ -17,5 +17,7 @@
         public const int ImageHeight = 400;
 
         public const string CropImageScale = "scale";
+
+        public const string CropImagePad = "pad";
     }
 }
