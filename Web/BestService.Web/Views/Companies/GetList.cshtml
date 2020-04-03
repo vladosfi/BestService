@@ -25,15 +25,126 @@
         <div class="row">
             @foreach (var company in Model.Companies)
             {
-            <div class="media col-lg-4 d-flex">
-                <img width="100" src="@company.Image" class="mr-3" alt="@company.Name">
-                <div class="media-body">
-                    <a href="@company.Image"><h5 class="mt-0">@company.Name (count)</h5></a>
-                    @company.ShortDescription
+                <div class="media col-lg-4 d-flex">
+                    <img width="100" src="@company.Image" class="mr-3" alt="@company.Name">
+                    <div class="media-body">
+                        <a href="@company.Image"><h5 class="mt-0">@company.Name (count)</h5></a>
+                        @company.ShortDescription
+                    </div>
                 </div>
-            </div>
             }
         </div>
     </div>
 </section>
 
+<div class="container d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card blog-horizontal">
+                <div class="card-body">
+                    <div class="card-img-actions mr-sm-3 mb-3"> <a href="#course_preview" data-toggle="modal" data-abc="true"> <img src="https://i.imgur.com/OJHNsX9.jpg" width="300px" class="img-fluid card-img" alt=""> </a> </div>
+                    <div class="mb-3">
+                        <h5 class="d-flex font-weight-semibold flex-nowrap my-1"> <a href="#" class="text-default mr-2" data-abc="true">Advanced Java Course</a> <span class="text-danger-400 ml-auto">Free</span> </h5>
+                        <ul class="list-inline list-inline-dotted text-muted mb-0">
+                            <li class="list-inline-item">By <a href="#" class="text-muted" data-abc="true">Timona Shai</a></li>
+                            <li class="list-inline-item"> Nov 3rd, 2019</li>
+                        </ul>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore</p> Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim <a href="#" data-abc="true">[...]</a>
+                </div>
+                <div class="card-footer d-sm-flex justify-content-sm-between align-items-sm-center">
+                    <ul class="list-inline list-inline-dotted mb-0">
+                        <li class="list-inline-item"><i class="fa fa-user mr-1"></i> 272</li>
+                        <li class="list-inline-item"><i class="fa fa-calendar-check-o mr-1"></i> 15 hours</li>
+                        <li class="list-inline-item"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <span class="text-muted ml-1">(12)</span> </li>
+                    </ul>
+                    <div class="mt-2 mt-sm-0"> <a href="#" data-abc="true" class="course-button"><i class="fa fa-check font-size-base mr-1"></i> Take course</a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" />
+<div class="container">
+    <div class="well">
+        <div class="media">
+            <a class="pull-left" href="#">
+                <img class="media-object" src="http://placekitten.com/150/150">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">Receta 1</h4>
+                <p class="text-right">By Francisco</p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+                    Aliquam in felis sit amet augue.
+                </p>
+                <ul class="list-inline list-unstyled">
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                    <li>|</li>
+                    <li>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                        <span><i class="fa fa-facebook-square"></i></span>
+                        <span><i class="fa fa-twitter-square"></i></span>
+                        <span><i class="fa fa-google-plus-square"></i></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="well">
+        <div class="media">
+            <a class="pull-left" href="#">
+                <img class="media-object" src="http://placekitten.com/150/150">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">Receta 2</h4>
+                <p class="text-right">By Anailuj</p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
+                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
+                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
+                    Aliquam in felis sit amet augue.
+                </p>
+                <ul class="list-inline list-unstyled">
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                    <li>|</li>
+                    <li>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </li>
+                    <li>|</li>
+                    <li>
+                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                        <span><i class="fa fa-facebook-square"></i></span>
+                        <span><i class="fa fa-twitter-square"></i></span>
+                        <span><i class="fa fa-google-plus-square"></i></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

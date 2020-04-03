@@ -25,7 +25,7 @@
                         <img src="@Model.ImageUri" alt="@Model.Name" class="img-fluid">
                     </p>
                 </div>
-                <p>@Model.DecodedDescriptin</p>
+                <p>@Html.Raw(Model.SanitizedContent)</p>
                 <div class="tag-widget post-tag-container mb-5 mt-5">
                     <div class="tagcloud">
                         <a href="#" class="tag-cloud-link">Life</a>

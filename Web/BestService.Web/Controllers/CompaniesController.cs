@@ -35,6 +35,12 @@
         public IActionResult Details(int id)
         {
             var viewModel = this.companiesService.GetById<CompanyDetailsViewModel>(id);
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(viewModel);
         }
 

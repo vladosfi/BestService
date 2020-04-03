@@ -7,6 +7,7 @@
     using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using Ganss.XSS;
 
     public class CompanyDetailsViewModel : IMapFrom<Company>
     {
@@ -18,14 +19,7 @@
 
         public string Description { get; set; }
 
-        public string DecodedDescriptin
-        {
-            get
-            {
-                var description = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]*>", string.Empty));
-                return description;
-            }
-        }
+        public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Description);
 
         public string UserUsername { get; set; }
 

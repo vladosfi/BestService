@@ -16,6 +16,12 @@
         public IActionResult ByName(string name)
         {
             var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
+            
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(viewModel);
         }
     }
