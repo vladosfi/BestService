@@ -50,7 +50,7 @@
 
             services.AddControllersWithViews(configure =>
             {
-                configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                //configure.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
             services.AddRazorPages();
 

@@ -4,6 +4,12 @@
 
     public interface IRatingsService
     {
-        Task RatingAsync(int companyId, string userId, int rateValue);
+        Task RateAsync(int companyId, string userId, int stars);
+
+        int GetRating(int companyId);
+
+        int GetAvgCompanyRate(int companyId);
+
+        int GetCompanyRate(int companyId);
     }
 }

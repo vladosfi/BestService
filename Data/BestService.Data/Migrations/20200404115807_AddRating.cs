@@ -3,10 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BestService.Data.Migrations
 {
-    public partial class AddRateing : Migration
+    public partial class AddRating : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Rating",
+                table: "Companies");
+
             migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "Companies",
@@ -25,8 +29,7 @@ namespace BestService.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     CompanyId = table.Column<int>(nullable: false),
                     UserId = table.Column<string>(nullable: false),
-                    Stars = table.Column<int>(nullable: false),
-                    UserRateCount = table.Column<int>(nullable: false)
+                    Stars = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,6 +70,13 @@ namespace BestService.Data.Migrations
                 type: "nvarchar(450)",
                 nullable: true,
                 oldClrType: typeof(string));
+
+            migrationBuilder.AddColumn<float>(
+                name: "Rating",
+                table: "Companies",
+                type: "real",
+                nullable: false,
+                defaultValue: 0f);
         }
     }
 }

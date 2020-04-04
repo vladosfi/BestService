@@ -17,7 +17,5 @@
         public virtual ApplicationUser User { get; set; }
 
         public int Stars { get; set; }
-
-        public int UserRateCount { get; set; }
     }
 }

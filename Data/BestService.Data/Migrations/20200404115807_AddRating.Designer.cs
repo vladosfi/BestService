@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BestService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200403182701_AddRateing")]
-    partial class AddRateing
+    [Migration("20200404115807_AddRating")]
+    partial class AddRating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -300,9 +300,6 @@ namespace BestService.Data.Migrations
                     b.Property<string>("OfficialSite")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Rating")
-                        .HasColumnType("real");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -340,9 +337,6 @@ namespace BestService.Data.Migrations
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("UserRateCount")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -525,7 +519,7 @@ namespace BestService.Data.Migrations
             modelBuilder.Entity("BestService.Data.Models.Rate", b =>
                 {
                     b.HasOne("BestService.Data.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Ratings")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

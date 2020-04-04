@@ -31,7 +31,6 @@
                     {
                         Name = company.Name,
                         Description = company.Description,
-                        Rating = company.Rating,
                         LogoImage = company.ImageUrl,
                         OfficialSite = company.OfficialSite,
                         CategoryId = categoryId,

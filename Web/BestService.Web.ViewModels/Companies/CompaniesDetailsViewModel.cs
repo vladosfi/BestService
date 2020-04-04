@@ -1,20 +1,19 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
-
+    using AutoMapper;
     using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
 
-    public class CompaniesDetailsViewModel : IMapFrom<Company>
+    public class CompaniesDetailsViewModel : IMapFrom<Company>, IMapTo<Company>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public float Rating { get; set; }
 
         public string LogoImage { get; set; }
 
@@ -34,5 +33,16 @@
         public string UserUsername { get; set; }
 
         public Category Category { get; set; }
+
+        public int Rating { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Company, CompaniesDetailsViewModel>()
+                .ForMember(x => x.Rating, options =>
+               {
+                   options.MapFrom(c => c.Ratings.Sum(r => r.Stars));
+                });
+        }
     }
 }

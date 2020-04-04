@@ -59,6 +59,16 @@
     <Compile Remove="Migrations\20200403181439_EditRateing.Designer.cs" />
     <Compile Remove="Migrations\20200403182150_AddRateing.cs" />
     <Compile Remove="Migrations\20200403182150_AddRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200403182701_AddRateing.cs" />
+    <Compile Remove="Migrations\20200403182701_AddRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200404093711_AddRateing.cs" />
+    <Compile Remove="Migrations\20200404093711_AddRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200404094329_EditRateing.cs" />
+    <Compile Remove="Migrations\20200404094329_EditRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200404095116_AddRateing.cs" />
+    <Compile Remove="Migrations\20200404095116_AddRateing.Designer.cs" />
+    <Compile Remove="Migrations\20200404102547_AddRating.cs" />
+    <Compile Remove="Migrations\20200404102547_AddRating.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
