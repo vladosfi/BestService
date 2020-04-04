@@ -36,6 +36,8 @@
 
         public int Rating { get; set; }
 
+        public virtual ICollection<Rate> Ratings { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Company, CompaniesDetailsViewModel>()

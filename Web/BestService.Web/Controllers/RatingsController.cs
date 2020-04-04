@@ -39,7 +39,8 @@
 
             return new RateResponseModel
             {
-                RateCount = stars,
+                RateValue = stars,
+                RateSum = this.ratingsService.GetCompanyReview(input.CompanyId),
             };
         }
     }

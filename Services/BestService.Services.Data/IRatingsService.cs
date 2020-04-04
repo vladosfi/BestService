@@ -10,6 +10,6 @@
 
         int GetAvgCompanyRate(int companyId);
 
-        int GetCompanyRate(int companyId);
+        int GetCompanyReview(int companyId);
     }
 }

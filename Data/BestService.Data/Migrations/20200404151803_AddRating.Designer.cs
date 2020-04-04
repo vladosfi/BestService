@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BestService.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200404115807_AddRating")]
+    [Migration("20200404151803_AddRating")]
     partial class AddRating
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

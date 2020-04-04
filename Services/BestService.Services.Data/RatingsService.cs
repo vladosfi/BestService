@@ -50,15 +50,15 @@
 
         public int GetAvgCompanyRate(int companyId)
         {
-            var rateSum = this.GetCompanyRate(companyId);
+            var rateSum = this.GetCompanyReview(companyId);
             var userCount = this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
 
             return (int)Math.Round((double)rateSum / userCount);
         }
 
-        public int GetCompanyRate(int companyId)
+        public int GetCompanyReview(int companyId)
         {
-            var rateSum = this.ratingRepository.All().Where(x => x.CompanyId == companyId).Sum(x => x.Stars);
+            var rateSum = this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
             return rateSum;
         }
 

@@ -51,6 +51,8 @@
     <Compile Remove="Migrations\20200401063738_Create entities.Designer.cs" />
     <Compile Remove="Migrations\20200401064825_Create entities.cs" />
     <Compile Remove="Migrations\20200401064825_Create entities.Designer.cs" />
+    <Compile Remove="Migrations\20200402112905_Modify Company property.cs" />
+    <Compile Remove="Migrations\20200402112905_Modify Company property.Designer.cs" />
     <Compile Remove="Migrations\20200403173347_AddRateing.cs" />
     <Compile Remove="Migrations\20200403173347_AddRateing.Designer.cs" />
     <Compile Remove="Migrations\20200403173711_AddRateing.cs" />
@@ -69,6 +71,18 @@
     <Compile Remove="Migrations\20200404095116_AddRateing.Designer.cs" />
     <Compile Remove="Migrations\20200404102547_AddRating.cs" />
     <Compile Remove="Migrations\20200404102547_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404115807_AddRating.cs" />
+    <Compile Remove="Migrations\20200404115807_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404141251_AddRating.cs" />
+    <Compile Remove="Migrations\20200404141251_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404143109_AddRating.cs" />
+    <Compile Remove="Migrations\20200404143109_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404144339_AddRating.cs" />
+    <Compile Remove="Migrations\20200404144339_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404145201_AddRating.cs" />
+    <Compile Remove="Migrations\20200404145201_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404145813_AddRating.cs" />
+    <Compile Remove="Migrations\20200404145813_AddRating.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

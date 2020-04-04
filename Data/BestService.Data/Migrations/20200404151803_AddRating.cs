@@ -8,6 +8,10 @@ namespace BestService.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
+                name: "LogoImg",
+                table: "Companies");
+
+            migrationBuilder.DropColumn(
                 name: "Rating",
                 table: "Companies");
 
@@ -18,6 +22,11 @@ namespace BestService.Data.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(450)",
                 oldNullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "LogoImage",
+                table: "Companies",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Ratings",
@@ -64,12 +73,22 @@ namespace BestService.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Ratings");
 
+            migrationBuilder.DropColumn(
+                name: "LogoImage",
+                table: "Companies");
+
             migrationBuilder.AlterColumn<string>(
                 name: "UserId",
                 table: "Companies",
                 type: "nvarchar(450)",
                 nullable: true,
                 oldClrType: typeof(string));
+
+            migrationBuilder.AddColumn<string>(
+                name: "LogoImg",
+                table: "Companies",
+                type: "nvarchar(max)",
+                nullable: true);
 
             migrationBuilder.AddColumn<float>(
                 name: "Rating",

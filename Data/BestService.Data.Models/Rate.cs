@@ -16,6 +16,7 @@
 
         public virtual ApplicationUser User { get; set; }
 
+        [Required]
         public int Stars { get; set; }
     }
 }
