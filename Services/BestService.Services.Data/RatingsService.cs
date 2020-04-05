@@ -26,23 +26,17 @@
 
         public async Task RateAsync(int companyId, string userId, int stars)
         {
-            var companyRating = this.ratingRepository.All().FirstOrDefault(x => x.CompanyId == companyId);
             var rating = this.ratingRepository.All().FirstOrDefault(x => x.CompanyId == companyId && x.UserId == userId);
 
-            if (companyRating == null)
+            if (rating == null)
             {
                 rating = CreateRate(companyId, userId, stars);
                 await this.ratingRepository.AddAsync(rating);
-            }
-            else if (rating != null && rating.Stars != stars)
-            {
-                rating.Stars = stars;
-                this.ratingRepository.Update(rating);
             }
             else
             {
-                rating = CreateRate(companyId, userId, stars);
-                await this.ratingRepository.AddAsync(rating);
+                rating.Stars = stars;
+                this.ratingRepository.Update(rating);
             }
 
             await this.ratingRepository.SaveChangesAsync();

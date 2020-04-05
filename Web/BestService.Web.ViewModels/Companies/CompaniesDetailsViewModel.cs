@@ -1,9 +1,11 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
+
     using AutoMapper;
     using BestService.Common;
     using BestService.Data.Models;
@@ -29,6 +31,10 @@
                 return description?.Length > 150 ? description.Substring(0, 150) + "..." : description;
             }
         }
+
+        public DateTime CreatedOn { get; set; }
+
+        public string Created => this.CreatedOn.ToUniversalTime().ToShortDateString();
 
         public string UserUsername { get; set; }
 
