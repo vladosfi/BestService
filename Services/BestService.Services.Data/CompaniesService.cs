@@ -12,7 +12,8 @@
     {
         private readonly IDeletableEntityRepository<Company> companyRepository;
 
-        public CompaniesService(IDeletableEntityRepository<Company> companyRepository)
+        public CompaniesService(
+            IDeletableEntityRepository<Company> companyRepository)
         {
             this.companyRepository = companyRepository;
         }

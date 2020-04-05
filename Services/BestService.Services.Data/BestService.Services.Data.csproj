@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BestService.Common\BestService.Common.csproj" />
     <ProjectReference Include="..\..\Data\BestService.Data.Common\BestService.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\BestService.Data.Models\BestService.Data.Models.csproj" />
     <ProjectReference Include="..\BestService.Services.Mapping\BestService.Services.Mapping.csproj" />

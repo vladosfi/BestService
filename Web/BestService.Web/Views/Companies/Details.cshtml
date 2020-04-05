@@ -18,8 +18,9 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
+            <form id="visit" method="post"></form>
             <div class="col-lg-8 ftco-animate">
-                <h2 class="mb-3">@Model.Name</h2>
+                <h2 id="ApiTest" class="mb-3">@Model.Name</h2>
                 <div>
                     <p>
                         <img src="@Model.ImageUri" alt="@Model.Name" class="img-fluid">
@@ -27,7 +28,7 @@
                 </div>
                 <div class="text-break">
                     <p>@Html.Raw(Model.SanitizedContent)</p>
-                </div>                
+                </div>
                 <div class="tag-widget post-tag-container mb-5 mt-5">
                     <div class="tagcloud">
                         <a href="#" class="tag-cloud-link">Life</a>
@@ -250,3 +251,29 @@
         </div>
     </div>
 </section>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        document.body.onload = function () {
+            increaseVisits(1);
+        }
+        function increaseVisits(companyId) {
+            var token = $("#visit input[name=__RequestVerificationToken]").val();
+            var json = { companyId: companyId };
+            console.log(companyId);
+            $.ajax({
+                url: "/api/visits",
+                type: "POST",
+                data: JSON.stringify(json),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                headers: { 'X-CSRF-TOKEN': token },
+                success: function (data) {
+                    console.log(data.companyId);
+                    $('#ApiTest').html(data.visitCount + ' 123123412342345');
+                }
+            })
+        }
+    </script>
+}

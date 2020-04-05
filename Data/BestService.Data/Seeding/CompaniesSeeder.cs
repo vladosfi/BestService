@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using BestService.Common;
     using BestService.Data.Models;
 
     public class CompaniesSeeder : ISeeder
@@ -34,7 +35,7 @@
                         LogoImage = company.ImageUrl,
                         OfficialSite = company.OfficialSite,
                         CategoryId = categoryId,
-                        User = this.GetUserByUserName(dbContext, SeederConstants.CompanyEmail),
+                        User = this.GetUserByUserName(dbContext, GlobalConstants.CompanyEmail),
                     });
                 }
             }

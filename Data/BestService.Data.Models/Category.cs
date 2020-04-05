@@ -24,10 +24,6 @@
 
         public string Link { get; set; }
 
-        public string BaseCategoryId { get; set; }
-
-        public virtual BaseCategory BaseCategory { get; set; }
-
         public virtual ICollection<Company> Companies { get; set; }
     }
 }

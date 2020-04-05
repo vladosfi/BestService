@@ -27,7 +27,6 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
-                              new BaseCategoriesSeeder(),
                               new CategoriesSeeder(),
                               new UsersSeeder(),
                               new CompaniesSeeder(),

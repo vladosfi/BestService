@@ -38,5 +38,10 @@
         public virtual ICollection<Comment> Comments { get; set; }
 
         public virtual ICollection<Rate> Ratings { get; set; }
+
+        [Required]
+        public int VisitId { get; set; }
+
+        public Visit Visit { get; set; }
     }
 }

@@ -24,8 +24,6 @@
         {
         }
 
-        public DbSet<BaseCategory> BaseCategories { get; set; }
-
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Company> Companies { get; set; }
@@ -35,6 +33,8 @@
         public DbSet<Setting> Settings { get; set; }
 
         public DbSet<Rate> Ratings { get; set; }
+
+        public DbSet<Visit> Visits { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -89,10 +89,10 @@
         {
             builder.Entity<T>().HasQueryFilter(e => !e.IsDeleted);
 
-            // builder.Entity<Company>()
-            // .HasOne(c => c.Category)
-            // .WithOne(ct => ct.Company)
-            // .HasForeignKey<Category>(ct => ct.Id);
+            builder.Entity<Company>()
+            .HasOne(c => c.Visit)
+            .WithOne(r => r.Company)
+            .HasForeignKey<Visit>(r => r.CompanyId);
         }
 
         // Applies configurations

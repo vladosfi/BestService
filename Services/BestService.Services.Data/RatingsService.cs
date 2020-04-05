@@ -65,6 +65,5 @@
                 Stars = stars,
             };
         }
-
     }
 }

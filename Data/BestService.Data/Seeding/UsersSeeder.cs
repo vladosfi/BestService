@@ -24,33 +24,33 @@
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = SeederConstants.AdminEmail,
-                    Email = SeederConstants.AdminEmail,
+                    UserName = GlobalConstants.AdminEmail,
+                    Email = GlobalConstants.AdminEmail,
                     EmailConfirmed = true,
-                    PhoneNumber = SeederConstants.PhoneNumber,
-                }, SeederConstants.Pass);
+                    PhoneNumber = GlobalConstants.PhoneNumber,
+                }, GlobalConstants.Pass);
 
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = SeederConstants.CompanyEmail,
-                    Email = SeederConstants.CompanyEmail,
+                    UserName = GlobalConstants.CompanyEmail,
+                    Email = GlobalConstants.CompanyEmail,
                     EmailConfirmed = true,
-                    PhoneNumber = SeederConstants.PhoneNumber,
-                }, SeederConstants.Pass);
+                    PhoneNumber = GlobalConstants.PhoneNumber,
+                }, GlobalConstants.Pass);
 
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = SeederConstants.UserEmail,
-                    Email = SeederConstants.UserEmail,
+                    UserName = GlobalConstants.UserEmail,
+                    Email = GlobalConstants.UserEmail,
                     EmailConfirmed = true,
-                    PhoneNumber = SeederConstants.PhoneNumber,
-                }, SeederConstants.Pass);
+                    PhoneNumber = GlobalConstants.PhoneNumber,
+                }, GlobalConstants.Pass);
 
-            var adminUser = this.GetUserByUserName(dbContext, SeederConstants.AdminEmail);
-            var companyUser = this.GetUserByUserName(dbContext, SeederConstants.CompanyEmail);
-            var userUser = this.GetUserByUserName(dbContext, SeederConstants.UserEmail);
+            var adminUser = this.GetUserByUserName(dbContext, GlobalConstants.AdminEmail);
+            var companyUser = this.GetUserByUserName(dbContext, GlobalConstants.CompanyEmail);
+            var userUser = this.GetUserByUserName(dbContext, GlobalConstants.UserEmail);
 
             await this.AddRolesToUsers(userManager, adminUser, GlobalConstants.AdministratorRoleName);
             await this.AddRolesToUsers(userManager, companyUser, GlobalConstants.CompanyRoleName);
