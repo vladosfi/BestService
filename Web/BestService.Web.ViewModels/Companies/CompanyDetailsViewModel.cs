@@ -1,9 +1,5 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
-    using System;
-    using System.Net;
-    using System.Text.RegularExpressions;
-
     using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;

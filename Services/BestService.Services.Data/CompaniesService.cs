@@ -55,5 +55,21 @@
 
             return company;
         }
+
+        public async Task<int> EditAsync(string name, string description, string logoImg, string officialSite, string categoryId)
+        {
+            var company = new Company
+            {
+                Name = name,
+                Description = description,
+                LogoImage = logoImg,
+                OfficialSite = officialSite,
+                CategoryId = categoryId,
+            };
+
+            this.companyRepository.Update(company);
+            await this.companyRepository.SaveChangesAsync();
+            return company.Id;
+        }
     }
 }

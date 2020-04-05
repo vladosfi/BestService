@@ -10,5 +10,7 @@
         Task<int> AddAsync(string name, string description, string image, string officialSite, string userId, string categoryId);
 
         T GetById<T>(int id);
+
+        Task<int> EditAsync(string name, string description, string image, string officialSite, string categoryId);
     }
 }

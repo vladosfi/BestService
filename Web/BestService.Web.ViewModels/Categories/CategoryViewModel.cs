@@ -5,7 +5,7 @@
     using BestService.Data.Models;
     using BestService.Services.Mapping;
 
-    public class CategoryViewModel : IMapFrom<Category>
+    public class CategoryViewModel : IMapFrom<Category>, IMapTo<Category>
     {
         public string Id { get; set; }
 

@@ -76,14 +76,15 @@
                 return this.View(input);
             }
 
-            var transformation = new Transformation()
-                .Height(GlobalConstants.ImageHeight)
-                .Crop(GlobalConstants.CropImageScale);
-
-            var imageUri = await CloudinaryExtension.UploadAsync(this.cloudinary, input.LogoImg, transformation);
-            var imagePath = imageUri.Replace(GlobalConstants.CloudinaryUploadDir, string.Empty);
-
             var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && !this.User.IsInRole(GlobalConstants.CompanyRoleName))
+            {
+                return this.Unauthorized();
+            }
+
+            string imagePath = await this.UploadImageToCloudinary(input.LogoImg);
+
             var companyId = await this.companiesService.AddAsync(
                 input.Name,
                 input.Description,
@@ -93,6 +94,70 @@
                 input.CategoryId);
 
             return this.RedirectToAction(nameof(this.Details), new { id = companyId });
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
+            var company = this.companiesService.GetById<EditCompanyViewModel>(id);
+
+            var viewModel = new EditCompanyViewModel
+            {
+                Description = company.Description,
+                Name = company.Name,
+                CategoryId = company.CategoryId,
+                OfficialSite = company.OfficialSite,
+                Categories = categories,
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Edit(EditCompanyViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+            var company = this.companiesService.GetById<EditCompanyViewModel>(input.Id);
+
+            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != company.UserId)
+            {
+                return this.Unauthorized();
+            }
+
+            string imagePath = company.LogoImage;
+
+            if (input.LogoImage != null)
+            {
+                imagePath = await this.UploadImageToCloudinary(input.LogoImageFile);
+            }
+
+            await this.companiesService.EditAsync(
+                company.Name,
+                company.Description,
+                imagePath,
+                company.OfficialSite,
+                company.CategoryId);
+
+            return this.RedirectToAction(nameof(this.Details), new { id = company.Id });
+        }
+
+        private async Task<string> UploadImageToCloudinary(IFormFile image)
+        {
+            var transformation = new Transformation()
+                            .Height(GlobalConstants.ImageHeight)
+                            .Crop(GlobalConstants.CropImageScale);
+
+            var imageUri = await CloudinaryExtension.UploadAsync(this.cloudinary, image, transformation);
+            var imagePath = imageUri.Replace(GlobalConstants.CloudinaryUploadDir, string.Empty);
+            return imagePath;
         }
     }
 }
