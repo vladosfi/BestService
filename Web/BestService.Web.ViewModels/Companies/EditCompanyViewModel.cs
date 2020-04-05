@@ -7,7 +7,7 @@
     using BestService.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    public class EditCompanyViewModel : IMapFrom<Company>
+    public class EditCompanyViewModel : IMapFrom<Company>, IMapTo<Company>
     {
         public int Id { get; set; }
 

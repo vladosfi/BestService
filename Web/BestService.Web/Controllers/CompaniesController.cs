@@ -34,7 +34,7 @@
 
         public IActionResult Details(int id)
         {
-            var viewModel = this.companiesService.GetById<CompanyDetailsViewModel>(id);
+            var viewModel = this.companiesService.GetByIdTemplate<CompanyDetailsViewModel>(id);
 
             if (viewModel == null)
             {
@@ -101,7 +101,7 @@
         public IActionResult Edit(int id)
         {
             var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
-            var company = this.companiesService.GetById<EditCompanyViewModel>(id);
+            var company = this.companiesService.GetByIdTemplate<EditCompanyViewModel>(id);
 
             var viewModel = new EditCompanyViewModel
             {
@@ -125,26 +125,27 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var company = this.companiesService.GetById<EditCompanyViewModel>(input.Id);
+            var company = this.companiesService.GetById(input.Id);
 
             if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != company.UserId)
             {
                 return this.Unauthorized();
             }
 
-            string imagePath = company.LogoImage;
+            string imagePath = input.LogoImage;
 
-            if (input.LogoImage != null)
+            if (input.LogoImageFile != null)
             {
                 imagePath = await this.UploadImageToCloudinary(input.LogoImageFile);
             }
 
-            await this.companiesService.EditAsync(
-                company.Name,
-                company.Description,
-                imagePath,
-                company.OfficialSite,
-                company.CategoryId);
+            company.Name = input.Name;
+            company.Description = input.Description;
+            company.LogoImage = imagePath;
+            company.OfficialSite = input.OfficialSite;
+            company.CategoryId = input.CategoryId;
+
+            await this.companiesService.EditAsync(company);
 
             return this.RedirectToAction(nameof(this.Details), new { id = company.Id });
         }

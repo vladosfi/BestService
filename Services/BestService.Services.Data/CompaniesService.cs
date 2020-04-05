@@ -47,7 +47,7 @@
             return company.Id;
         }
 
-        public T GetById<T>(int id)
+        public T GetByIdTemplate<T>(int id)
         {
             var company = this.companyRepository.All().Where(x => x.Id == id)
                 .To<T>()
@@ -56,17 +56,13 @@
             return company;
         }
 
-        public async Task<int> EditAsync(string name, string description, string logoImg, string officialSite, string categoryId)
+        public Company GetById(int id)
         {
-            var company = new Company
-            {
-                Name = name,
-                Description = description,
-                LogoImage = logoImg,
-                OfficialSite = officialSite,
-                CategoryId = categoryId,
-            };
+            return this.companyRepository.All().Where(x => x.Id == id).FirstOrDefault();
+        }
 
+        public async Task<int> EditAsync(Company company)
+        {
             this.companyRepository.Update(company);
             await this.companyRepository.SaveChangesAsync();
             return company.Id;
