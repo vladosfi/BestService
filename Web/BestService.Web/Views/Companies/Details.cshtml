@@ -20,7 +20,8 @@
         <div class="row">
             <form id="visit" method="post"></form>
             <div class="col-lg-8 ftco-animate">
-                <h2 id="ApiTest" class="mb-3">@Model.Name</h2>
+                <h2 class="mb-3">@Model.Name</h2>
+                <h6 id="ApiTest" class="mb-3">Views: @Model.Visit</h6>
                 <div>
                     <p>
                         <img src="@Model.ImageUri" alt="@Model.Name" class="img-fluid">
@@ -271,7 +272,7 @@
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
                     console.log(data.companyId);
-                    $('#ApiTest').html(data.visitCount + ' 123123412342345');
+                    $('#ApiTest').html('Views: '+data.visitCount);
                 }
             })
         }

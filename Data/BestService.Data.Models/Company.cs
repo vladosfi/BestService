@@ -1,6 +1,7 @@
 ﻿namespace BestService.Data.Models
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -39,9 +40,6 @@
 
         public virtual ICollection<Rate> Ratings { get; set; }
 
-        [Required]
-        public int VisitId { get; set; }
-
-        public Visit Visit { get; set; }
+        public IEnumerable<Visit> Visits { get; set; }
     }
 }

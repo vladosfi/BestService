@@ -26,5 +26,7 @@
         public string ImageUri => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
         public string CategoryId { get; set; }
+
+        public long Visit { get; set; }
     }
 }
