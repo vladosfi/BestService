@@ -43,15 +43,14 @@
             }
 
             await this.visitRepository.SaveChangesAsync();
-            return visit.Count;
+            return this.GetCompanyVisitCount(companyId);
         }
 
         public long GetCompanyVisitCount(int companyId)
         {
             var visitCount = this.visitRepository.All()
                 .Where(r => r.CompanyId == companyId)
-                .Select(r => r.Count)
-                .FirstOrDefault();
+                .Sum(r => r.Count);
 
             return visitCount;
         }

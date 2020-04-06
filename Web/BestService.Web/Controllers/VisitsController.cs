@@ -31,7 +31,7 @@
 
             return new VisitResponseModel
             {
-                VisitCount = visitCount + 1,
+                VisitCount = visitCount,
             };
         }
     }

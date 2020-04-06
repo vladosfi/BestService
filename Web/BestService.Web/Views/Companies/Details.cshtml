@@ -263,7 +263,7 @@
         }
         function increaseVisits() {
             var token = $("#visit input[name=__RequestVerificationToken]").val();
-            var companyId = $("#visit input[name=company-id]").val();
+            var companyId = Number($("#visit input[name=company-id]").val());
             var json = { companyId: companyId };
             console.log(companyId);
             $.ajax({
