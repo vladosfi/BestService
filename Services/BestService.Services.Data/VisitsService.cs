@@ -23,11 +23,6 @@
 
         public async Task<long> IncreaseVisit(int companyId, string userId)
         {
-            // if (userId == null)
-            // {
-            //    review = this.reviewRepository.All().FirstOrDefault(x => x.CompanyId == companyId);
-            //    return 0;
-            // }
             var visit = this.visitRepository.All().FirstOrDefault(x => x.CompanyId == companyId && x.UserId == userId);
 
             if (visit == null)

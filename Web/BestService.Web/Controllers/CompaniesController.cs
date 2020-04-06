@@ -6,6 +6,7 @@
     using BestService.Data.Models;
     using BestService.Services.CloudinaryHelper;
     using BestService.Services.Data;
+    using BestService.Services.StringHelpers;
     using BestService.Web.ViewModels.Companies;
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authorization;
@@ -83,7 +84,7 @@
                 return this.Unauthorized();
             }
 
-            string imagePath = await this.UploadImageToCloudinary(input.LogoImg);
+            string imagePath = await this.UploadImageToCloudinaryAsync(input.LogoImg);
 
             var companyId = await this.companiesService.AddAsync(
                 input.Name,
@@ -136,7 +137,8 @@
 
             if (input.LogoImageFile != null)
             {
-                imagePath = await this.UploadImageToCloudinary(input.LogoImageFile);
+                await this.DeleteImageFromCloudinaryAsync(company.LogoImage);
+                imagePath = await this.UploadImageToCloudinaryAsync(input.LogoImageFile);
             }
 
             company.Name = input.Name;
@@ -150,13 +152,19 @@
             return this.RedirectToAction(nameof(this.Details), new { id = company.Id });
         }
 
-        private async Task<string> UploadImageToCloudinary(IFormFile image)
+        private async Task<string> DeleteImageFromCloudinaryAsync(string imagePath)
+        {
+            var cloudinaryPublicId = StringManipulations.GetNameFromUriWithoutExtension(imagePath);
+            return await CloudinaryExtension.DeleteImageImageAsync(this.cloudinary, cloudinaryPublicId);
+        }
+
+        private async Task<string> UploadImageToCloudinaryAsync(IFormFile image)
         {
             var transformation = new Transformation()
                             .Height(GlobalConstants.ImageHeight)
                             .Crop(GlobalConstants.CropImageScale);
 
-            var imageUri = await CloudinaryExtension.UploadAsync(this.cloudinary, image, transformation);
+            var imageUri = await CloudinaryExtension.UploadImageAsync(this.cloudinary, image, transformation);
             var imagePath = imageUri.Replace(GlobalConstants.CloudinaryUploadDir, string.Empty);
             return imagePath;
         }

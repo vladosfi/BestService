@@ -4,13 +4,15 @@
     using System.IO;
     using System.Threading.Tasks;
 
+    using BestService.Common;
+    using BestService.Services.StringHelpers;
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Http;
 
     public class CloudinaryExtension
     {
-        public static async Task<string> UploadAsync(
+        public static async Task<string> UploadImageAsync(
             Cloudinary cloudinary,
             IFormFile fileForm,
             Transformation transformation = null)
@@ -37,6 +39,18 @@
             var imageUri = result.Uri.AbsoluteUri;
 
             return imageUri;
+        }
+
+        public static async Task<string> DeleteImageImageAsync(Cloudinary cloudinary, string publicId)
+        {
+            DeletionParams destroyParams = new DeletionParams(publicId)
+            {
+                ResourceType = ResourceType.Image,
+            };
+
+            var destroyResult = await cloudinary.DestroyAsync(destroyParams);
+
+            return destroyResult.Result;
         }
     }
 }

@@ -7,6 +7,8 @@
 
     public class CompanyDetailsViewModel : IMapFrom<Company>
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public float Rating { get; set; }

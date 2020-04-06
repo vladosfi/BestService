@@ -18,10 +18,12 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row">
-            <form id="visit" method="post"></form>
+            <form id="visit" method="post">
+                <input name="company-id" type="hidden" value="@Model.Id" />
+            </form>
             <div class="col-lg-8 ftco-animate">
                 <h2 class="mb-3">@Model.Name</h2>
-                <h6 id="ApiTest" class="mb-3">views: @Model.Visit</h6>
+                <h6 id="AjaxViews" class="mb-3">views: @Model.Visit</h6>
                 <div>
                     <p>
                         <img src="@Model.ImageUri" alt="@Model.Name" class="img-fluid">
@@ -257,10 +259,11 @@
 @section Scripts{
     <script type="text/javascript">
         document.body.onload = function () {
-            increaseVisits(1);
+            increaseVisits();
         }
-        function increaseVisits(companyId) {
+        function increaseVisits() {
             var token = $("#visit input[name=__RequestVerificationToken]").val();
+            var companyId = $("#visit input[name=company-id]").val();
             var json = { companyId: companyId };
             console.log(companyId);
             $.ajax({
@@ -272,7 +275,7 @@
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
                     console.log(data.companyId);
-                    $('#ApiTest').html('views: '+data.visitCount);
+                    $('#AjaxViews').html('views: ' + data.visitCount);
                 }
             })
         }
