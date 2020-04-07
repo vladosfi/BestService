@@ -37,5 +37,17 @@
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
+
+        public IActionResult HttpError(string statusCode)
+        {
+            var viewModel = new CustomErrorViewModel
+            {
+                First = statusCode[0],
+                Second = statusCode[1],
+                Third = statusCode[2],
+            };
+
+            return this.View(viewModel);
+        }
     }
 }

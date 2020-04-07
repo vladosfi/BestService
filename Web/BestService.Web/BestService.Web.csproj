@@ -104,6 +104,9 @@
     <Content Update="wwwroot\css\css\mixins\_text-hide.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\css\error.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\css\flaticon.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

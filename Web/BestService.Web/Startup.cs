@@ -118,6 +118,7 @@
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseStatusCodePagesWithRedirects("Home/HttpError?statusCode={0}");
 
             app.UseRouting();
 
