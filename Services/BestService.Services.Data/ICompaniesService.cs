@@ -15,6 +15,12 @@
 
         Company GetById(int id);
 
+        Task EditById(int id, string name, string description, string logoImage, string officialSite, string categoryId);
+
         Task<int> EditAsync(Company company);
+
+        IEnumerable<T> GetRecentlyAdded<T>(int? count = null);
+
+        IEnumerable<T> GetMostCommented<T>(int? count = null);
     }
 }

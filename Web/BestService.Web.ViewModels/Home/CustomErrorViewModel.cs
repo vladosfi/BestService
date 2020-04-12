@@ -2,10 +2,8 @@
 {
     public class CustomErrorViewModel
     {
-        public char First { get; set; }
+        public int StatusCodeNumber { get; set; }
 
-        public char Second { get; set; }
-
-        public char Third { get; set; }
+        public string ReasonPhrase { get; set; }
     }
 }

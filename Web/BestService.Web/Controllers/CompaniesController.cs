@@ -1,5 +1,7 @@
 ﻿namespace BestService.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using BestService.Common;
@@ -49,7 +51,7 @@
         {
             var viewModel = new CompanyViewModel
             {
-                Companies = this.companiesService.GetAll<CompaniesDetailsViewModel>(),
+                Companies = this.companiesService.GetAll<IndexCompanyDetailsViewModel>(),
             };
 
             return this.View(viewModel);
@@ -106,11 +108,13 @@
 
             var viewModel = new EditCompanyViewModel
             {
+                UserId = company.UserId,
                 Description = company.Description,
                 Name = company.Name,
                 CategoryId = company.CategoryId,
                 OfficialSite = company.OfficialSite,
                 Categories = categories,
+                LogoImage = company.LogoImage,
             };
 
             return this.View(viewModel);
@@ -118,6 +122,7 @@
 
         [HttpPost]
         [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.CompanyRoleName)]
         public async Task<IActionResult> Edit(EditCompanyViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -126,9 +131,8 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var company = this.companiesService.GetById(input.Id);
 
-            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != company.UserId)
+            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != input.UserId)
             {
                 return this.Unauthorized();
             }
@@ -137,19 +141,21 @@
 
             if (input.LogoImageFile != null)
             {
-                await this.DeleteImageFromCloudinaryAsync(company.LogoImage);
+                await this.DeleteImageFromCloudinaryAsync(imagePath);
                 imagePath = await this.UploadImageToCloudinaryAsync(input.LogoImageFile);
             }
 
-            company.Name = input.Name;
-            company.Description = input.Description;
-            company.LogoImage = imagePath;
-            company.OfficialSite = input.OfficialSite;
-            company.CategoryId = input.CategoryId;
+            await this.companiesService.EditById(
+                input.Id,
+                input.Name,
+                input.Description,
+                imagePath,
+                input.OfficialSite,
+                input.CategoryId);
 
-            await this.companiesService.EditAsync(company);
+            this.TempData["Edited"] = true;
 
-            return this.RedirectToAction(nameof(this.Details), new { id = company.Id });
+            return this.RedirectToAction(nameof(this.Details), new { id = input.Id });
         }
 
         private async Task<string> DeleteImageFromCloudinaryAsync(string imagePath)

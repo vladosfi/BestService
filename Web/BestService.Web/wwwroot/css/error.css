@@ -29,12 +29,12 @@ body {
     text-align: center;
 }
 
-    .notfound .notfound-404 {
+    .notfound .notfound-httperror {
         position: relative;
         height: 240px;
     }
 
-        .notfound .notfound-404 h1 {
+        .notfound .notfound-httperror h1 {
             font-family: 'Montserrat', sans-serif;
             position: absolute;
             left: 50%;
@@ -49,13 +49,14 @@ body {
             text-transform: uppercase;
             letter-spacing: -40px;
             margin-left: -20px;
+            margin-top: 20px;
         }
 
-            .notfound .notfound-404 h1 > span {
-                text-shadow: -8px 0px 0px #fff;
-            }
+    .notfound .notfound-httperror h1 > span {
+        text-shadow: -8px 0px 0px #fff;
+    }
 
-        .notfound .notfound-404 h3 {
+        .notfound .notfound-httperror h3 {
             font-family: 'Cabin', sans-serif;
             position: relative;
             font-size: 16px;
@@ -78,25 +79,25 @@ body {
     }
 
 @media only screen and (max-width: 767px) {
-    .notfound .notfound-404 {
+    .notfound .notfound-httperror {
         height: 200px;
     }
 
-        .notfound .notfound-404 h1 {
+        .notfound .notfound-httperror h1 {
             font-size: 200px;
         }
 }
 
 @media only screen and (max-width: 480px) {
-    .notfound .notfound-404 {
+    .notfound .notfound-httperror {
         height: 162px;
     }
 
-        .notfound .notfound-404 h1 {
-            font-size: 162px;
-            height: 150px;
-            line-height: 162px;
-        }
+    .notfound .notfound-httperror h1 {
+        font-size: 162px;
+        height: 150px;
+        line-height: 162px;
+    }
 
     .notfound h2 {
         font-size: 16px;

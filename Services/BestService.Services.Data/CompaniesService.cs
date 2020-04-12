@@ -49,7 +49,9 @@
 
         public T GetByIdTemplate<T>(int id)
         {
-            var company = this.companyRepository.All().Where(x => x.Id == id)
+            var company = this.companyRepository
+                .All()
+                .Where(x => x.Id == id && x.IsDeleted == false)
                 .To<T>()
                 .FirstOrDefault();
 
@@ -58,7 +60,27 @@
 
         public Company GetById(int id)
         {
-            return this.companyRepository.All().Where(x => x.Id == id).FirstOrDefault();
+            return this.companyRepository
+                .All()
+                .Where(x => x.Id == id && x.IsDeleted == false)
+                .FirstOrDefault();
+        }
+
+        public async Task EditById(int id, string name, string description, string logoImage, string officialSite, string categoryId)
+        {
+            var company = this.GetById(id);
+
+            company.Name = name;
+            company.Description = description;
+            company.OfficialSite = officialSite;
+            company.CategoryId = categoryId;
+            if (logoImage != string.Empty)
+            {
+                company.LogoImage = logoImage;
+            }
+
+            this.companyRepository.Update(company);
+            await this.companyRepository.SaveChangesAsync();
         }
 
         public async Task<int> EditAsync(Company company)
@@ -66,6 +88,36 @@
             this.companyRepository.Update(company);
             await this.companyRepository.SaveChangesAsync();
             return company.Id;
+        }
+
+        public IEnumerable<T> GetRecentlyAdded<T>(int? count = null)
+        {
+            IQueryable<Company> companies = this.companyRepository
+                .All()
+                .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.CreatedOn);
+
+            if (count.HasValue)
+            {
+                companies = companies.Take(count.Value);
+            }
+
+            return companies.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetMostCommented<T>(int? count = null)
+        {
+            IQueryable<Company> companies = this.companyRepository
+                .All()
+                .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.Comments.Count);
+
+            if (count.HasValue)
+            {
+                companies = companies.Take(count.Value);
+            }
+
+            return companies.To<T>().ToList();
         }
     }
 }

@@ -6,14 +6,19 @@
     using BestService.Web.ViewModels;
     using BestService.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.WebUtilities;
 
     public class HomeController : BaseController
     {
         private readonly ICategoriesService categoriesService;
+        private readonly ICompaniesService companiesService;
 
-        public HomeController(ICategoriesService categoriesService)
+        public HomeController(
+            ICategoriesService categoriesService,
+            ICompaniesService companiesService)
         {
             this.categoriesService = categoriesService;
+            this.companiesService = companiesService;
         }
 
         public IActionResult Index()
@@ -21,10 +26,13 @@
             var viewModel = new IndexViewModel
             {
                 Categories = this.categoriesService.GetAll<IndexCategoryViewModel>(),
+                MostRecentCompanies = this.companiesService.GetRecentlyAdded<IndexCompanyDetailsViewModel>(3),
+                MostCommentedCompanies = this.companiesService.GetMostCommented<IndexCompanyDetailsViewModel>(3),
             };
 
             return this.View(viewModel);
         }
+
 
         public IActionResult Privacy()
         {
@@ -38,16 +46,21 @@
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
-        public IActionResult HttpError(string statusCode)
+        public IActionResult HttpError(int? statusCode)
         {
-            var viewModel = new CustomErrorViewModel
+            if (statusCode != null)
             {
-                First = statusCode[0],
-                Second = statusCode[1],
-                Third = statusCode[2],
-            };
+                string reasonPhrase = ReasonPhrases.GetReasonPhrase(statusCode.Value);
 
-            return this.View(viewModel);
+                var viewModel = new CustomErrorViewModel
+                {
+                    StatusCodeNumber = statusCode.Value,
+                    ReasonPhrase = reasonPhrase,
+                };
+                return this.View(viewModel);
+            }
+
+            return this.RedirectToAction(nameof(this.Error));
         }
     }
 }

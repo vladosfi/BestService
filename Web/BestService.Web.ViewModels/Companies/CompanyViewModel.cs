@@ -4,6 +4,6 @@
 
     public class CompanyViewModel
     {
-        public IEnumerable<CompaniesDetailsViewModel> Companies { get; set; }
+        public IEnumerable<IndexCompanyDetailsViewModel> Companies { get; set; }
     }
 }

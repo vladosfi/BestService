@@ -1,7 +1,8 @@
-﻿namespace BestService.Web.ViewModels.Companies
+﻿namespace BestService.Web.ViewModels.Home
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
@@ -17,6 +18,14 @@
 
         public string Name { get; set; }
 
+        public string ShortName
+        {
+            get
+            {
+                return this.Name?.Length > 25 ? this.Name.Substring(0, 25) + "..." : this.Name;
+            }
+        }
+
         public string LogoImage { get; set; }
 
         public string LogoImagePath => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
@@ -28,11 +37,13 @@
             get
             {
                 string description = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]*>", string.Empty));
-                return description?.Length > 150 ? description.Substring(0, 150) + "..." : description;
+                return description?.Length > 120 ? description.Substring(0, 120) + " [...]" : description;
             }
         }
 
         public DateTime CreatedOn { get; set; }
+
+        public string Month => this.CreatedOn.ToString("MMMM", CultureInfo.InvariantCulture);
 
         public string Created => this.CreatedOn.ToUniversalTime().ToShortDateString();
 
