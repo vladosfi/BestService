@@ -1,7 +1,7 @@
 ﻿namespace BestService.Web.Controllers
 {
     using System.Diagnostics;
-
+    using BestService.Common;
     using BestService.Services.Data;
     using BestService.Web.ViewModels;
     using BestService.Web.ViewModels.Home;
@@ -50,12 +50,37 @@
         {
             if (statusCode != null)
             {
+                var statusMessage = string.Empty;
+
+                switch (statusCode)
+                {
+                    case 400:
+                        statusMessage = GlobalConstants.ErrorStatusBadRequest;
+                        break;
+                    case 403:
+                        statusMessage = GlobalConstants.ErrorStatusForbidden;
+                        break;
+                    case 404:
+                        statusMessage = GlobalConstants.ErrorStatusPageNotFound;
+                        break;
+                    case 408:
+                        statusMessage = GlobalConstants.ErrorStatusTimeout;
+                        break;
+                    case 500:
+                        statusMessage = GlobalConstants.ErrorStatusInternalServerError;
+                        break;
+                    default:
+                        statusMessage = GlobalConstants.ErrorStatusOther;
+                        break;
+                }
+
                 string reasonPhrase = ReasonPhrases.GetReasonPhrase(statusCode.Value);
 
                 var viewModel = new CustomErrorViewModel
                 {
                     StatusCodeNumber = statusCode.Value,
                     ReasonPhrase = reasonPhrase,
+                    StatusMessage = statusMessage,
                 };
                 return this.View(viewModel);
             }

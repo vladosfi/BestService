@@ -51,7 +51,7 @@
         {
             var viewModel = new CompanyViewModel
             {
-                Companies = this.companiesService.GetAll<IndexCompanyDetailsViewModel>(),
+                Companies = this.companiesService.GetAll<CompaniesDetailsViewModel>(),
             };
 
             return this.View(viewModel);

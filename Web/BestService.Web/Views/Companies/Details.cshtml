@@ -1,6 +1,6 @@
 ﻿@model BestService.Web.ViewModels.Companies.CompanyDetailsViewModel
 @{
-    ViewData["Title"] = "Company Details";
+    ViewData["Title"] = @Model.Name +" Details";
 }
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
@@ -177,16 +177,8 @@
                         </div>
                     </form>
                 </div>
-                <div class="sidebar-box ftco-animate">
-                    <h3>Category</h3>
-                    <ul class="categories">
-                        <li><a href="#">Business <span>(6)</span></a></li>
-                        <li><a href="#">Finance <span>(8)</span></a></li>
-                        <li><a href="#">Auto loan <span>(2)</span></a></li>
-                        <li><a href="#">Real Estate <span>(2)</span></a></li>
-                        <li><a href="#">Businessman <span>(2)</span></a></li>
-                    </ul>
-                </div>
+            
+                <vc:side-bar></vc:side-bar>
 
                 <div class="sidebar-box ftco-animate">
                     <h3>Popular Articles</h3>

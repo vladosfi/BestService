@@ -3,27 +3,23 @@
     ViewData["Title"] = @Model.Name;
 }
 
-<div class="ftco-section">
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
+    <div class="overlay"></div>
     <div class="container">
-        <div class="row d-flex">
-            <div class="media">
-                <div class="media-body">
-                    <h5 class="mt-0">@Model.Name</h5>
-                    @Model.Description
-                </div>
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread">@ViewData["Title"]</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="index.html">Company <i class="ion-ios-arrow-forward"></i></a></span> <span> @ViewData["Title"] <i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="text-white">@Model.Description</p>
             </div>
         </div>
     </div>
-</div>
+</section>
+
 
 <section class="ftco-section bg-light">
     <div class="container">
-        <div class="row justify-content-center mb-5 pb-2">
-            <div class="col-md-8 text-center heading-section ftco-animate">
-                <h2 class="mb-4">@Model.Name</h2>
-                <p>@Model.Description</p>
-            </div>
-        </div>
         <div class="row">
             @foreach (var company in Model.Companies)
             {

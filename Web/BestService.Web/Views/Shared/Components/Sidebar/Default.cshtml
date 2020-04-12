@@ -1,0 +1,16 @@
+﻿@model BestService.Web.ViewModels.SideBar.SideBarViewModel
+@{
+    ViewData["Title"] = "Side Bar";
+}
+
+<h3>Categories</h3>
+<div class="sidebar-box ftco-animate fadeInUp ftco-animated">
+    <ul class="categories">
+        @{
+            foreach (var category in Model.Categories)
+            {
+                <li><a asp-controller="c" asp-action="@category.Name">@category.Name <span>(@category.Companies.Count)</span></a></li>
+            }
+        }
+    </ul>
+</div>

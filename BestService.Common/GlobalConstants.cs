@@ -29,5 +29,17 @@
         public const string CompanyEmail = "company@bestservice.com";
 
         public const string UserEmail = "user@bestservice.com";
+
+        public const string ErrorStatusBadRequest = "Bad request: The request cannot be fulfilled due to bad syntax";
+
+        public const string ErrorStatusForbidden = "Forbidden";
+
+        public const string ErrorStatusPageNotFound = "Page not found";
+
+        public const string ErrorStatusTimeout = "The server timed out waiting for the request";
+
+        public const string ErrorStatusInternalServerError = "Internal Server Error - server was unable to finish processing the request";
+
+        public const string ErrorStatusOther = "That’s odd... Something we didn't expect happened";
     }
 }

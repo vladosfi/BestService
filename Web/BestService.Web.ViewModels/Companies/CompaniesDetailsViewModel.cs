@@ -11,7 +11,7 @@
     using BestService.Data.Models;
     using BestService.Services.Mapping;
 
-    public class IndexCompanyDetailsViewModel : IMapFrom<Company>, IMapTo<Company>, IHaveCustomMappings
+    public class CompaniesDetailsViewModel : IMapFrom<Company>, IMapTo<Company>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
@@ -50,7 +50,7 @@
 
         public void CreateMappings(IProfileExpression configuration)
         {
-            configuration.CreateMap<Company, IndexCompanyDetailsViewModel>()
+            configuration.CreateMap<Company, CompaniesDetailsViewModel>()
                 .ForMember(x => x.Rating, options =>
                {
                    options.MapFrom(c => c.Ratings.Sum(r => r.Stars));
