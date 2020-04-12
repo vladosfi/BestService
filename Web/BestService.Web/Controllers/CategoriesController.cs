@@ -13,7 +13,7 @@
             this.categoriesService = categoriesService;
         }
 
-        public IActionResult ByName(string name)
+        public IActionResult ByName(string name, int? page = 1)
         {
             var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
 

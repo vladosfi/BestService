@@ -12,13 +12,14 @@
 
         public const string CloudinaryUploadDir = "http://res.cloudinary.com/duvkeibua/image/upload/";
 
-        public const int ImageWidth = 600;
+        public const int ImageWidth = 1024;
 
-        public const int ImageHeight = 400;
+        public const int ImageHeight = 768;
 
         public const string CropImageScale = "scale";
 
         public const string CropImagePad = "pad";
+        public const string CropImageLPad = "lpad";
 
         public const string Pass = "123456";
 

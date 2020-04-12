@@ -37,7 +37,7 @@
         <h2 class="mb-4">Links</h2>
         <ul>
             <li><a href="/Companies/GetList"><h5 class="mt-0">Get All Companies</h5></a></li>
-            <li><a href="/Companies/Details/17"><h5 class="mt-0">Company Details</h5></a></li>
+            <li><a href="/Companies/Details/1"><h5 class="mt-0">Company Details</h5></a></li>
             <li><a href="/Companies/Add"><h5 class="mt-0">Add New Company</h5></a></li>
             <li><a href="/Companies/Edit/1"><h5 class="mt-0">Edit Company</h5></a></li>
             <li><a href="/c/Construction"><h5 class="mt-0">Single Category</h5></a></li>
@@ -51,7 +51,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5 pb-2">
             <div class="col-md-8 text-center heading-section ftco-animate">
-                <h2 class="mb-4"><span>Recently </span> Added</h2>
+                <h2 class="mb-4"><span>Recently </span> Added Companies</h2>
                 <p>These are our most recently added companies.</p>
             </div>
         </div>
@@ -70,13 +70,20 @@
                         <div class="text bg-white p-4">
                             <h3 class="heading"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">@company.ShortName</a></h3>
                             <p>@company.ShortDescription</p>
-                            <div class="d-flex align-items-center mt-4">
-                                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
-                                <p class="ml-auto mb-0">
-                                    <a href="#" class="mr-2">@company.Rating</a>
-                                    <a href="#" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
-                                </p>
-                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted float-left">
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                                <i class="text-warning fa fa-star"></i>
+                            </small>
+                            <small class="text-muted float-right">
+                                <a href="#" class="mr-2"><span class="icon-eye-slash"></span> @company.Rating</a>
+                                <a href="#" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
+                            </small>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
@@ -85,6 +92,62 @@
     </div>
 </section>
 
+<section class="ftco-intro ftco-no-pb img" style="background-image: url(images/bg_3.jpg);">
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-10 text-center heading-section heading-section-white ftco-animate">
+                <h2 class="mb-0">You Always Get the Best Services</h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-counter" id="section-counter">
+    <div class="container">
+        <div class="row d-md-flex align-items-center justify-content-center">
+            <div class="wrapper">
+                <div class="row d-md-flex align-items-center">
+                    <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="icon"><span class="flaticon-doctor"></span></div>
+                            <div class="text">
+                                <strong class="number" data-number="705">0</strong>
+                                <span>Total Companies</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="icon"><span class="flaticon-doctor"></span></div>
+                            <div class="text">
+                                <strong class="number" data-number="809">0</strong>
+                                <span>Satisfied Users</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="icon"><span class="flaticon-doctor"></span></div>
+                            <div class="text">
+                                <strong class="number" data-number="335">0</strong>
+                                <span>Awwards Received</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md d-flex justify-content-center counter-wrap ftco-animate">
+                        <div class="block-18">
+                            <div class="icon"><span class="flaticon-doctor"></span></div>
+                            <div class="text">
+                                <strong class="number" data-number="35">0</strong>
+                                <span>Years of Experienced</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="ftco-section bg-light">
     <div class="container">
@@ -151,7 +214,7 @@
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-md-8 text-center heading-section ftco-animate">
-                <h2 class="mb-4">What Our Visitors Says</h2>
+                <h2 class="mb-4">What Our Users Says</h2>
                 <p>Separated they live in. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country</p>
             </div>
         </div>

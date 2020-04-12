@@ -20,7 +20,6 @@
         {
             IQueryable<Category> query = this.categoriesRepository
                 .All()
-                .Where(x => x.IsDeleted == false)
                 .OrderBy(x => x.Name);
 
             if (count.HasValue)
@@ -34,7 +33,7 @@
         public T GetByName<T>(string name)
         {
             var category = this.categoriesRepository.All()
-                .Where(x => x.Name == name && x.IsDeleted == false)
+                .Where(x => x.Name == name)
                 .To<T>()
                 .FirstOrDefault();
 

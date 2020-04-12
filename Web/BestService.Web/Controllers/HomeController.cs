@@ -1,6 +1,7 @@
 ﻿namespace BestService.Web.Controllers
 {
     using System.Diagnostics;
+
     using BestService.Common;
     using BestService.Services.Data;
     using BestService.Web.ViewModels;
@@ -32,7 +33,6 @@
 
             return this.View(viewModel);
         }
-
 
         public IActionResult Privacy()
         {
@@ -82,6 +82,7 @@
                     ReasonPhrase = reasonPhrase,
                     StatusMessage = statusMessage,
                 };
+
                 return this.View(viewModel);
             }
 

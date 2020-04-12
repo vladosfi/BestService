@@ -1,7 +1,5 @@
 ﻿namespace BestService.Web.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using BestService.Common;
@@ -101,6 +99,7 @@
 
         [HttpGet]
         [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.CompanyRoleName)]
         public IActionResult Edit(int id)
         {
             var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
@@ -168,7 +167,8 @@
         {
             var transformation = new Transformation()
                             .Height(GlobalConstants.ImageHeight)
-                            .Crop(GlobalConstants.CropImageScale);
+                            .Width(GlobalConstants.ImageWidth)
+                            .Crop(GlobalConstants.CropImagePad);
 
             var imageUri = await CloudinaryExtension.UploadImageAsync(this.cloudinary, image, transformation);
             var imagePath = imageUri.Replace(GlobalConstants.CloudinaryUploadDir, string.Empty);

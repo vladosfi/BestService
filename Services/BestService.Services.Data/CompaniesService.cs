@@ -51,7 +51,7 @@
         {
             var company = this.companyRepository
                 .All()
-                .Where(x => x.Id == id && x.IsDeleted == false)
+                .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
 
@@ -62,7 +62,7 @@
         {
             return this.companyRepository
                 .All()
-                .Where(x => x.Id == id && x.IsDeleted == false)
+                .Where(x => x.Id == id)
                 .FirstOrDefault();
         }
 
@@ -94,7 +94,6 @@
         {
             IQueryable<Company> companies = this.companyRepository
                 .All()
-                .Where(x => x.IsDeleted == false)
                 .OrderByDescending(x => x.CreatedOn);
 
             if (count.HasValue)
@@ -109,7 +108,6 @@
         {
             IQueryable<Company> companies = this.companyRepository
                 .All()
-                .Where(x => x.IsDeleted == false)
                 .OrderByDescending(x => x.Comments.Count);
 
             if (count.HasValue)

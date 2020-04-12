@@ -1,6 +1,6 @@
 ﻿@model BestService.Web.ViewModels.Companies.CompanyDetailsViewModel
 @{
-    ViewData["Title"] = @Model.Name +" Details";
+    ViewData["Title"] = @Model.Name + " Details";
 }
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
@@ -9,7 +9,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-2 bread">@ViewData["Title"]</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="index.html">Company <i class="ion-ios-arrow-forward"></i></a></span> <span> @ViewData["Title"] <i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="index.html">Company <i class="ion-ios-arrow-forward"></i></a></span> <span> @ViewData["Title"] <i class="ion-ios-arrow-forward"></i></span></p>
             </div>
         </div>
     </div>
@@ -35,7 +35,15 @@
                     }
                 }
                 <h2 class="mb-3">@Model.Name</h2>
-                <h6 id="AjaxViews" class="mb-3">views: @Model.Visit</h6>
+                <div>
+                    <span class="float-right"><i class="text-info fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right mb-3">rating: </span>
+                    <span class="float-left mb-3" id="AjaxViews">views: @Model.Visit</span>
+                </div>
                 <div>
                     <p>
                         <img src="@Model.ImageUri" alt="@Model.Name" class="img-fluid">
@@ -177,13 +185,15 @@
                         </div>
                     </form>
                 </div>
-            
+
                 <vc:side-bar></vc:side-bar>
+
+                <vc:recent-companies count="3"></vc:recent-companies>
 
                 <div class="sidebar-box ftco-animate">
                     <h3>Popular Articles</h3>
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(../images/image_1.jpg);"></a>
+                        <a class="blog-img mr-4" style="background-image: url(/images/image_1.jpg);"></a>
                         <div class="text">
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
                             <div class="meta">
@@ -194,7 +204,7 @@
                         </div>
                     </div>
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(../images/image_2.jpg);"></a>
+                        <a class="blog-img mr-4" style="background-image: url(/images/image_2.jpg);"></a>
                         <div class="text">
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
                             <div class="meta">
@@ -205,7 +215,7 @@
                         </div>
                     </div>
                     <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(../images/image_3.jpg);"></a>
+                        <a class="blog-img mr-4" style="background-image: url(/images/image_3.jpg);"></a>
                         <div class="text">
                             <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
                             <div class="meta">
@@ -221,12 +231,12 @@
                     <h3>Tag Cloud</h3>
                     <ul class="tagcloud m-0 p-0">
                         @*<a href="#" class="tag-cloud-link">School</a>
-                    <a href="#" class="tag-cloud-link">Kids</a>
-                    <a href="#" class="tag-cloud-link">Nursery</a>
-                    <a href="#" class="tag-cloud-link">Daycare</a>
-                    <a href="#" class="tag-cloud-link">Care</a>
-                    <a href="#" class="tag-cloud-link">Kindergarten</a>
-                    <a href="#" class="tag-cloud-link">Teacher</a>*@
+                <a href="#" class="tag-cloud-link">Kids</a>
+                <a href="#" class="tag-cloud-link">Nursery</a>
+                <a href="#" class="tag-cloud-link">Daycare</a>
+                <a href="#" class="tag-cloud-link">Care</a>
+                <a href="#" class="tag-cloud-link">Kindergarten</a>
+                <a href="#" class="tag-cloud-link">Teacher</a>*@
                     </ul>
                 </div>
 

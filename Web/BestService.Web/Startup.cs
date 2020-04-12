@@ -129,8 +129,9 @@
             app.UseEndpoints(
                 endpoints =>
                     {
-                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                        endpoints.MapControllerRoute("bestServiceCategoryWithPage", "c/{name:minlength(3)}/{page?}", new { controller = "Categories", action = "ByName" });
                         endpoints.MapControllerRoute("bestServiceCategory", "c/{name:minlength(3)}", new { controller = "Categories", action = "ByName" });
+                        endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

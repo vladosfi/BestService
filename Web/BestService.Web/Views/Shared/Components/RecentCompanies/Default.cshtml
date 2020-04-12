@@ -1,0 +1,24 @@
+﻿@model BestService.Web.ViewModels.RecentCompanies.RecentCompanyViewModel
+@{
+    ViewData["Title"] = "Recent Company";
+}
+
+<div class="sidebar-box ftco-animate">
+    <h3>@ViewData["Title"]</h3>
+    @{
+        foreach (var company in Model.Companies)
+        {
+            <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url(@company.LogoImagePath);"></a>
+                <div class="text">
+                    <h3 class="heading"><a href="#">@company.Name</a></h3>
+                    <div class="meta">
+                        <div><a href="#"><span class="icon-calendar"></span> @company.CreatedShort</a></div>
+                        <div><a href="#"><span class="icon-person"></span> @company.UserName</a></div>
+                        <div><a href="#"><span class="icon-chat"></span> @company.Comments.Count</a></div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
