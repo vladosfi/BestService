@@ -279,7 +279,6 @@
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
-                    console.log(data.companyId);
                     $('#AjaxViews').html('views: ' + data.visitCount);
                 }
             })

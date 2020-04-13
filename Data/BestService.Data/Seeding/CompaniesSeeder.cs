@@ -23,11 +23,13 @@
             };
 
             var category = dbContext.Categories.ToList();
+            var companiesList = new List<Company>();
+
             for (int i = 0; i < 10; i++)
             {
                 foreach (var company in companies)
                 {
-                    await dbContext.Companies.AddAsync(new Company
+                    companiesList.Add(new Company
                     {
                         Name = company.Name,
                         Description = company.Description,
@@ -38,6 +40,8 @@
                     });
                 }
             }
+
+            await dbContext.Companies.AddRangeAsync(companiesList);
         }
 
         private ApplicationUser GetUserByUserName(ApplicationDbContext dbContext, string userName)

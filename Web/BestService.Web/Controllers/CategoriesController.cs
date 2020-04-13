@@ -8,7 +8,7 @@
 
     public class CategoriesController : Controller
     {
-        private const int ItemsPerPage = 1;
+        private const int ItemsPerPage = 6;
 
         private readonly ICategoriesService categoriesService;
         private readonly ICompaniesService companiesService;
@@ -25,7 +25,7 @@
         {
             var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
 
-            if (viewModel == null)
+            if (viewModel == null || page <= 0)
             {
                 return this.NotFound();
             }
@@ -35,6 +35,12 @@
 
             int count = this.companiesService.GetCountByCategoryId(viewModel.Id);
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+
+            if (viewModel.PagesCount == 0)
+            {
+                viewModel.PagesCount = 1;
+            }
+
             viewModel.CurrentPage = page;
 
             return this.View(viewModel);

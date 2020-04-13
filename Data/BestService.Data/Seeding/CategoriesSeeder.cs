@@ -16,7 +16,7 @@
                 return;
             }
 
-            var categories = new Dictionary<string, string>
+            var categoriesDictionary = new Dictionary<string, string>
             {
                 { "IT", "The information technology (IT) is comprised of companies that produce software, hardware or semiconductor equipment, or companies that provide internet or related services." },
                 { "Healthcare", "Businesses that provide medical services, manufacture medical equipment or drugs, provide medical insurance, or otherwise facilitate the provision of healthcare to patients." },
@@ -34,14 +34,18 @@
                 { "Properties", "Buying and selling of properties used as homes or for non-professional purposes." },
             };
 
-            foreach (var category in categories)
+            var ctgy = new List<Category>();
+
+            foreach (var category in categoriesDictionary)
             {
-                await dbContext.Categories.AddAsync(new Category
+                ctgy.Add(new Category
                 {
                     Name = category.Key,
                     Description = category.Value,
                 });
             }
+
+            await dbContext.Categories.AddRangeAsync(ctgy);
         }
     }
 }
