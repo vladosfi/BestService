@@ -66,18 +66,40 @@
                                 </a>
                             </li>
                         }
-
-                        @for (int i = 1; i <= Model.PagesCount; i++)
-                        {
-                            var active = i == Model.CurrentPage ? "active" : string.Empty;
-                            <li class="@active">
-                                <a asp-route="bestServiceCategory"
-                                   asp-route-name="@Model.Name"
-                                   asp-route-page="@i">
-                                    @i
-                                </a>
-                            </li>
+                        @{
+                            const int MorePagesToShow = 3;
+                            var pagesToShow = new List<int>();
+                            for (var i = 1; i <= MorePagesToShow; i++)
+                            {
+                                pagesToShow.Add(i);
+                            }
+                            for (var i = this.Model.CurrentPage - MorePagesToShow; i <= this.Model.CurrentPage + MorePagesToShow; i++)
+                            {
+                                if (i > 0 && i <= Model.PagesCount)
+                                {
+                                    pagesToShow.Add(i);
+                                }
+                            }
+                            for (var i = this.Model.PagesCount - MorePagesToShow + 1; i <= this.Model.PagesCount; i++)
+                            {
+                                if (i > 0)
+                                {
+                                    pagesToShow.Add(i);
+                                }
+                            }
+                            pagesToShow = pagesToShow.Where(x => x <= this.Model.PagesCount).Distinct().OrderBy(x => x).ToList();
                         }
+                        @for (var i = 0; i < pagesToShow.Count; i++)
+                        {
+                            var pageNumber = pagesToShow[i];
+                            var active = pageNumber == Model.CurrentPage ? "active" : string.Empty;
+                            if (i > 0 && pageNumber - 1 != pagesToShow[i - 1])
+                            {
+                                <li><a asp-route="bestServiceCategory" asp-route-name="@Model.Name" asp-route-page="@(pagesToShow[i - 1] + 1)">...</a></li>
+                            }
+                            <li class="@active"><a asp-route="bestServiceCategory" asp-route-name="@Model.Name" asp-route-page="@pageNumber">@pageNumber</a></li>
+                        }
+
                         @if (Model.CurrentPage == Model.PagesCount)
                         {
                             <li class="disabled"><a href="#">&gt;</a></li>
