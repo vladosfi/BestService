@@ -30,7 +30,7 @@
             return query.To<T>().ToList();
         }
 
-        public async Task<int> AddAsync(string name, string description, string logoImg, string officialSite, string userId, string categoryId)
+        public async Task<int> AddAsync(string name, string description, string logoImg, string officialSite, string userId, int categoryId)
         {
             var company = new Company
             {
@@ -66,7 +66,7 @@
                 .FirstOrDefault();
         }
 
-        public async Task EditById(int id, string name, string description, string logoImage, string officialSite, string categoryId)
+        public async Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId)
         {
             var company = this.GetById(id);
 
@@ -116,6 +116,27 @@
             }
 
             return companies.To<T>().ToList();
+        }
+
+        public IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0)
+        {
+            var query = this.companyRepository
+                .All()
+                .OrderByDescending(c => c.CreatedOn)
+                .Where(c => c.CategoryId == categoryId)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
+        public int GetCountByCategoryId(int categoryId)
+        {
+            return this.companyRepository.All().Count(c => c.CategoryId == categoryId);
         }
     }
 }

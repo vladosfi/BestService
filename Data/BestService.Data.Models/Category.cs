@@ -6,12 +6,11 @@
 
     using BestService.Data.Common.Models;
 
-    public class Category : BaseDeletableModel<string>
+    public class Category : BaseDeletableModel<int>
     {
         public Category()
         {
             this.Companies = new HashSet<Company>();
-            this.Id = Guid.NewGuid().ToString();
         }
 
         [Required]

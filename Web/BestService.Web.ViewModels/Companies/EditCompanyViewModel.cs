@@ -26,7 +26,7 @@
 
         [Required]
         [Display(Name = "Category:")]
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         [Display(Name = "Logo Image:")]
         public string LogoImage { get; set; }

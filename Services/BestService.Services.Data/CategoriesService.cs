@@ -32,7 +32,8 @@
 
         public T GetByName<T>(string name)
         {
-            var category = this.categoriesRepository.All()
+            var category = this.categoriesRepository
+                .All()
                 .Where(x => x.Name == name)
                 .To<T>()
                 .FirstOrDefault();

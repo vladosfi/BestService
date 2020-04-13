@@ -51,6 +51,14 @@
     <Compile Remove="Migrations\20200401063738_Create entities.Designer.cs" />
     <Compile Remove="Migrations\20200401064825_Create entities.cs" />
     <Compile Remove="Migrations\20200401064825_Create entities.Designer.cs" />
+    <Compile Remove="Migrations\20200401072738_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200401072738_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200401075948_Update company entity.cs" />
+    <Compile Remove="Migrations\20200401075948_Update company entity.Designer.cs" />
+    <Compile Remove="Migrations\20200402072449_Modify Company.cs" />
+    <Compile Remove="Migrations\20200402072449_Modify Company.Designer.cs" />
+    <Compile Remove="Migrations\20200402084954_Modify Company entity.cs" />
+    <Compile Remove="Migrations\20200402084954_Modify Company entity.Designer.cs" />
     <Compile Remove="Migrations\20200402112905_Modify Company property.cs" />
     <Compile Remove="Migrations\20200402112905_Modify Company property.Designer.cs" />
     <Compile Remove="Migrations\20200403173347_AddRateing.cs" />
@@ -83,6 +91,8 @@
     <Compile Remove="Migrations\20200404145201_AddRating.Designer.cs" />
     <Compile Remove="Migrations\20200404145813_AddRating.cs" />
     <Compile Remove="Migrations\20200404145813_AddRating.Designer.cs" />
+    <Compile Remove="Migrations\20200404151803_AddRating.cs" />
+    <Compile Remove="Migrations\20200404151803_AddRating.Designer.cs" />
     <Compile Remove="Migrations\20200405062324_EditCompany.cs" />
     <Compile Remove="Migrations\20200405062324_EditCompany.Designer.cs" />
     <Compile Remove="Migrations\20200405062837_AddReview.cs" />
@@ -93,6 +103,14 @@
     <Compile Remove="Migrations\20200405092526_AddReview.Designer.cs" />
     <Compile Remove="Migrations\20200405093616_AddReview.cs" />
     <Compile Remove="Migrations\20200405093616_AddReview.Designer.cs" />
+    <Compile Remove="Migrations\20200405110118_AddVisit.cs" />
+    <Compile Remove="Migrations\20200405110118_AddVisit.Designer.cs" />
+    <Compile Remove="Migrations\20200405112405_EditVisit.cs" />
+    <Compile Remove="Migrations\20200405112405_EditVisit.Designer.cs" />
+    <Compile Remove="Migrations\20200413053410_Change Category Id.cs" />
+    <Compile Remove="Migrations\20200413053410_Change Category Id.Designer.cs" />
+    <Compile Remove="Migrations\20200413063615_Update Entities.cs" />
+    <Compile Remove="Migrations\20200413063615_Update Entities.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12671,6 +12671,21 @@ h1, h2, h3, h4, h5,
             border: 1px solid transparent;
         }
 
+        .block-27 ul li a:hover, .block-27 ul li:hover span {
+            background: #bdb495;
+            color: #fff;
+            border: 1px solid transparent;
+        }
+
+        .block-27 ul li.disabled a, .block-27 ul li.disabled span {
+            background: #c2bebe;
+            /*background :#bdb495;*/
+            color: #fff;
+            border: 1px solid transparent;
+        }
+
+        
+
 .aside-stretch {
     background: #fff;
 }

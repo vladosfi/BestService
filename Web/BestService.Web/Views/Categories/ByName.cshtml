@@ -52,13 +52,46 @@
             <div class="col text-center">
                 <div class="block-27">
                     <ul>
-                        <li><a href="#">&lt;</a></li>
-                        <li class="active"><span>1</span></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">&gt;</a></li>
+                        @if (Model.CurrentPage == 1)
+                        {
+                            <li class="disabled"><a href="#">&lt;</a></li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-route="bestServiceCategory"
+                                   asp-route-name="@Model.Name"
+                                   asp-route-page="@(Model.CurrentPage-1)">
+                                    &lt;
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= Model.PagesCount; i++)
+                        {
+                            var active = i == Model.CurrentPage ? "active" : string.Empty;
+                            <li class="@active">
+                                <a asp-route="bestServiceCategory"
+                                   asp-route-name="@Model.Name"
+                                   asp-route-page="@i">
+                                    @i
+                                </a>
+                            </li>
+                        }
+                        @if (Model.CurrentPage == Model.PagesCount)
+                        {
+                            <li class="disabled"><a href="#">&gt;</a></li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-route="bestServiceCategory"
+                                   asp-route-name="@Model.Name"
+                                   asp-route-page="@(Model.CurrentPage+1)">
+                                    &gt;
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

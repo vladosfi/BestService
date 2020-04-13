@@ -18,7 +18,7 @@ namespace BestService.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,20 +55,22 @@ namespace BestService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BaseCategories",
+                name: "Category",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Description = table.Column<string>(maxLength: 3000, nullable: false),
+                    Link = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BaseCategories", x => x.Id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -196,32 +198,7 @@ namespace BestService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Description = table.Column<string>(maxLength: 3000, nullable: false),
-                    Link = table.Column<string>(nullable: true),
-                    BaseCategoryId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_BaseCategories_BaseCategoryId",
-                        column: x => x.BaseCategoryId,
-                        principalTable: "BaseCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Companies",
+                name: "Company",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -232,24 +209,22 @@ namespace BestService.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     Description = table.Column<string>(maxLength: 3000, nullable: false),
-                    Rating = table.Column<float>(nullable: false),
-                    Image = table.Column<string>(nullable: true),
+                    LogoImage = table.Column<string>(nullable: true),
                     OfficialSite = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: false),
-                    CategoryId1 = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
+                    table.PrimaryKey("PK_Company", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Companies_Categories_CategoryId1",
-                        column: x => x.CategoryId1,
-                        principalTable: "Categories",
+                        name: "FK_Company_Category_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Category",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Companies_AspNetUsers_UserId",
+                        name: "FK_Company_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -257,7 +232,7 @@ namespace BestService.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comments",
+                name: "Comment",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -274,15 +249,75 @@ namespace BestService.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.PrimaryKey("PK_Comment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Companies_CompanyId1",
+                        name: "FK_Comment_Company_CompanyId1",
                         column: x => x.CompanyId1,
-                        principalTable: "Companies",
+                        principalTable: "Company",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comments_AspNetUsers_UserId",
+                        name: "FK_Comment_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rate",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    CompanyId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
+                    Stars = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rate", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rate_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rate_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Visit",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    Count = table.Column<long>(nullable: false),
+                    CompanyId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Visit", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Visit_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Visit_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -339,54 +374,69 @@ namespace BestService.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseCategories_IsDeleted",
-                table: "BaseCategories",
+                name: "IX_Category_IsDeleted",
+                table: "Category",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categories_BaseCategoryId",
-                table: "Categories",
-                column: "BaseCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_IsDeleted",
-                table: "Categories",
-                column: "IsDeleted");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comments_CompanyId1",
-                table: "Comments",
+                name: "IX_Comment_CompanyId1",
+                table: "Comment",
                 column: "CompanyId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_IsDeleted",
-                table: "Comments",
+                name: "IX_Comment_IsDeleted",
+                table: "Comment",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_UserId",
-                table: "Comments",
+                name: "IX_Comment_UserId",
+                table: "Comment",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_CategoryId1",
-                table: "Companies",
-                column: "CategoryId1");
+                name: "IX_Company_CategoryId",
+                table: "Company",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_IsDeleted",
-                table: "Companies",
+                name: "IX_Company_IsDeleted",
+                table: "Company",
                 column: "IsDeleted");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Companies_UserId",
-                table: "Companies",
+                name: "IX_Company_UserId",
+                table: "Company",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rate_CompanyId",
+                table: "Rate",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rate_UserId",
+                table: "Rate",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Settings_IsDeleted",
                 table: "Settings",
                 column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visit_CompanyId",
+                table: "Visit",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visit_IsDeleted",
+                table: "Visit",
+                column: "IsDeleted");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Visit_UserId",
+                table: "Visit",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -407,25 +457,28 @@ namespace BestService.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Comments");
+                name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "Rate");
 
             migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
+                name: "Visit");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Company");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Category");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "BaseCategories");
         }
     }
 }
