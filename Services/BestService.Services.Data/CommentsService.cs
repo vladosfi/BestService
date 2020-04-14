@@ -1,5 +1,6 @@
 ﻿namespace BestService.Services.Data
 {
+    using System.Linq;
     using System.Threading.Tasks;
 
     using BestService.Data.Common.Repositories;
@@ -28,6 +29,16 @@
             await this.commentRepo.AddAsync(comment);
             await this.commentRepo.SaveChangesAsync();
             return comment.Id;
+        }
+
+        public bool IsInCompanyId(int commentId, int companyId)
+        {
+            var commentCompanyId = this.commentRepo.All()
+                .Where(x => x.Id == commentId)
+                .Select(x => x.CompanyId)
+                .FirstOrDefault();
+
+            return commentCompanyId == companyId;
         }
     }
 }

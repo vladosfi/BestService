@@ -13701,6 +13701,7 @@ textarea.form-control {
                 .comment-list li .comment-body .reply:hover {
                     color: #fff;
                     background: black;
+                    cursor: pointer;
                 }
 
 .search-form {

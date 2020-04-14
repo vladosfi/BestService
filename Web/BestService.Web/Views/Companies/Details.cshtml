@@ -34,21 +34,19 @@
                         TempData.Remove("Edited");
                     }
                 }
+                <!-- the actual blog post: title/author/date/content -->
                 <h2 class="mb-3">@Model.Name</h2>
-                <small>
-                    <div>
-                        <span class="float-right"><i class="text-info fa fa-star"></i> </span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                        <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                        <span class="float-right mb-3">rating: </span>
-                        <span class="float-left mb-3" id="AjaxViews">views: @Model.Visit; </span>
-                        <span class="float-left mb-3"> comments: @Model.Comments.Count(); </span>
-                        <span class="float-left mb-3"> author: company@bestservice.com; </span>
-                        <span class="float-left mb-3"> created: @Model.Created; </span>
-                    </div>
-                </small>
+                <p class="lead">
+                    <i class="fa fa-user"></i> by <a href="">@Model.UserUsername</a>
+                    <span class="float-right"><i class="text-info fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
+                    <span class="float-right mb-3">rating: </span>
+                </p>
+                <hr>
+
                 <div>
                     <p>
                         <img src="@Model.ImageUri" alt="@Model.Name" class="img-fluid">
@@ -56,6 +54,25 @@
                 </div>
                 <div class="text-break">
                     <p>@Html.Raw(Model.SanitizedContent)</p>
+                </div>
+
+                <hr />
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <small><i class="fa fa-calendar"></i> Created on: @Model.Created</small>
+                        </div>
+                        <div class="col-md-auto">
+                            <small><i class="fa fa-comments"></i> Comments: @Model.Comments.Count()</small>
+                        </div>
+                        <div class="col col-lg-2">
+                            <small>
+                                <span><i class="icon-eye"></i><span id="AjaxViews"> Views: @Model.Visit</span>
+                            </small>
+                            @*<span><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a> <a href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a> <a href=""><span class="badge badge-info">HTML</span></a></span>*@
+                        </div>
+                    </div>
                 </div>
                 <div class="tag-widget post-tag-container mb-5 mt-5">
                     <div class="tagcloud">
@@ -65,8 +82,42 @@
                         <a href="#" class="tag-cloud-link">Travel</a>
                     </div>
                 </div>
+
                 @*<input id="showAddCommentForm" type="submit" value="Leave a comment" class="btn btn-primary btn-lg btn-block">*@
-                <button id="showAddCommentForm" type="button" class="btn btn-primary btn-lg btn-block">Leave a comment</button>
+                @*<button id="showAddCommentForm(0)" type="button" class="btn btn-primary btn-lg btn-block">Leave a comment</button>*@
+                <div class="tag-widget post-tag-container mb-5 mt-5"> <button type="button" class="btn btn-primary btn-lg btn-block" onclick="showAddCommentForm(0)">Leave a comment</button> </div>
+
+                <div class="pt-2 mt-2">
+                    <ul class="comment-list">
+                        @foreach (var comment in Model.Comments)
+                        {
+                            <li class="comment">
+                                <div class="vcard bio">
+                                    <img src="/images/person_1.jpg" alt="Image placeholder">
+                                </div>
+                                <div class="comment-body">
+                                    <h3>@comment.UserUserName</h3>
+                                    <div class="meta mb-2">@comment.CreatedOn</div>
+                                    <p>@Html.Raw(comment.SanitizedContent)</p>
+                                    <p><a class="reply" onclick="showAddCommentForm(@comment.Id)">Reply</a></p>
+                                </div>
+                                <ul class="children">
+                                    <li class="comment">
+                                        <div class="vcard bio">
+                                            <img src="/images/person_1.jpg" alt="Image placeholder">
+                                        </div>
+                                        <div class="comment-body">
+                                            <h3>John Doe</h3>
+                                            <div class="meta mb-2">June 27, 2019 at 2:21pm</div>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
+                                            <p><a class="reply" onclick="showAddCommentForm(@comment.Id)">Reply</a></p>
+                                        </div>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
                 <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
                 <script type="text/javascript">
                     tinymce.init({
@@ -91,36 +142,6 @@
                             <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
                         </div>
                     </form>
-                </div>
-
-                <div class="pt-2 mt-2">
-                    <ul class="comment-list">
-                        @foreach (var comment in Model.Comments)
-                        {
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="/images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>@comment.UserUserName</h3>
-                                    <div class="meta mb-2">@comment.CreatedOn</div>
-                                    <p>@Html.Raw(comment.SanitizedContent)</p>
-                                    <p><a href="#" class="reply">Reply</a></p>
-                                </div>
-                                <ul class="children">
-                                    <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="/images/person_1.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>John Doe</h3>
-                                            <div class="meta mb-2">June 27, 2019 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a href="#" class="reply">Reply</a></p>
-                                        </div>
-                                </ul>
-                            </li>
-                        }
                 </div>
             </div> <!-- .col-md-8 -->
 
@@ -179,12 +200,12 @@
                     <h3>Tag Cloud</h3>
                     <ul class="tagcloud m-0 p-0">
                         <a href="#" class="tag-cloud-link">School</a>
-                            <a href="#" class="tag-cloud-link">Kids</a>
-                            <a href="#" class="tag-cloud-link">Nursery</a>
-                            <a href="#" class="tag-cloud-link">Daycare</a>
-                            <a href="#" class="tag-cloud-link">Care</a>
-                            <a href="#" class="tag-cloud-link">Kindergarten</a>
-                            <a href="#" class="tag-cloud-link">Teacher</a>
+                        <a href="#" class="tag-cloud-link">Kids</a>
+                        <a href="#" class="tag-cloud-link">Nursery</a>
+                        <a href="#" class="tag-cloud-link">Daycare</a>
+                        <a href="#" class="tag-cloud-link">Care</a>
+                        <a href="#" class="tag-cloud-link">Kindergarten</a>
+                        <a href="#" class="tag-cloud-link">Teacher</a>
                     </ul>
                 </div>
             </div><!-- END COL -->
@@ -195,13 +216,13 @@
 
 @section Scripts{
     <script type="text/javascript">
-        document.body.onload = function () {
-            increaseVisits();
-        }
-        $("#showAddCommentForm").click(function () {
-
-            $("#AddCommentForm").toggle();
-        });
+        function showAddCommentForm(parentId) {
+            $("#AddCommentForm input[name='ParentId']").val(parentId);
+            $("#AddCommentForm").show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#AddCommentForm").offset().top
+            }, 1000)
+        };
         function increaseVisits() {
             var token = $("#visit input[name=__RequestVerificationToken]").val();
             var companyId = Number($("#visit input[name=company-id]").val());
@@ -215,9 +236,12 @@
                 dataType: "json",
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
-                    $('#AjaxViews').html('views: ' + data.visitCount);
+                    $('#AjaxViews').html(' Views: ' + data.visitCount);
                 }
             })
-        }
+        };
+        document.body.onload = function () {
+            increaseVisits();
+        };
     </script>
 }

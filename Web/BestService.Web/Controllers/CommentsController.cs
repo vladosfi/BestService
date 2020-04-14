@@ -37,9 +37,19 @@
                 return this.View(input);
             }
 
+            var parrentId = input.ParentId == 0 ? (int?)null : input.ParentId;
+
+            if (parrentId.HasValue)
+            {
+                if (!this.commentsService.IsInCompanyId(parrentId.Value, input.CompanyId))
+                {
+                    return this.BadRequest();
+                }
+            }
+
             var userId = this.userManager.GetUserId(this.User);
-            var commentId = await this.commentsService.CreateAsync(input.Content, userId, input.CompanyId, input.Rating);
-            return this.RedirectToAction("Details", "Companies", new { id = commentId });
+            var commentId = await this.commentsService.CreateAsync(input.Content, userId, input.CompanyId, input.Rating, parrentId);
+            return this.RedirectToAction("Details", "Companies", new { id = input.CompanyId });
         }
     }
 }
