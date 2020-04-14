@@ -1,8 +1,12 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
+    using System;
+    using System.Collections.Generic;
+
     using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using BestService.Web.ViewModels.Comments;
     using Ganss.XSS;
 
     public class CompanyDetailsViewModel : IMapFrom<Company>
@@ -23,8 +27,14 @@
 
         public string ImageUri => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
+        public DateTime CreatedOn { get; set; }
+
+        public string Created => this.CreatedOn.ToShortDateString();
+
         public string CategoryId { get; set; }
 
         public long Visit { get; set; }
+
+        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }

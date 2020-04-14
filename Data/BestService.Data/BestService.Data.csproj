@@ -111,6 +111,12 @@
     <Compile Remove="Migrations\20200413053410_Change Category Id.Designer.cs" />
     <Compile Remove="Migrations\20200413063615_Update Entities.cs" />
     <Compile Remove="Migrations\20200413063615_Update Entities.Designer.cs" />
+    <Compile Remove="Migrations\20200413161050_AddParrentComments.cs" />
+    <Compile Remove="Migrations\20200413161050_AddParrentComments.Designer.cs" />
+    <Compile Remove="Migrations\20200414063540_AddEntities.cs" />
+    <Compile Remove="Migrations\20200414063540_AddEntities.Designer.cs" />
+    <Compile Remove="Migrations\20200414063745_AddEntities.cs" />
+    <Compile Remove="Migrations\20200414063745_AddEntities.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

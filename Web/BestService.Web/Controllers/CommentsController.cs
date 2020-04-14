@@ -37,14 +37,9 @@
                 return this.View(input);
             }
 
-            var user = await this.userManager.GetUserAsync(this.User);
-            var commentId = await this.commentsService.CreateAsync(input.Content, user.Id, input.CompanyId, input.Rating);
-            return this.RedirectToAction(nameof(this.ById), new { id = commentId });
-        }
-
-        public IActionResult ById(int id)
-        {
-            return this.View();
+            var userId = this.userManager.GetUserId(this.User);
+            var commentId = await this.commentsService.CreateAsync(input.Content, userId, input.CompanyId, input.Rating);
+            return this.RedirectToAction("Details", "Companies", new { id = commentId });
         }
     }
 }

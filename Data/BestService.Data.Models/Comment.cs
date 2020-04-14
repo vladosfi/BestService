@@ -14,9 +14,13 @@
         public byte Rating { get; set; }
 
         [Required]
-        public string CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         public virtual Company Company { get; set; }
+
+        public int? ParrentId { get; set; }
+
+        public virtual Comment Parrent { get; set; }
 
         [Required]
         public string UserId { get; set; }

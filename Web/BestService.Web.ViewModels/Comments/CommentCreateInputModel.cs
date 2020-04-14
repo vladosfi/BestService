@@ -12,8 +12,8 @@
         [Display(Name = "Rating:")]
         public byte Rating { get; set; }
 
-        public string CompanyId { get; set; }
+        public int ParentId { get; set; }
 
-        public string UserId { get; set; }
+        public int CompanyId { get; set; }
     }
 }

@@ -14,7 +14,7 @@
             this.commentRepo = commentRepo;
         }
 
-        public async Task<int> CreateAsync(string content, string userId, string companyId, byte rating)
+        public async Task<int> CreateAsync(string content, string userId, int companyId, byte rating, int? parrentId = null)
         {
             var comment = new Comment
             {
@@ -22,6 +22,7 @@
                 Rating = rating,
                 CompanyId = companyId,
                 UserId = userId,
+                ParrentId = parrentId,
             };
 
             await this.commentRepo.AddAsync(comment);
