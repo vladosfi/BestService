@@ -21,7 +21,10 @@
                         <h3>@comment.UserUserName</h3>
                         <div class="meta mb-2"><time datetime="@Model.CreatedOn.ToString("O")"></time></div>
                         <p>@Html.Raw(comment.SanitizedContent)</p>
-                        <p><a class="reply" onclick="showAddCommentForm(@comment.Id)">Reply</a></p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <p><a class="reply" onclick="showAddCommentForm(@comment.Id, '@comment.UserUserName')">Reply</a></p>
+                        }
                         @{ DisplayComments(comment.Id); }
                     </div>
                 </li>
@@ -64,15 +67,16 @@
                 }
                 <!-- the actual blog post: title/author/date/content -->
                 <h2 class="mb-3">@Model.Name</h2>
-                <p class="lead">
+                <span class="float-left">
                     <i class="fa fa-user"></i> by <a href="">@Model.UserUsername</a>
-                    <span class="float-right"><i class="text-info fa fa-star"></i> </span>
-                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                    <span class="float-right"><i class="text-warning fa fa-star"></i> </span>
-                    <span class="float-right mb-3">rating: </span>
-                </p>
+                </span>
+                <span class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">
+                    <input type="radio" id="star5" name="rating" value="5" /><label class="rating-stars-labels" for="star5" title="5 star"></label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label class="rating-stars-labels" for="star4" title="4 star"></label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label class="rating-stars-labels" for="star3" title="3 star"></label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label class="rating-stars-labels" for="star2" title="2 star"></label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label class="rating-stars-labels" for="star1" title="1 star"></label>
+                </span>
                 <hr>
 
                 <div>
@@ -95,9 +99,7 @@
                             <small><i class="fa fa-comments"></i> Comments: @Model.Comments.Count()</small>
                         </div>
                         <div class="col col-lg-2">
-                            <small>
-                                <span><i class="icon-eye"></i><span id="AjaxViews"> Views: @Model.Visit</span>
-                            </small>
+                            <small><i class="icon-eye"></i><span id="AjaxViews"> Views: @Model.Visit </span></small>
                             @*<span><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a> <a href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a> <a href=""><span class="badge badge-info">HTML</span></a></span>*@
                         </div>
                     </div>
@@ -113,8 +115,10 @@
 
                 @*<input id="showAddCommentForm" type="submit" value="Leave a comment" class="btn btn-primary btn-lg btn-block">*@
                 @*<button id="showAddCommentForm(0)" type="button" class="btn btn-primary btn-lg btn-block">Leave a comment</button>*@
-                <div class="tag-widget post-tag-container mb-5 mt-5"> <button type="button" class="btn btn-primary btn-lg btn-block" onclick="showAddCommentForm(0)">Leave a comment</button> </div>
-
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="tag-widget post-tag-container mb-5 mt-5"> <button type="button" class="btn btn-primary btn-lg btn-block" onclick="showAddCommentForm(0)">Leave a comment</button> </div>
+                }
                 <div class="pt-2 mt-2">
                     @{DisplayComments(null);}
                 </div>
@@ -131,9 +135,7 @@
                         <input type="hidden" name="CompanyId" value="@this.Model.Id" />
                         <input type="hidden" name="ParentId" value="0" />
                         <div>
-                            <label asp-for="Rating"></label>
-                            <input asp-for="Rating" min="1" max="5" class="form-control" />
-                            <span asp-validation-for="Rating" class="text-danger"></span>
+                            <label id="ReplayTo"></label>
                         </div>
                         <div class="form-group">
                             <label for="Content"></label>
@@ -216,8 +218,19 @@
 
 @section Scripts{
     <script type="text/javascript">
-        function showAddCommentForm(parentId) {
+        function showAddCommentForm(parentId, userName = null) {
             $("#AddCommentForm input[name='ParentId']").val(parentId);
+
+            if (parentId == 0) {
+                $("#ReplayTo").hide();
+            }
+            else {
+                console.log("Reply to: " + userName);
+                $("#ReplayTo").empty();
+                $("#ReplayTo").show();
+                $("#ReplayTo").append("Reply to: <strong>" + userName + "</strong>");
+            }
+
             $("#AddCommentForm").show();
             $([document.documentElement, document.body]).animate({
                 scrollTop: $("#AddCommentForm").offset().top
