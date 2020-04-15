@@ -27,9 +27,9 @@
 
         public string ImageUri => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
+        // public string Created => this.CreatedOn.ToShortDateString();
         public DateTime CreatedOn { get; set; }
 
-        public string Created => this.CreatedOn.ToShortDateString();
 
         public string CategoryId { get; set; }
 

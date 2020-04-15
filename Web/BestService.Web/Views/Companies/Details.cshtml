@@ -1,7 +1,35 @@
 ﻿@model BestService.Web.ViewModels.Companies.CompanyDetailsViewModel
 @{
     ViewData["Title"] = @Model.Name + " Details";
+
+    void DisplayComments(int? parrentId)
+    {
+        var comments = Model.Comments.Where(x => x.ParrentId == parrentId);
+        if (!comments.Any())
+        {
+            return;
+        }
+
+        @foreach (var comment in comments)
+        {
+            <ul class="comment-list">
+                <li class="comment">
+                    <div class="vcard bio">
+                        <img src="/images/person_1.jpg" alt="Image placeholder">
+                    </div>
+                    <div class="comment-body">
+                        <h3>@comment.UserUserName</h3>
+                        <div class="meta mb-2"><time datetime="@Model.CreatedOn.ToString("O")"></time></div>
+                        <p>@Html.Raw(comment.SanitizedContent)</p>
+                        <p><a class="reply" onclick="showAddCommentForm(@comment.Id)">Reply</a></p>
+                        @{ DisplayComments(comment.Id); }
+                    </div>
+                </li>
+            </ul>
+        }
+    }
 }
+
 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
     <div class="overlay"></div>
@@ -61,7 +89,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <small><i class="fa fa-calendar"></i> Created on: @Model.Created</small>
+                            <small><i class="fa fa-calendar"></i> Created on: <time datetime="@Model.CreatedOn.ToString("O")"></time></small>
                         </div>
                         <div class="col-md-auto">
                             <small><i class="fa fa-comments"></i> Comments: @Model.Comments.Count()</small>
@@ -88,34 +116,7 @@
                 <div class="tag-widget post-tag-container mb-5 mt-5"> <button type="button" class="btn btn-primary btn-lg btn-block" onclick="showAddCommentForm(0)">Leave a comment</button> </div>
 
                 <div class="pt-2 mt-2">
-                    <ul class="comment-list">
-                        @foreach (var comment in Model.Comments)
-                        {
-                            <li class="comment">
-                                <div class="vcard bio">
-                                    <img src="/images/person_1.jpg" alt="Image placeholder">
-                                </div>
-                                <div class="comment-body">
-                                    <h3>@comment.UserUserName</h3>
-                                    <div class="meta mb-2">@comment.CreatedOn</div>
-                                    <p>@Html.Raw(comment.SanitizedContent)</p>
-                                    <p><a class="reply" onclick="showAddCommentForm(@comment.Id)">Reply</a></p>
-                                </div>
-                                <ul class="children">
-                                    <li class="comment">
-                                        <div class="vcard bio">
-                                            <img src="/images/person_1.jpg" alt="Image placeholder">
-                                        </div>
-                                        <div class="comment-body">
-                                            <h3>John Doe</h3>
-                                            <div class="meta mb-2">June 27, 2019 at 2:21pm</div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                            <p><a class="reply" onclick="showAddCommentForm(@comment.Id)">Reply</a></p>
-                                        </div>
-                                </ul>
-                            </li>
-                        }
-                    </ul>
+                    @{DisplayComments(null);}
                 </div>
 
                 <script src="/lib/tinymce/tinymce.min.js" type="text/javascript"></script>
@@ -212,7 +213,6 @@
         </div>
     </div>
 </section>
-
 
 @section Scripts{
     <script type="text/javascript">

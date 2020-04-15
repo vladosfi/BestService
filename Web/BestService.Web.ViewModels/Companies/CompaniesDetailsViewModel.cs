@@ -32,9 +32,8 @@
             }
         }
 
+        // public string Created => this.CreatedOn.ToUniversalTime().ToShortDateString();
         public DateTime CreatedOn { get; set; }
-
-        public string Created => this.CreatedOn.ToUniversalTime().ToShortDateString();
 
         public string UserUsername { get; set; }
 
