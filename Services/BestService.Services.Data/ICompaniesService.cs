@@ -11,9 +11,7 @@
 
         Task<int> AddAsync(string name, string description, string image, string officialSite, string userId, int categoryId);
 
-        T GetByIdTemplate<T>(int id);
-
-        Company GetById(int id);
+        T GetById<T>(int id);
 
         Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId);
 

@@ -47,7 +47,7 @@
             return company.Id;
         }
 
-        public T GetByIdTemplate<T>(int id)
+        public T GetById<T>(int id)
         {
             var company = this.companyRepository
                 .All()
@@ -58,17 +58,9 @@
             return company;
         }
 
-        public Company GetById(int id)
-        {
-            return this.companyRepository
-                .All()
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-        }
-
         public async Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId)
         {
-            var company = this.GetById(id);
+            var company = this.GetById<Company>(id);
 
             company.Name = name;
             company.Description = description;

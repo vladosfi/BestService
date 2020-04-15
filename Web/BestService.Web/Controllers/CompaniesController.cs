@@ -35,7 +35,7 @@
 
         public IActionResult Details(int id)
         {
-            var viewModel = this.companiesService.GetByIdTemplate<CompanyDetailsViewModel>(id);
+            var viewModel = this.companiesService.GetById<CompanyDetailsViewModel>(id);
 
             if (viewModel == null)
             {
@@ -103,7 +103,7 @@
         public IActionResult Edit(int id)
         {
             var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
-            var company = this.companiesService.GetByIdTemplate<EditCompanyViewModel>(id);
+            var company = this.companiesService.GetById<EditCompanyViewModel>(id);
 
             var viewModel = new EditCompanyViewModel
             {
