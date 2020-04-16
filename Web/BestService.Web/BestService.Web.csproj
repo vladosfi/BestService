@@ -253,6 +253,9 @@
     <Content Update="wwwroot\images\image_6.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Update="wwwroot\images\IT.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot\images\loc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

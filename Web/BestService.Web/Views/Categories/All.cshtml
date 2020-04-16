@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Company Categories";
+}
+<section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+            <div class="col-md-9 ftco-animate text-center">
+                <h1 class="mb-2 bread">@ViewData["Title"]</h1>
+                <p class="breadcrumbs"><span class="mr-2"><a asp-controller="Home" asp-action="Index">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a asp-controller="Categories" asp-action="GetList">All Categories <i class="ion-ios-arrow-forward"></i></a></span></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-2">
+            <div class="col-md-8 text-center heading-section ftco-animate">
+                <h1 class="mb-4">@ViewData["Title"]</h1>
+                <p>List of all companies on our site</p>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var category in Model.Categories)
+                {
+                    <div class="col-lg-4 d-flex">
+                        <div class="card mb-3">
+                            <img class="card-img-top" src="../images/it.jpg" alt="@category.Name">
+                            <div class="card-body">
+                                <h2 class="card-title">@category.Name</h2>
+                                <p class="card-text">@category.Description</p>
+                                <p class="card-text"><small class="text-muted">Companies in category: @category.CompaniesCount</small></p>
+                                <a href="@category.Url" class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="../images/it.jpg" alt="@category.Name">
+                        <div class="card-body">
+                            <h2 class="card-title">@category.Name</h2>
+                            <p class="card-text">@category.Description</p>
+                            <p class="card-text"><small class="text-muted">Companies in category: @category.CompaniesCount</small></p>
+                            <a href="@category.Url" class="stretched-link"></a>
+                        </div>
+                    </div>*@
+                }
+            </div>
+        </div>
+    </div>
+</section>

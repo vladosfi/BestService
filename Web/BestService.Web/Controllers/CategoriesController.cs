@@ -45,5 +45,15 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult All()
+        {
+            var viewModel = new AllCategoriesViewModel
+            {
+                Categories = this.categoriesService.GetAll<CategoriesViewModel>(),
+            };
+
+            return this.View(viewModel);
+        }
     }
 }
