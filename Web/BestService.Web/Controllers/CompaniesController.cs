@@ -1,5 +1,6 @@
 ﻿namespace BestService.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using BestService.Common;
@@ -16,6 +17,8 @@
 
     public class CompaniesController : Controller
     {
+        private const int ItemsPerPage = 6;
+
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICompaniesService companiesService;
         private readonly ICategoriesService categoriesService;
@@ -45,12 +48,31 @@
             return this.View(viewModel);
         }
 
-        public IActionResult GetList()
+        public IActionResult GetList(int page)
         {
+            page = page <= 0 ? 1 : page;
+
             var viewModel = new CompanyViewModel
             {
-                Companies = this.companiesService.GetAll<CompaniesDetailsViewModel>(),
+                Companies = this.companiesService
+                .GetByPages<CompaniesDetailsViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage),
             };
+
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
+
+            int count = this.companiesService.GetCount();
+
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+
+            if (viewModel.PagesCount == 0)
+            {
+                viewModel.PagesCount = 1;
+            }
+
+            viewModel.CurrentPage = page;
 
             return this.View(viewModel);
         }

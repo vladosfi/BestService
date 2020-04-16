@@ -9,6 +9,10 @@
     {
         IEnumerable<T> GetAll<T>(int? count = null);
 
+        int GetCount();
+
+        IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0);
+
         Task<int> AddAsync(string name, string description, string image, string officialSite, string userId, int categoryId);
 
         T GetById<T>(int id);

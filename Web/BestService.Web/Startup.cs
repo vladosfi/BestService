@@ -130,6 +130,7 @@
                 endpoints =>
                     {
                         endpoints.MapControllerRoute("bestServiceCategory", "c/{name:minlength(2)}", new { controller = "Categories", action = "ByName" });
+                        endpoints.MapControllerRoute("bestServiceCompany", "Companies/", new { controller = "Companies", action = "GetList" });
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

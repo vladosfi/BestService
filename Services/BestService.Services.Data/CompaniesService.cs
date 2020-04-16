@@ -18,6 +18,21 @@
             this.companyRepository = companyRepository;
         }
 
+        public IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0)
+        {
+            var query = this.companyRepository
+                .All()
+                .OrderByDescending(c => c.CreatedOn)
+                .Skip(skip);
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return query.To<T>().ToList();
+        }
+
         public IEnumerable<T> GetAll<T>(int? count = null)
         {
             IQueryable<Company> query = this.companyRepository.All().OrderBy(x => x.Name);
@@ -45,6 +60,11 @@
             await this.companyRepository.AddAsync(company);
             await this.companyRepository.SaveChangesAsync();
             return company.Id;
+        }
+
+        public int GetCount()
+        {
+            return this.companyRepository.All().Count();
         }
 
         public T GetById<T>(int id)
