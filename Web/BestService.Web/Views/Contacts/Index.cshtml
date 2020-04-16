@@ -30,7 +30,7 @@
                         <div class="icon">
                             <span class="icon-mobile-phone"></span>
                         </div>
-                        <p><span>Phone:</span> <a href="tel://1234567920">+ 1235 2355 98</a></p>
+                        <p><span>Phone:</span> <a href="tel://1234567920">+ 359 887 390025</a></p>
                     </div>
                     <div class="col-md-4 text-center py-4">
                         <div class="icon">
@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="row block-9 justify-content-center mb-5">
-            <div class="col-md-8 mb-md-5">
+            <div class="col-md-8 mb-md-1">
                 <h2 class="text-center">If you got any questions <br>please do not hesitate to send us a message</h2>
                 <form action="#" class="bg-light p-5 contact-form">
                     <div class="form-group">
@@ -66,13 +66,30 @@
         </div>
     </div>
 </section>
-
 <section class="ftco-section ftco-no-pb ftco-no-pt">
-    <div class="container-fluid px-0">
-        <div class="row justify-content-center">
-            <div class="col-md-11">
-                <div id="map" class="bg-white"></div>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12">
+            <div id="map" class="bg-white">
+                <div id="map">
+                    <script>
+                        // Initialize and add the map
+                        function initMap() {
+                            // The location of Uluru
+                            var uluru = { lat: 43.2046881, lng: 27.9129942 };
+                            // The map, centered at Uluru
+                            var map = new google.maps.Map(
+                                document.getElementById('map'), { zoom: 12, center: uluru });
+                            // The marker, positioned at Uluru
+                            var marker = new google.maps.Marker({ position: uluru, map: map });
+                        }
+                    </script>
+                    <script async defer
+                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPVPaV_EfBHZ1D04h4U4j1sNfDNVL1ZEU&callback=initMap">
+                    </script>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+
