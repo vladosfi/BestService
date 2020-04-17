@@ -1,6 +1,5 @@
 ﻿namespace BestService.Data.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -21,7 +20,7 @@
         [MaxLength(3000)]
         public string Description { get; set; }
 
-        public string Link { get; set; }
+        public string LogoImage { get; set; }
 
         public virtual ICollection<Company> Companies { get; set; }
     }

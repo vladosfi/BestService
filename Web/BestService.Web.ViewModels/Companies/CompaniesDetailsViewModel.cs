@@ -40,8 +40,6 @@
 
         public int Rating { get; set; }
 
-        public int VisitId { get; set; }
-
         public virtual ICollection<Rate> Ratings { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }

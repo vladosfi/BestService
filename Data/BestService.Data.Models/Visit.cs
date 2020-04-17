@@ -6,7 +6,7 @@
 
     public class Visit : BaseDeletableModel<int>
     {
-        public long Count { get; set; }
+        public int Count { get; set; }
 
         [Required]
         public int CompanyId { get; set; }

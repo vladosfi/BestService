@@ -53,7 +53,9 @@
 
         public int Rating { get; set; }
 
-        public int VisitId { get; set; }
+        public int VisitCount => this.Visits.Where(c => c.CompanyId == this.Id).Sum(v => v.Count);
+
+        public virtual ICollection<Visit> Visits { get; set; }
 
         public virtual ICollection<Rate> Ratings { get; set; }
 

@@ -13,8 +13,6 @@
 
         public string Description { get; set; }
 
-        public string Link { get; set; }
-
         public int PagesCount { get; set; }
 
         public int CurrentPage { get; set; }
