@@ -1,4 +1,4 @@
-﻿
+﻿@model BestService.Web.ViewModels.Contacts.ContactsViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -84,7 +84,7 @@
                         }
                     </script>
                     <script async defer
-                            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPVPaV_EfBHZ1D04h4U4j1sNfDNVL1ZEU&callback=initMap">
+                            src="https://maps.googleapis.com/maps/api/js?key=@Model.ApyKey&callback=initMap">
                     </script>
                 </div>
             </div>
