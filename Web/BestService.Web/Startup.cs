@@ -59,6 +59,7 @@
             });
 
             services.Configure<ContactsViewModel>(this.configuration.GetSection("GoogleMaps"));
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApyKey"]));
 
             services.AddRazorPages();
 
@@ -70,7 +71,6 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<ICommentsService, CommentsService>();

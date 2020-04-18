@@ -1,26 +1,54 @@
 ﻿namespace BestService.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
+    using AngleSharp.Browser.Dom;
+    using BestService.Services.Messaging;
     using BestService.Web.ViewModels.Contacts;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
 
     public class ContactsController : Controller
     {
-        private readonly IOptions<ContactsViewModel> appSettings;
+        private const string SenderAppendData = "Sender email: ";
+        private const string FromEmail = "sfi@abv.bg";
+        private const string ToEmail = "vladosfi@gmail.com";
 
-        public ContactsController(IOptions<ContactsViewModel> contactsSettings)
+        private readonly IOptions<ContactsViewModel> appSettings;
+        private readonly IEmailSender emailSender;
+
+        public ContactsController(
+            IOptions<ContactsViewModel> contactsSettings,
+            IEmailSender emailSender)
         {
             this.appSettings = contactsSettings;
+            this.emailSender = emailSender;
         }
 
         public IActionResult Index()
         {
             var model = new ContactsViewModel
             {
-                ApyKey = this.appSettings.Value.ApyKey,
+                GoogleMapsApyKey = this.appSettings.Value.GoogleMapsApyKey,
             };
 
             return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendEmail(SendEmailInputModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction(nameof(this.Index));
+            }
+
+            var content = SenderAppendData + input.SendersEmail + Environment.NewLine + input.HtmlContent;
+
+            await this.emailSender.SendEmailAsync(FromEmail, input.FromName, ToEmail, input.Subject, content);
+
+            return this.RedirectToAction(nameof(this.Index));
         }
     }
 }
