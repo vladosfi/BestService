@@ -42,5 +42,7 @@
         public const string ErrorStatusInternalServerError = "Internal Server Error - server was unable to finish processing the request";
 
         public const string ErrorStatusOther = "That’s odd... Something we didn't expect happened";
+
+        public const string SystemSenderMail = "sfi@abv.bg";
     }
 }

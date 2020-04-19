@@ -24,6 +24,7 @@
     <ProjectReference Include="..\..\BestService.Common\BestService.Common.csproj" />
     <ProjectReference Include="..\..\Data\BestService.Data.Models\BestService.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\BestService.Services.Mapping\BestService.Services.Mapping.csproj" />
+    <ProjectReference Include="..\BestService.Web.Infrastructure\BestService.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
