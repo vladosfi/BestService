@@ -12,7 +12,7 @@
     using BestService.Services.Mapping;
     using BestService.Services.Messaging;
     using BestService.Web.ViewModels;
-    using BestService.Web.ViewModels.Contacts;
+    using BestService.Web.ViewModels.Maps;
     using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -58,8 +58,8 @@
                 options.HeaderName = "X-CSRF-TOKEN";
             });
 
-            services.Configure<ContactsViewModel>(this.configuration.GetSection("GoogleMaps"));
-            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApyKey"]));
+            services.Configure<GoogleMapsViewModel>(this.configuration.GetSection("GoogleMaps"));
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:ApiKey"]));
 
             services.AddRazorPages();
 
