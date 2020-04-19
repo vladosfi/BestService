@@ -14,7 +14,19 @@
         </div>
     </div>
 </section>
+@{
+    if (TempData.ContainsKey("Success"))
+    {
 
+        <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+            <strong>Message sended!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        TempData.Remove("Success");
+    }
+}
 <section class="ftco-section contact-section">
     <div class="container">
         <div class="row d-flex mb-5 contact-info justify-content-center">
@@ -41,10 +53,11 @@
                 </div>
             </div>
         </div>
+
         <div class="row block-9 justify-content-center mb-5">
             <div class="col-md-8 mb-md-1">
                 <h2 class="text-center">If you got any questions <br>please do not hesitate to send us a message</h2>
-                <form asp-controller="Contacts" asp-action="SendEmail" method="post" class="bg-light p-5 contact-form">
+                <form asp-controller="Contacts" asp-action="Index" method="post" class="bg-light p-5 contact-form">
                     <div class="form-group">
                         <input type="text" asp-for="FromName" class="form-control" placeholder="Your Name" />
                         <span asp-validation-for="FromName" class="text-danger"></span>
