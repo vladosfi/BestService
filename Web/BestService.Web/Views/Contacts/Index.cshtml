@@ -1,4 +1,5 @@
-﻿@model BestService.Web.ViewModels.Contacts.ContactsInputModel
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@model BestService.Web.ViewModels.Contacts.ContactsInputModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -19,7 +20,7 @@
     {
 
         <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
-            <strong>Message sended!</strong>
+            <strong>Message sent!</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -71,12 +72,13 @@
                         <span asp-validation-for="Subject" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <textarea asp-for="HtmlContent" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-                        <span asp-validation-for="HtmlContent" class="text-danger"></span>
+                        <textarea asp-for="Content" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
                     </div>
+                    <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
                 </form>
 
             </div>
@@ -85,5 +87,39 @@
 </section>
 
 <section class="ftco-section ftco-no-pb ftco-no-pt">
-    <vc:maps></vc:maps>
+    <div class="d-flex justify-content-center">
+        <div class="col-md-12">
+            <div id="map" class="bg-white">
+                <div id="map">
+                    <script>
+                        // Initialize and add the map
+                        function initMap() {
+                            // The location of Uluru
+                            var uluru = { lat: 43.2046881, lng: 27.9129942 };
+                            // The map, centered at Uluru
+                            var map = new google.maps.Map(
+                                document.getElementById('map'), { zoom: 12, center: uluru });
+                            // The marker, positioned at Uluru
+                            var marker = new google.maps.Marker({ position: uluru, map: map });
+                        }
+                    </script>
+                    <script async defer
+                            src="https://maps.googleapis.com/maps/api/js?key=@this.Configuration["GoogleMaps:ApiKey"]&callback=initMap">
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:Key"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:Key"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}

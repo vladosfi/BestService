@@ -1,9 +1,7 @@
 ﻿namespace BestService.Web.Controllers
 {
-    using System;
     using System.Threading.Tasks;
 
-    using AngleSharp.Browser.Dom;
     using BestService.Common;
     using BestService.Services.Messaging;
     using BestService.Web.ViewModels.Contacts;
@@ -36,7 +34,7 @@
                 input.FromName,
                 input.SendersEmail,
                 input.Subject,
-                input.HtmlContent);
+                input.Content);
 
             this.TempData["Success"] = true;
 
