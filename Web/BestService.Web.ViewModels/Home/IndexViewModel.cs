@@ -4,7 +4,13 @@
 
     public class IndexViewModel
     {
-        public IEnumerable<IndexCategoryViewModel> Categories { get; set; }
+        public int CompaniesCount { get; set; }
+
+        public int CommentsCount { get; set; }
+
+        public int RateCount { get; set; }
+
+        public int Subscribers { get; set; }
 
         public IEnumerable<IndexCompanyDetailsViewModel> MostRecentCompanies { get; set; }
 

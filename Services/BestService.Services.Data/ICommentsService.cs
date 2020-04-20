@@ -7,5 +7,7 @@
         Task<int> CreateAsync(string content, string userId, int companyId, byte rating, int? parrentId = null);
 
         bool IsInCompanyId(int commentId, int companyId);
+
+        Task<int> GetCountAsync();
     }
 }

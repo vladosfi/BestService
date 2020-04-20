@@ -48,7 +48,7 @@
             return this.View(viewModel);
         }
 
-        public IActionResult GetList(int page)
+        public async Task<IActionResult> GetList(int page)
         {
             page = page <= 0 ? 1 : page;
 
@@ -63,7 +63,7 @@
                 return this.NotFound();
             }
 
-            int count = this.companiesService.GetCount();
+            int count = await this.companiesService.GetCountAsync();
 
             viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
 

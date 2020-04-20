@@ -9,7 +9,7 @@
     {
         IEnumerable<T> GetAll<T>(int? count = null);
 
-        int GetCount();
+        Task<int> GetCountAsync();
 
         IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0);
 

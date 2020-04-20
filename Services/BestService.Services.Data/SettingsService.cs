@@ -2,10 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class SettingsService : ISettingsService
     {
@@ -16,9 +18,9 @@
             this.settingsRepository = settingsRepository;
         }
 
-        public int GetCount()
+        public async Task<int> GetCountAsync()
         {
-            return this.settingsRepository.All().Count();
+            return await this.settingsRepository.AllAsNoTracking().CountAsync();
         }
 
         public IEnumerable<T> GetAll<T>()

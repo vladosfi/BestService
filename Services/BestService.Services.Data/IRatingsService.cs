@@ -11,5 +11,7 @@
         int GetAvgCompanyRate(int companyId);
 
         int GetCompanyReview(int companyId);
+
+        Task<int> GetCountAsync();
     }
 }

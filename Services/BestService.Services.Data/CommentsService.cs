@@ -5,6 +5,7 @@
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class CommentsService : ICommentsService
     {
@@ -29,6 +30,11 @@
             await this.commentRepo.AddAsync(comment);
             await this.commentRepo.SaveChangesAsync();
             return comment.Id;
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await this.commentRepo.AllAsNoTracking().CountAsync();
         }
 
         public bool IsInCompanyId(int commentId, int companyId)

@@ -1,8 +1,9 @@
 ﻿namespace BestService.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
+
     using BestService.Services.Data;
     using BestService.Web.ViewModels.Administration.Dashboard;
-
     using Microsoft.AspNetCore.Mvc;
 
     public class DashboardController : AdministrationController
@@ -14,9 +15,9 @@
             this.settingsService = settingsService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var viewModel = new IndexViewModel { SettingsCount = this.settingsService.GetCount(), };
+            var viewModel = new IndexViewModel { SettingsCount = await this.settingsService.GetCountAsync() };
             return this.View(viewModel);
         }
     }

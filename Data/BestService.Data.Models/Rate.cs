@@ -4,7 +4,7 @@
 
     using BestService.Data.Common.Models;
 
-    public class Rate : BaseModel<int>
+    public class Rate : BaseDeletableModel<int>
     {
         [Required]
         public int CompanyId { get; set; }

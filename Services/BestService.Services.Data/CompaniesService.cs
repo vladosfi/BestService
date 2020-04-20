@@ -7,6 +7,7 @@
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class CompaniesService : ICompaniesService
     {
@@ -62,9 +63,9 @@
             return company.Id;
         }
 
-        public int GetCount()
+        public async Task<int> GetCountAsync()
         {
-            return this.companyRepository.All().Count();
+            return await this.companyRepository.AllAsNoTracking().CountAsync();
         }
 
         public T GetById<T>(int id)

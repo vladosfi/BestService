@@ -44,5 +44,7 @@
         public const string ErrorStatusOther = "That’s odd... Something we didn't expect happened";
 
         public const string SystemSenderMail = "sfi@abv.bg";
+
+        public const string LocalIp = "127.0.0.1";
     }
 }

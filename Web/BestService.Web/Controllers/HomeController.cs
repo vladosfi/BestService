@@ -1,7 +1,7 @@
 ﻿namespace BestService.Web.Controllers
 {
     using System.Diagnostics;
-
+    using System.Threading.Tasks;
     using BestService.Common;
     using BestService.Services.Data;
     using BestService.Web.ViewModels;
@@ -13,20 +13,32 @@
     {
         private readonly ICategoriesService categoriesService;
         private readonly ICompaniesService companiesService;
+        private readonly ICommentsService commentsService;
+        private readonly IRatingsService ratingsService;
+        private readonly ISubscribesService subscribesService;
 
         public HomeController(
             ICategoriesService categoriesService,
-            ICompaniesService companiesService)
+            ICompaniesService companiesService,
+            ICommentsService commentsService,
+            IRatingsService ratingsService,
+            ISubscribesService subscribesService)
         {
             this.categoriesService = categoriesService;
             this.companiesService = companiesService;
+            this.commentsService = commentsService;
+            this.ratingsService = ratingsService;
+            this.subscribesService = subscribesService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var viewModel = new IndexViewModel
             {
-                Categories = this.categoriesService.GetAll<IndexCategoryViewModel>(),
+                CompaniesCount = await this.companiesService.GetCountAsync(),
+                CommentsCount = await this.commentsService.GetCountAsync(),
+                RateCount = await this.ratingsService.GetCountAsync(),
+                Subscribers = await this.subscribesService.GetCountAsync(),
                 MostRecentCompanies = this.companiesService.GetRecentlyAdded<IndexCompanyDetailsViewModel>(3),
                 MostCommentedCompanies = this.companiesService.GetMostCommented<IndexCompanyDetailsViewModel>(3),
             };

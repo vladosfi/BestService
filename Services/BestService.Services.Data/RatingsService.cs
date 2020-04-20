@@ -6,6 +6,7 @@
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
+    using Microsoft.EntityFrameworkCore;
 
     public class RatingsService : IRatingsService
     {
@@ -54,6 +55,11 @@
         {
             var rateSum = this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
             return rateSum;
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            return await this.ratingRepository.AllAsNoTracking().CountAsync();
         }
 
         private static Rate CreateRate(int companyId, string userId, int stars)

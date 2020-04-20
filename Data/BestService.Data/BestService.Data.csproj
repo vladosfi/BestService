@@ -117,6 +117,8 @@
     <Compile Remove="Migrations\20200414063540_AddEntities.Designer.cs" />
     <Compile Remove="Migrations\20200414063745_AddEntities.cs" />
     <Compile Remove="Migrations\20200414063745_AddEntities.Designer.cs" />
+    <Compile Remove="Migrations\20200420053253_AddSubscribe.cs" />
+    <Compile Remove="Migrations\20200420053253_AddSubscribe.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

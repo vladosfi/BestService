@@ -33,6 +33,11 @@
         [Authorize]
         public async Task<ActionResult<RateResponseModel>> Rate(RateInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NoContent();
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             await this.ratingsService.RateAsync(input.CompanyId, userId, input.Stars);
             var stars = this.ratingsService.GetRating(input.CompanyId);

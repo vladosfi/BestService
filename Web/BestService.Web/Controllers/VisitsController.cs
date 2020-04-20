@@ -26,6 +26,11 @@
         [HttpPost]
         public async Task<ActionResult<VisitResponseModel>> Visit(VisitInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.NoContent();
+            }
+
             var userId = this.userManager.GetUserId(this.User);
             var visitCount = await this.visitsService.IncreaseVisit(input.CompanyId, userId);
 

@@ -3,7 +3,6 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using BestService.Common;
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using Microsoft.AspNetCore.Identity;
@@ -11,14 +10,12 @@
     public class VisitsService : IVisitsService
     {
         private readonly IDeletableEntityRepository<Visit> visitRepository;
-        private readonly UserManager<ApplicationUser> userManager;
 
         public VisitsService(
             IDeletableEntityRepository<Visit> visitRepository,
             UserManager<ApplicationUser> userManager)
         {
             this.visitRepository = visitRepository;
-            this.userManager = userManager;
         }
 
         public async Task<long> IncreaseVisit(int companyId, string userId)
@@ -48,7 +45,7 @@
 
         public long GetCompanyVisitCount(int companyId)
         {
-            var visitCount = this.visitRepository.All()
+            var visitCount = this.visitRepository.AllAsNoTracking()
                 .Where(r => r.CompanyId == companyId)
                 .Sum(r => r.Count);
 
