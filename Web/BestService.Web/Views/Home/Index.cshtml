@@ -71,20 +71,13 @@
                         <div class="text bg-white p-4">
                             <h3 class="heading"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">@company.ShortName</a></h3>
                             <p>@company.ShortDescription</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted float-left">
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                            </small>
-                            <small class="text-muted float-right">
-                                <a href="#" class="mr-2"><span class="icon-eye-slash"></span> @company.VisitCount</a>
-                                <a href="#" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
-                            </small>
-                            <div class="clearfix"></div>
+                            <div class="d-flex align-items-center mt-4">
+                                <p class="mb-0"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                <p class="ml-auto mb-0">
+                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="mr-2">Rating</a>
+                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="meta-chat"><span class="icon-star"></span> @company.Rating</a>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -173,10 +166,10 @@
                             <h3 class="heading"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id">@company.ShortName</a></h3>
                             <p>@company.ShortDescription</p>
                             <div class="d-flex align-items-center mt-4">
-                                <p class="mb-0"><a href="#" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
+                                <p class="mb-0"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id"  class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
                                 <p class="ml-auto mb-0">
-                                    <a href="#" class="mr-2">@company.Rating</a>
-                                    <a href="#" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
+                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="mr-2">Comments</a>
+                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
                                 </p>
                             </div>
                         </div>
