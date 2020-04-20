@@ -2,20 +2,20 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
+    using AutoMapper;
     using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
     using BestService.Web.ViewModels.Comments;
     using Ganss.XSS;
 
-    public class CompanyDetailsViewModel : IMapFrom<Company>
+    public class CompanyDetailsViewModel : IMapFrom<Company>, IHaveCustomMappings
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public float Rating { get; set; }
 
         public string LogoImage { get; set; }
 
@@ -34,5 +34,18 @@
         public long Visit { get; set; }
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
+
+        public int Rating { get; set; }
+
+        public virtual ICollection<Rate> Ratings { get; set; }
+
+        public void CreateMappings(IProfileExpression configuration)
+        {
+            configuration.CreateMap<Company, CompanyDetailsViewModel>()
+                .ForMember(x => x.Rating, options =>
+                {
+                    options.MapFrom(c => (int)Math.Round(c.Ratings.Average(r => r.Stars)));
+                });
+        }
     }
 }

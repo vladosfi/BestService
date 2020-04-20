@@ -33,41 +33,6 @@
     }
 }
 
-
-<section class="main-content">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
-    <link href="https://rawgit.com/gjunge/rateit.js/master/scripts/rateit.css" rel="stylesheet" type="text/css">
-
-    <div class="rateit" id="rateit10"></div>
-
-    <div>
-        <button onclick="alert($('#rateit10').rateit('value'))">Get value</button>
-        <button onclick="$('#rateit10').rateit('value', prompt('Input numerical value'))">Set value</button>
-    </div>
-    <div>
-        <button onclick="alert($('#rateit10').rateit('max'))">Get max value</button>
-        <button onclick="$('#rateit10').rateit('max', prompt('Input numerical value'))">Set max value</button>
-    </div>
-    <div>
-        <button onclick="alert($('#rateit10').rateit('step'))">Get step size</button>
-        <button onclick="$('#rateit10').rateit('step', prompt('Input numerical value'))">Set step size</button>
-    </div>
-    <div>
-        <button onclick="alert($('#rateit10').rateit('readonly'))">Get readonly value</button>
-        <button onclick="$('#rateit10').rateit('readonly',!$('#rateit10').rateit('readonly'))">Toggle readonly</button>
-    </div>
-    <div>
-        <button onclick="alert($('#rateit10').rateit('ispreset'))">Get ispreset value</button>
-        <button onclick="$('#rateit10').rateit('ispreset',!$('#rateit10').rateit('ispreset'))">Toggle ispreset</button>
-    </div>
-    <div>
-        <button onclick="$('#rateit10').rateit('reset')">Reset</button>
-    </div>
-    <script src="https://rawgit.com/gjunge/rateit.js/master/scripts/jquery.rateit.js" type="text/javascript"></script>
-</section>
-
-
-
 <section class="hero-wrap hero-wrap-2" style="background-image: url('../images/bg_1.jpg');">
     <div class="overlay"></div>
     <div class="container">
@@ -85,6 +50,7 @@
         <div class="row">
             <form id="visit" method="post">
                 <input name="company-id" type="hidden" value="@Model.Id" />
+                <input id="rating-stars" type="hidden" value="@Model.Rating" />
             </form>
             <div class="col-lg-8 ftco-animate">
                 @{
@@ -104,12 +70,19 @@
                 <span class="float-left">
                     <i class="fa fa-user"></i> by <a href="">@Model.UserUsername</a>
                 </span>
-                <span class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">
-                    <input type="radio" id="star5" name="rating" value="5" /><label onclick="doRate(5,@Model.Id)" class="rating-stars-labels" for="star5" title="5 star"></label>
-                    <input type="radio" id="star4" name="rating" value="4" /><label onclick="doRate(4,@Model.Id)" class="rating-stars-labels" for="star4" title="4 star"></label>
-                    <input type="radio" id="star3" name="rating" value="3" /><label onclick="doRate(3,@Model.Id)" class="rating-stars-labels" for="star3" title="3 star"></label>
-                    <input type="radio" id="star2" name="rating" value="2" /><label onclick="doRate(2,@Model.Id)" class="rating-stars-labels" for="star2" title="2 star"></label>
-                    <input type="radio" id="star1" name="rating" value="1" /><label onclick="doRate(1,@Model.Id)" class="rating-stars-labels" for="star1" title="1 star"></label>
+                <span id="rating" class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">
+                    <span class='set'>
+                        <input id="rad5" class="rad" name="rad" type="radio">
+                        <label onclick="doRate(5,@Model.Id)" for="rad5" class="star fa fa-star-o fa-lg"></label>
+                        <input id="rad4" class="rad" name="rad" type="radio">
+                        <label onclick="doRate(4,@Model.Id)" for="rad4" class="star fa fa-star-o fa-lg"></label>
+                        <input id="rad3" class="rad" name="rad" type="radio">
+                        <label onclick="doRate(3,@Model.Id)" for="rad3" class="star fa fa-star-o fa-lg"></label>
+                        <input id="rad2" class="rad" name="rad" type="radio">
+                        <label onclick="doRate(2,@Model.Id)" for="rad2" class="star fa fa-star-o fa-lg"></label>
+                        <input id="rad1" class="rad" name="rad" type="radio">
+                        <label onclick="doRate(1,@Model.Id)" for="rad1" class="star fa fa-star-o fa-lg"></label>
+                    </span>
                 </span>
                 <hr>
 
@@ -305,8 +278,11 @@
                 }
             })
         };
+
         document.body.onload = function () {
             increaseVisits();
+            $("#rad" + $('#rating-stars').val()).click();
+            
         };
     </script>
 }

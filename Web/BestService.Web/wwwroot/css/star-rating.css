@@ -1,47 +1,46 @@
-﻿/***
- *  Simple Pure CSS Star Rating Widget Bootstrap 4 
- * 
- *  www.TheMastercut.co
- *  
- ***/
-
-/* Styling h1 and links
-––––––––––––––––––––––––––––––––– */
-h1[alt="Simple"] {
-    color: white;
+﻿.rating {
+    font-size: 0;
 }
 
-.rating-stars-labels {
-    color: grey;
-    font-size: 0.5em;
-    text-decoration: none
+.set {
+    display: inline-block;
+    font-size: 1rem;
 }
 
+    .set:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
-.starrating > input {
+.star {
+    float: right;
+    padding: 6px 0 0 3px;
+    cursor: pointer;
+    color: #FFB300;
+}
+
+    .star:last-child {
+        padding-left: 0;
+    }
+
+.rad {
     display: none;
 }
-/* Remove radio buttons */
-
-.starrating > label:before {
-    content: "\f005"; /* Star */
-    margin: 2px;
-    font-size: 2em;
-    font-family: FontAwesome;
-    display: inline-block;
-}
-
-.starrating > label {
-    color: #222222; /* Start color when not clicked */
-}
-
-.starrating > input:checked ~ label {
-    color: #ffca08;
-}
-/* Set yellow color when star checked */
-
-.starrating > input:hover ~ label {
-    color: #ffca08;
-}
-/* Set yellow color when star hover */
-
+    /* 1. hover over a label.star directly and display
+    ||    the full gold star in the ::before pseudo
+    ||    element.
+    */
+    /* 2. hover over a label.star and display it and all
+    ||    other label.star before it as a full gold star
+    */
+    /* 3. check a label.star and display it and all other
+    ||    label.star before it as a full gold star.
+    ||    Full persistent empty stars are possible because
+    ||    of the :checked pseudo-selector
+    */
+    .star:hover:before,
+    .star:hover ~ .star:before,
+    .rad:checked ~ .star:before {
+        content: "\f005";
+    }
