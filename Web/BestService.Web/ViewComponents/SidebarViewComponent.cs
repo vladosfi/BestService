@@ -16,9 +16,9 @@
 
         public IViewComponentResult Invoke()
         {
-            var viewModel = new SideBarViewModel
+            var viewModel = new SideBarCategoriesViewModel
             {
-                Categories = this.categoriesService.GetAll<SideBarCategoriesViewModel>(),
+                Categories = this.categoriesService.GetAll<SideBarCategoryViewModel>(),
             };
 
             return this.View(viewModel);

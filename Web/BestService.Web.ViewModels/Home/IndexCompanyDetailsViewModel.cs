@@ -14,6 +14,9 @@
 
     public class IndexCompanyDetailsViewModel : IMapFrom<Company>, IMapTo<Company>, IHaveCustomMappings
     {
+        private const int DescriptionLenght = 120;
+        private const int StartIndex = 0;
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -37,7 +40,7 @@
             get
             {
                 string description = WebUtility.HtmlDecode(Regex.Replace(this.Description, @"<[^>]*>", string.Empty));
-                return description?.Length > 120 ? description.Substring(0, 120) + " [...]" : description;
+                return description?.Length > DescriptionLenght ? description.Substring(StartIndex, DescriptionLenght) + " [...]" : description;
             }
         }
 

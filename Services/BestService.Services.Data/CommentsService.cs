@@ -1,10 +1,12 @@
 ﻿namespace BestService.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
+    using BestService.Services.Mapping;
     using Microsoft.EntityFrameworkCore;
 
     public class CommentsService : ICommentsService
@@ -45,6 +47,20 @@
                 .FirstOrDefault();
 
             return commentCompanyId == companyId;
+        }
+
+        public IEnumerable<T> Get<T>(int? count = null)
+        {
+            IQueryable<Comment> companies = this.commentRepo
+                .All()
+                .OrderByDescending(x => x.CreatedOn);
+
+            if (count.HasValue)
+            {
+                companies = companies.Take(count.Value);
+            }
+
+            return companies.To<T>().ToList();
         }
     }
 }

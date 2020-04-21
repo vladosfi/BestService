@@ -16,9 +16,9 @@
 
         public IViewComponentResult Invoke(int count = 3)
         {
-            var viewModel = new RecentCompanyViewModel
+            var viewModel = new RecentCompaniesViewModel
             {
-                Companies = this.companiesService.GetRecentlyAdded<RecentCompaniesCategoriesViewModel>(count),
+                Companies = this.companiesService.GetRecentlyAdded<RecentCompanyViewModel>(count),
             };
 
             return this.View(viewModel);

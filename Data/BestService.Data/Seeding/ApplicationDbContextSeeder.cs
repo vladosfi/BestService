@@ -31,6 +31,7 @@
                               new UsersSeeder(),
                               new CompaniesSeeder(),
                               new SubscribersSeeder(),
+                              new CommentsSeeder(),
                           };
 
             foreach (var seeder in seeders)

@@ -13,13 +13,12 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-
             if (dbContext.Users.Any())
             {
                 return;
             }
+
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             await userManager.CreateAsync(
                 new ApplicationUser
