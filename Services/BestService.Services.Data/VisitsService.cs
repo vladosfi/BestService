@@ -12,8 +12,7 @@
         private readonly IDeletableEntityRepository<Visit> visitRepository;
 
         public VisitsService(
-            IDeletableEntityRepository<Visit> visitRepository,
-            UserManager<ApplicationUser> userManager)
+            IDeletableEntityRepository<Visit> visitRepository)
         {
             this.visitRepository = visitRepository;
         }
@@ -44,12 +43,8 @@
         }
 
         public long GetCompanyVisitCount(int companyId)
-        {
-            var visitCount = this.visitRepository.AllAsNoTracking()
+            => this.visitRepository.AllAsNoTracking()
                 .Where(r => r.CompanyId == companyId)
                 .Sum(r => r.Count);
-
-            return visitCount;
-        }
     }
 }

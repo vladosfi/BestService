@@ -20,10 +20,11 @@
         }
 
         public int GetRating(int companyId)
-        {
-            var allStars = this.ratingRepository.All().Where(p => p.CompanyId == companyId).Select(p => p.Stars).FirstOrDefault();
-            return allStars;
-        }
+            => this.ratingRepository
+            .All()
+            .Where(p => p.CompanyId == companyId)
+            .Select(p => p.Stars)
+            .FirstOrDefault();
 
         public async Task RateAsync(int companyId, string userId, int stars)
         {
@@ -51,25 +52,16 @@
             return (int)Math.Round((double)rateSum / userCount);
         }
 
-        public int GetCompanyReview(int companyId)
-        {
-            var rateSum = this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
-            return rateSum;
-        }
+        public int GetCompanyReview(int companyId) => this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
 
-        public async Task<int> GetCountAsync()
-        {
-            return await this.ratingRepository.AllAsNoTracking().CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await this.ratingRepository.AllAsNoTracking().CountAsync();
 
         private static Rate CreateRate(int companyId, string userId, int stars)
-        {
-            return new Rate
+            => new Rate
             {
                 CompanyId = companyId,
                 UserId = userId,
                 Stars = stars,
             };
-        }
     }
 }

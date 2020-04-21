@@ -7,7 +7,7 @@ namespace BestService.Web.Areas.Identity.Pages.Account
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using BestService.Common;
     using BestService.Data.Models;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
@@ -53,6 +53,10 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -76,11 +80,13 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.Email, Email = this.Input.Email };
+                var user = new ApplicationUser { UserName = this.Input.UserName, Email = this.Input.Email };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
-                if (result.Succeeded)
+                var addUserToRoleResult = await userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+                if (result.Succeeded && addUserToRoleResult.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");
+                    this.logger.LogInformation("User added to users role.");
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

@@ -63,21 +63,14 @@
             return company.Id;
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await this.companyRepository.AllAsNoTracking().CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await this.companyRepository.AllAsNoTracking().CountAsync();
 
         public T GetById<T>(int id)
-        {
-            var company = this.companyRepository
+            => this.companyRepository
                 .All()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefault();
-
-            return company;
-        }
 
         public async Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId)
         {
@@ -147,9 +140,6 @@
             return query.To<T>().ToList();
         }
 
-        public int GetCountByCategoryId(int categoryId)
-        {
-            return this.companyRepository.All().Count(c => c.CategoryId == categoryId);
-        }
+        public int GetCountByCategoryId(int categoryId) => this.companyRepository.All().Count(c => c.CategoryId == categoryId);
     }
 }

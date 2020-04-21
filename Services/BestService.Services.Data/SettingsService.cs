@@ -18,14 +18,8 @@
             this.settingsRepository = settingsRepository;
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await this.settingsRepository.AllAsNoTracking().CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await this.settingsRepository.AllAsNoTracking().CountAsync();
 
-        public IEnumerable<T> GetAll<T>()
-        {
-            return this.settingsRepository.All().To<T>().ToList();
-        }
+        public IEnumerable<T> GetAll<T>() => this.settingsRepository.All().To<T>().ToList();
     }
 }

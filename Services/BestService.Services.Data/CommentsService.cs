@@ -34,10 +34,7 @@
             return comment.Id;
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await this.commentRepo.AllAsNoTracking().CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await this.commentRepo.AllAsNoTracking().CountAsync();
 
         public bool IsInCompanyId(int commentId, int companyId)
         {

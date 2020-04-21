@@ -5,7 +5,7 @@
     public class SubscribeInputModel
     {
         [Required]
-        //[EmailAddress]
+        [EmailAddress]
         public string Email { get; set; }
     }
 }

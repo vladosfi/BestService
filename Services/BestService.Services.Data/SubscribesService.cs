@@ -15,10 +15,7 @@
             this.subscribeRepository = subscribeRepository;
         }
 
-        public async Task<int> GetCountAsync()
-        {
-            return await this.subscribeRepository.AllAsNoTracking().CountAsync();
-        }
+        public async Task<int> GetCountAsync() => await this.subscribeRepository.AllAsNoTracking().CountAsync();
 
         public async Task Subscribe(string email, string ip)
         {

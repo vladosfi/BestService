@@ -82,6 +82,7 @@
                         <label onclick="doRate(2,@Model.Id)" for="rad2" class="star fa fa-star-o fa-lg"></label>
                         <input id="rad1" class="rad" name="rad" type="radio">
                         <label onclick="doRate(1,@Model.Id)" for="rad1" class="star fa fa-star-o fa-lg"></label>
+                        <span class="flex-row list-inline-item">3 / 5</span>
                     </span>
                 </span>
                 <hr>
@@ -282,7 +283,6 @@
         document.body.onload = function () {
             increaseVisits();
             $("#rad" + $('#rating-stars').val()).click();
-            
-        };
+        };        
     </script>
 }
