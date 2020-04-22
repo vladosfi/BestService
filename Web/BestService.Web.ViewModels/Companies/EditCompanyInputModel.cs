@@ -1,6 +1,5 @@
 ﻿namespace BestService.Web.ViewModels.Companies
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using BestService.Data.Models;

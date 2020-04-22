@@ -70,7 +70,12 @@
                 <h2 class="mb-3 text-left">@Model.Name</h2>
             </div>
             <span class="float-left">
-                <a asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" class="mr-md-2">[ Edit ]</a>
+                @{
+                    if (Model.IsContentEditor)
+                    {
+                        <a asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" class="mr-md-2">[ Edit ]</a>
+                    }
+                }
                 <i class="fa fa-user"></i> by <a href="#">@Model.UserUsername</a>
             </span>
                 @{ if (@Model.IsRateAllowed)

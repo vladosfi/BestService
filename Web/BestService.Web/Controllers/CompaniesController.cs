@@ -52,6 +52,14 @@
             if (user != null)
             {
                 viewModel.IsRateAllowed = this.ratingsService.IsRateAllowed(id, user.Id);
+
+                var company = this.companiesService.GetById<CompanyDetailsViewModel>(id);
+
+                if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) ||
+                    (this.User.IsInRole(GlobalConstants.CompanyRoleName) && user.Id == company.UserId))
+                {
+                    viewModel.IsContentEditor = true;
+                }
             }
 
             return this.View(viewModel);

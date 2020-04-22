@@ -4,6 +4,7 @@ namespace BestService.Web.Areas.Identity.Pages.Account
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Security.Claims;
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
@@ -57,6 +58,10 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             public string UserName { get; set; }
 
             [Required]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; }
+
+            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -82,7 +87,14 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser { UserName = this.Input.UserName, Email = this.Input.Email };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
-                var addUserToRoleResult = await userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+                var addUserToRoleResult = await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
+
+                var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier, this.Input.FullName),
+                    };
+
+                var addClaims = await this.userManager.AddClaimsAsync(user, claims);
                 if (result.Succeeded && addUserToRoleResult.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");

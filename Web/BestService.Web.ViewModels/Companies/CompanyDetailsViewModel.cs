@@ -25,6 +25,8 @@
 
         public string UserUsername { get; set; }
 
+        public string UserId { get; set; }
+
         public string ImageUri => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
         public DateTime CreatedOn { get; set; }
@@ -32,6 +34,8 @@
         public string CategoryId { get; set; }
 
         public long Visit { get; set; }
+
+        public bool IsContentEditor { get; set; }
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
 
