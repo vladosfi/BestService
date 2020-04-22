@@ -23,7 +23,7 @@
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = GlobalConstants.AdminEmail,
+                    UserName = GlobalConstants.AdminName,
                     Email = GlobalConstants.AdminEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
@@ -32,7 +32,7 @@
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = GlobalConstants.CompanyEmail,
+                    UserName = GlobalConstants.CompanyName,
                     Email = GlobalConstants.CompanyEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
@@ -41,27 +41,19 @@
             await userManager.CreateAsync(
                 new ApplicationUser
                 {
-                    UserName = GlobalConstants.UserEmail,
+                    UserName = GlobalConstants.UserName,
                     Email = GlobalConstants.UserEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
                 }, GlobalConstants.Pass);
 
-            var adminUser = this.GetUserByUserName(dbContext, GlobalConstants.AdminEmail);
-            var companyUser = this.GetUserByUserName(dbContext, GlobalConstants.CompanyEmail);
-            var userUser = this.GetUserByUserName(dbContext, GlobalConstants.UserEmail);
+            var adminUser = this.GetUserByUserName(dbContext, GlobalConstants.AdminName);
+            var companyUser = this.GetUserByUserName(dbContext, GlobalConstants.CompanyName);
+            var userUser = this.GetUserByUserName(dbContext, GlobalConstants.UserName);
 
-            await this.AddRolesToUsers(userManager, adminUser, GlobalConstants.AdministratorRoleName);
-            await this.AddRolesToUsers(userManager, companyUser, GlobalConstants.CompanyRoleName);
-            await this.AddRolesToUsers(userManager, userUser, GlobalConstants.UserRoleName);
-        }
-
-        private async Task AddRolesToUsers(
-            UserManager<ApplicationUser> userManager,
-            ApplicationUser userName,
-            string roleName)
-        {
-            await userManager.AddToRoleAsync(userName, roleName);
+            await userManager.AddToRoleAsync(adminUser, GlobalConstants.AdministratorRoleName);
+            await userManager.AddToRoleAsync(companyUser, GlobalConstants.CompanyRoleName);
+            await userManager.AddToRoleAsync(userUser, GlobalConstants.UserRoleName);
         }
 
         private ApplicationUser GetUserByUserName(ApplicationDbContext dbContext, string userName)

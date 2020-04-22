@@ -35,16 +35,20 @@
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
 
-        public int Rating { get; set; }
+        public double RatingAvg { get; set; }
+
+        public int Rating => (int)Math.Round(this.RatingAvg);
+
+        public bool IsRateAllowed { get; set; }
 
         public virtual ICollection<Rate> Ratings { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Company, CompanyDetailsViewModel>()
-                .ForMember(x => x.Rating, options =>
+                .ForMember(x => x.RatingAvg, options =>
                 {
-                    options.MapFrom(c => (int)Math.Round(c.Ratings.Average(r => r.Stars)));
+                    options.MapFrom(c => c.Ratings.Average(r => r.Stars));
                 });
         }
     }

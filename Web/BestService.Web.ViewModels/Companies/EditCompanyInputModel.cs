@@ -7,33 +7,30 @@
     using BestService.Services.Mapping;
     using Microsoft.AspNetCore.Http;
 
-    public class EditCompanyViewModel : IMapFrom<Company>
+    public class EditCompanyInputModel : IMapFrom<Company>, IMapTo<Company>
     {
         [Required]
+        public int Id { get; set; }
+
+        [Required]
         [MaxLength(100)]
-        [Display(Name = "Company Name:")]
         public string Name { get; set; }
 
         [Required]
         [MaxLength(3000)]
-        [Display(Name = "Description:")]
         public string Description { get; set; }
 
-        [Display(Name = "Official Site:")]
+        [MaxLength(100)]
         public string OfficialSite { get; set; }
 
         [Required]
-        [Display(Name = "Category:")]
         public int CategoryId { get; set; }
 
-        [Display(Name = "Logo Image:")]
+        [MaxLength(100)]
         public string LogoImage { get; set; }
 
-        [Display(Name = "Logo Image:")]
         public IFormFile LogoImageFile { get; set; }
 
         public string UserId { get; set; }
-
-        public IEnumerable<CategoryDropdownViewModel> Categories { get; set; }
     }
 }

@@ -1,5 +1,8 @@
-﻿@model BestService.Web.ViewModels.Home.CustomErrorViewModel
-
+﻿@using BestService.Common
+@model BestService.Web.ViewModels.Home.CustomErrorViewModel
+@{
+    this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}";
+}
 <div id="notfound">
     <div class="notfound">
         <div class="notfound-httperror">

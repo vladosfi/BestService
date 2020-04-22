@@ -27,9 +27,15 @@
 
         public const string AdminEmail = "vladosfi@gmail.com";
 
-        public const string CompanyEmail = "company@bestservice.com";
+        public const string AdminName = "vladosfi";
 
-        public const string UserEmail = "user@bestservice.com";
+        public const string CompanyEmail = "company@gmail1.com";
+
+        public const string CompanyName = "company";
+
+        public const string UserEmail = "user@gmail1.com";
+
+        public const string UserName = "user";
 
         public const string ErrorStatusBadRequest = "Bad request: The request cannot be fulfilled due to bad syntax";
 

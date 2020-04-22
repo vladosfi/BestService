@@ -54,7 +54,7 @@
 
         public Category Category { get; set; }
 
-        public int Rating { get; set; }
+        public double Rating { get; set; }
 
         public int VisitCount => this.Visits.Where(c => c.CompanyId == this.Id).Sum(v => v.Count);
 
@@ -69,7 +69,7 @@
             configuration.CreateMap<Company, IndexCompanyDetailsViewModel>()
                 .ForMember(x => x.Rating, options =>
                {
-                   options.MapFrom(c => c.Ratings.Sum(r => r.Stars));
+                   options.MapFrom(c => c.Ratings.Average(r => r.Stars));
                 });
         }
     }

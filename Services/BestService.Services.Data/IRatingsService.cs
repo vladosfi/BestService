@@ -13,5 +13,7 @@
         int GetCompanyReview(int companyId);
 
         Task<int> GetCountAsync();
+
+        bool IsRateAllowed(int companyId, string userId);
     }
 }

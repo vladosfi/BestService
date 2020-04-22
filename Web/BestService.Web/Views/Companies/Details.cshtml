@@ -39,7 +39,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-2 bread">@ViewData["Title"]</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="/get">Company <i class="ion-ios-arrow-forward"></i></a></span> <span> @ViewData["Title"] <i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a asp-controller="Companies" asp-action="GetList">Companies <i class="ion-ios-arrow-forward"></i></a></span> <span> @ViewData["Title"] <i class="ion-ios-arrow-forward"></i></span></p>
             </div>
         </div>
     </div>
@@ -66,25 +66,54 @@
                     }
                 }
                 <!-- the actual blog post: title/author/date/content -->
-                <h2 class="mb-3">@Model.Name</h2>
-                <span class="float-left">
-                    <i class="fa fa-user"></i> by <a href="">@Model.UserUsername</a>
-                </span>
-                <span id="rating" class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">
-                    <span class='set'>
-                        <input id="rad5" class="rad" name="rad" type="radio">
-                        <label onclick="doRate(5,@Model.Id)" for="rad5" class="star fa fa-star-o fa-lg"></label>
-                        <input id="rad4" class="rad" name="rad" type="radio">
-                        <label onclick="doRate(4,@Model.Id)" for="rad4" class="star fa fa-star-o fa-lg"></label>
-                        <input id="rad3" class="rad" name="rad" type="radio">
-                        <label onclick="doRate(3,@Model.Id)" for="rad3" class="star fa fa-star-o fa-lg"></label>
-                        <input id="rad2" class="rad" name="rad" type="radio">
-                        <label onclick="doRate(2,@Model.Id)" for="rad2" class="star fa fa-star-o fa-lg"></label>
-                        <input id="rad1" class="rad" name="rad" type="radio">
-                        <label onclick="doRate(1,@Model.Id)" for="rad1" class="star fa fa-star-o fa-lg"></label>
-                        <span class="flex-row list-inline-item">3 / 5</span>
-                    </span>
-                </span>
+            <div>
+                <h2 class="mb-3 text-left">@Model.Name</h2>
+            </div>
+            <span class="float-left">
+                <a asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" class="mr-md-2">[ Edit ]</a>
+                <i class="fa fa-user"></i> by <a href="#">@Model.UserUsername</a>
+            </span>
+                @{ if (@Model.IsRateAllowed)
+                    {
+                        <span id="rating" class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">
+                            <span class="ml-md-2"><small>@Model.RatingAvg / 5</small></span>
+                            <span class='set'>
+                                <input id="rad5" class="rad" name="rad" type="radio">
+                                <label onclick="doRate(5,@Model.Id)" for="rad5" class="star fa fa-star-o"></label>
+                                <input id="rad4" class="rad" name="rad" type="radio">
+                                <label onclick="doRate(4,@Model.Id)" for="rad4" class="star fa fa-star-o"></label>
+                                <input id="rad3" class="rad" name="rad" type="radio">
+                                <label onclick="doRate(3,@Model.Id)" for="rad3" class="star fa fa-star-o"></label>
+                                <input id="rad2" class="rad" name="rad" type="radio">
+                                <label onclick="doRate(2,@Model.Id)" for="rad2" class="star fa fa-star-o"></label>
+                                <input id="rad1" class="rad" name="rad" type="radio">
+                                <label onclick="doRate(1,@Model.Id)" for="rad1" class="star fa fa-star-o"></label>
+                            </span>
+                            <span class="float-left">
+                                <small id="rateSum" class="mr-md-2">Rates: @Model.Ratings.Count</small>
+                                <small class="mr-md-2"> | </small>
+                            </span>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="starrating risingstar d-flex float-right">
+                            <span>
+                                <span>
+                                    <small id="rateSum" class="mr-md-2">Rates: @Model.Ratings.Count</small>
+                                    <small class="mr-md-2"> | </small>
+                                </span>
+                                <span style="color: #FFB300;"><i id="star1" class="fa fa-star-o"></i></span>
+                                <span style="color: #FFB300;"><i id="star2" class="fa fa-star-o"></i></span>
+                                <span style="color: #FFB300;"><i id="star3" class="fa fa-star-o"></i></span>
+                                <span style="color: #FFB300;"><i id="star4" class="fa fa-star-o"></i></span>
+                                <span style="color: #FFB300;"><i id="star5" class="fa fa-star-o"></i></span>
+                                <span><small>@Model.RatingAvg / 5</small></span>
+                            </span>
+                        </span>
+                    }
+                }
+
                 <hr>
 
                 <div>
@@ -106,6 +135,7 @@
                         <div class="col-md-auto">
                             <small><i class="fa fa-comments"></i> Comments: @Model.Comments.Count()</small>
                         </div>
+
                         <div class="col col-lg-2">
                             <small><i class="icon-eye"></i><span id="AjaxViews"> Views: @Model.Visit </span></small>
                             @*<span><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a> <a href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a> <a href=""><span class="badge badge-info">HTML</span></a></span>*@
@@ -140,8 +170,8 @@
                 </script>
                 <div class="comment-form-wrap pt-5">
                     <form asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display:none" class="p-5 bg-light">
-                        <input type="hidden" name="CompanyId" value="@this.Model.Id" />
-                        <input type="hidden" name="ParentId" value="0" />
+                        <input type="hidden" name="companyId" value="@this.Model.Id" />
+                        <input type="hidden" name="parentId" value="0" />
                         <div>
                             <label id="ReplayTo"></label>
                         </div>
@@ -240,12 +270,12 @@
                 success: function (data) {
                     console.log(data.companyId);
                     $('#rateValue' + data.companyId).html(data.rateValue);
-                    $('#rateSum').html(data.rateSum + ' rates');
+                    $('#rateSum').html('Rates: ' + data.rateSum);
                 }
             })
         };
         function showAddCommentForm(parentId, userName = null) {
-            $("#AddCommentForm input[name='ParentId']").val(parentId);
+            $("#AddCommentForm input[name='parentId']").val(parentId);
 
             if (parentId == 0) {
                 $("#ReplayTo").hide();
@@ -282,7 +312,14 @@
 
         document.body.onload = function () {
             increaseVisits();
-            $("#rad" + $('#rating-stars').val()).click();
-        };        
+            //$("#rad" + $('#rating-stars').val()).click();
+            var ratingStars = document.getElementById("rating-stars").value;
+
+            for (var id = 1; id <= ratingStars; id++) {
+                var element = document.getElementById('star' + id);
+                element.classList.remove("fa-star-o");
+                element.classList.add("fa-star");
+            }
+        };
     </script>
 }

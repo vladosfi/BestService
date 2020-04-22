@@ -72,14 +72,21 @@
                 .To<T>()
                 .FirstOrDefault();
 
+        public Company GetById(int id)
+            => this.companyRepository
+                .All()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+
         public async Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId)
         {
-            var company = this.GetById<Company>(id);
+            var company = this.GetById(id);
 
             company.Name = name;
             company.Description = description;
             company.OfficialSite = officialSite;
             company.CategoryId = categoryId;
+
             if (logoImage != string.Empty)
             {
                 company.LogoImage = logoImage;

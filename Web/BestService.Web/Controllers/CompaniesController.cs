@@ -23,26 +23,35 @@
         private readonly ICompaniesService companiesService;
         private readonly ICategoriesService categoriesService;
         private readonly Cloudinary cloudinary;
+        private readonly IRatingsService ratingsService;
 
         public CompaniesController(
             UserManager<ApplicationUser> userManager,
             ICompaniesService companiesService,
             ICategoriesService categoriesService,
-            Cloudinary cloudinary)
+            Cloudinary cloudinary,
+            IRatingsService ratingsService)
         {
             this.userManager = userManager;
             this.companiesService = companiesService;
             this.categoriesService = categoriesService;
             this.cloudinary = cloudinary;
+            this.ratingsService = ratingsService;
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             var viewModel = this.companiesService.GetById<CompanyDetailsViewModel>(id);
 
             if (viewModel == null)
             {
                 return this.NotFound();
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+            if (user != null)
+            {
+                viewModel.IsRateAllowed = this.ratingsService.IsRateAllowed(id, user.Id);
             }
 
             return this.View(viewModel);
@@ -120,12 +129,24 @@
         }
 
         [HttpGet]
-        [Authorize]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.CompanyRoleName)]
-        public IActionResult Edit(int id)
+        [Authorize(Roles = "Administrator, Company")]
+        public async Task<IActionResult> Edit(int id)
         {
-            var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
             var company = this.companiesService.GetById<EditCompanyViewModel>(id);
+
+            if (company == null)
+            {
+                return this.BadRequest();
+            }
+
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != company.UserId)
+            {
+                return this.Unauthorized();
+            }
+
+            var categories = this.categoriesService.GetAll<CategoryDropdownViewModel>();
 
             var viewModel = new EditCompanyViewModel
             {
@@ -134,17 +155,16 @@
                 Name = company.Name,
                 CategoryId = company.CategoryId,
                 OfficialSite = company.OfficialSite,
-                Categories = categories,
                 LogoImage = company.LogoImage,
+                Categories = categories,
             };
 
             return this.View(viewModel);
         }
 
         [HttpPost]
-        [Authorize]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName + "," + GlobalConstants.CompanyRoleName)]
-        public async Task<IActionResult> Edit(EditCompanyViewModel input)
+        [Authorize(Roles = "Administrator, Company")]
+        public async Task<IActionResult> Edit(EditCompanyInputModel input)
         {
             if (!this.ModelState.IsValid)
             {
@@ -152,8 +172,9 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
+            var company = this.companiesService.GetById<EditCompanyInputModel>(input.Id);
 
-            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != input.UserId)
+            if (!this.User.IsInRole(GlobalConstants.AdministratorRoleName) && user.Id != company.UserId)
             {
                 return this.Unauthorized();
             }

@@ -47,14 +47,19 @@
         public int GetAvgCompanyRate(int companyId)
         {
             var rateSum = this.GetCompanyReview(companyId);
-            var userCount = this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
+            var userCount = this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).Count();
 
             return (int)Math.Round((double)rateSum / userCount);
         }
 
-        public int GetCompanyReview(int companyId) => this.ratingRepository.All().Where(x => x.CompanyId == companyId).Count();
+        public int GetCompanyReview(int companyId) => this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).Count();
 
         public async Task<int> GetCountAsync() => await this.ratingRepository.AllAsNoTracking().CountAsync();
+
+        public bool IsRateAllowed(int companyId, string userId)
+            => !this.ratingRepository
+            .AllAsNoTracking()
+            .Any(x => x.CompanyId == companyId && x.UserId == userId);
 
         private static Rate CreateRate(int companyId, string userId, int stars)
             => new Rate

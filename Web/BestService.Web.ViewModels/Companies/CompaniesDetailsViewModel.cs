@@ -41,18 +41,22 @@
 
         public Category Category { get; set; }
 
-        public int Rating { get; set; }
+        public double RatingAvg { get; set; }
+
+        public int Rating => (int)Math.Round(this.RatingAvg);
 
         public virtual ICollection<Rate> Ratings { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 
+        public int VisitsCount { get; set; }
+
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Company, CompaniesDetailsViewModel>()
-                .ForMember(x => x.Rating, options =>
-               {
-                   options.MapFrom(c => c.Ratings.Sum(r => r.Stars));
+                .ForMember(x => x.RatingAvg, options =>
+                {
+                    options.MapFrom(c => c.Ratings.Average(r => r.Stars));
                 });
         }
     }
