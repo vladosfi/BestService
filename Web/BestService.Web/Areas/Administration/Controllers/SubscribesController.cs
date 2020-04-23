@@ -9,22 +9,22 @@
     using Microsoft.EntityFrameworkCore;
 
     [Area("Administration")]
-    public class CategoriesController : Controller
+    public class SubscribesController : Controller
     {
         private readonly ApplicationDbContext context;
 
-        public CategoriesController(ApplicationDbContext context)
+        public SubscribesController(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        // GET: Administration/Categories
+        // GET: Administration/Subscribes
         public async Task<IActionResult> Index()
         {
-            return this.View(await this.context.Categories.ToListAsync());
+            return this.View(await this.context.Subscribes.ToListAsync());
         }
 
-        // GET: Administration/Categories/Details/5
+        // GET: Administration/Subscribes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@
                 return this.NotFound();
             }
 
-            var category = await this.context.Categories
+            var subscribe = await this.context.Subscribes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (subscribe == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(category);
+            return this.View(subscribe);
         }
 
-        // GET: Administration/Categories/Create
+        // GET: Administration/Subscribes/Create
         public IActionResult Create()
         {
             return this.View();
         }
 
-        // POST: Administration/Categories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // POST: Administration/Subscribes/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,LogoImage,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category)
+        public async Task<IActionResult> Create([Bind("Email,Ip,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Subscribe subscribe)
         {
-            if (this.ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                this.context.Add(category);
+                this.context.Add(subscribe);
                 await this.context.SaveChangesAsync();
-                return this.RedirectToAction(nameof(this.Index));
+                return RedirectToAction(nameof(Index));
             }
-            return this.View(category);
+            return this.View(subscribe);
         }
 
-        // GET: Administration/Categories/Edit/5
+        // GET: Administration/Subscribes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,23 @@
                 return this.NotFound();
             }
 
-            var category = await this.context.Categories.FindAsync(id);
-            if (category == null)
+            var subscribe = await this.context.Subscribes.FindAsync(id);
+            if (subscribe == null)
             {
                 return this.NotFound();
             }
-            return this.View(category);
+
+            return this.View(subscribe);
         }
 
-        // POST: Administration/Categories/Edit/5
+        // POST: Administration/Subscribes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,LogoImage,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Email,Ip,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Subscribe subscribe)
         {
-            if (id != category.Id)
+            if (id != subscribe.Id)
             {
                 return this.NotFound();
             }
@@ -96,12 +97,12 @@
             {
                 try
                 {
-                    this.context.Update(category);
+                    this.context.Update(subscribe);
                     await this.context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.CategoryExists(category.Id))
+                    if (!this.SubscribeExists(subscribe.Id))
                     {
                         return this.NotFound();
                     }
@@ -114,10 +115,10 @@
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            return this.View(category);
+            return this.View(subscribe);
         }
 
-        // GET: Administration/Categories/Delete/5
+        // GET: Administration/Subscribes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,31 +126,31 @@
                 return this.NotFound();
             }
 
-            var category = await this.context.Categories
+            var subscribe = await this.context.Subscribes
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (subscribe == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(category);
+            return this.View(subscribe);
         }
 
-        // POST: Administration/Categories/Delete/5
+        // POST: Administration/Subscribes/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await this.context.Categories.FindAsync(id);
-            this.context.Categories.Remove(category);
+            var subscribe = await this.context.Subscribes.FindAsync(id);
+            this.context.Subscribes.Remove(subscribe);
             await this.context.SaveChangesAsync();
-            return this.RedirectToAction(nameof(this.Index));
+            return this.RedirectToAction(nameof(Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool SubscribeExists(int id)
         {
-            return this.context.Categories.Any(e => e.Id == id);
+            return this.context.Subscribes.Any(e => e.Id == id);
         }
     }
 }

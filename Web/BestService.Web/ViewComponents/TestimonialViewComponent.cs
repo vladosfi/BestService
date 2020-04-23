@@ -1,5 +1,8 @@
 ﻿namespace BestService.Web.ViewComponents
 {
+    using System.Linq;
+    using System.Security.Claims;
+
     using BestService.Services.Data;
     using BestService.Web.ViewModels.Testimonial;
     using Microsoft.AspNetCore.Mvc;

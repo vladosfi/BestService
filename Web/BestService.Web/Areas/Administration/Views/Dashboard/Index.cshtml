@@ -2,5 +2,43 @@
 @{
     this.ViewData["Title"] = "Admin dashboard";
 }
-        <h1>@this.ViewData["Title"]</h1>
-        Settings: @this.Model.SettingsCount
+
+<div class="row">
+    <div class="row d-flex">
+        <div class="col-md-12 wrap-about pr-md-4 ftco-animate fadeInUp ftco-animated">
+            <h1 class="mb-0">@ViewData["Title"]</h1>
+            <ul>
+                <li><a asp-area="Administration" asp-controller="Categories" asp-action="Index">View Categories</a></li>
+                <li><a asp-area="Administration" asp-controller="Companies" asp-action="Index">View Companies</a></li>
+                <li><a asp-area="Administration" asp-controller="Comments" asp-action="Index">View Comments</a></li>
+                <li><a asp-area="Administration" asp-controller="Subscribes" asp-action="Index">View Subscribes</a></li>
+            </ul>
+
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Users</th>
+                        <th scope="col">Companies</th>
+                        <th scope="col">Categories</th>
+                        <th scope="col">Comments</th>
+                        <th scope="col">Subscribes</th>
+                        <th scope="col">Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>@this.Model.UsersCount</td>
+                        <td>@this.Model.CompaniesCount</td>
+                        <td>@this.Model.CategoriesCount</td>
+                        <td>@this.Model.CommentsCount</td>
+                        <td>@this.Model.SubscribesCount</td>
+                        <td>@this.Model.SettingsCount</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+

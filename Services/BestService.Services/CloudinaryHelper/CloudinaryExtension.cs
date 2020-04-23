@@ -4,8 +4,6 @@
     using System.IO;
     using System.Threading.Tasks;
 
-    using BestService.Common;
-    using BestService.Services.StringHelpers;
     using CloudinaryDotNet;
     using CloudinaryDotNet.Actions;
     using Microsoft.AspNetCore.Http;

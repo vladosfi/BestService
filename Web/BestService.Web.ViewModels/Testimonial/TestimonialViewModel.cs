@@ -22,8 +22,11 @@
             }
         }
 
-        public virtual ApplicationUser User { get; set; }
+        public string UserUserName { get; set; }
 
-        public string UserName => this.User.UserName;
+        public string UserFullName { get; set; }
+
+        public string UserProfileImage { get; set; }
+
     }
 }

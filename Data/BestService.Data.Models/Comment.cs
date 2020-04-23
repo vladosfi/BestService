@@ -11,9 +11,6 @@
         public string Content { get; set; }
 
         [Required]
-        public byte Rating { get; set; }
-
-        [Required]
         public int CompanyId { get; set; }
 
         public virtual Company Company { get; set; }

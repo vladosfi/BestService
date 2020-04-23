@@ -23,7 +23,6 @@
             var comment = new Comment
             {
                 Content = content,
-                Rating = rating,
                 CompanyId = companyId,
                 UserId = userId,
                 ParrentId = parrentId,

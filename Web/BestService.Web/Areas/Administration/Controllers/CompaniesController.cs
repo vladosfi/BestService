@@ -6,25 +6,27 @@
     using BestService.Data;
     using BestService.Data.Models;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
 
     [Area("Administration")]
-    public class CategoriesController : Controller
+    public class CompaniesController : Controller
     {
         private readonly ApplicationDbContext context;
 
-        public CategoriesController(ApplicationDbContext context)
+        public CompaniesController(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        // GET: Administration/Categories
+        // GET: Administration/Companies
         public async Task<IActionResult> Index()
         {
-            return this.View(await this.context.Categories.ToListAsync());
+            var applicationDbContext = this.context.Companies.Include(c => c.Category).Include(c => c.User);
+            return this.View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Administration/Categories/Details/5
+        // GET: Administration/Companies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +34,46 @@
                 return this.NotFound();
             }
 
-            var category = await this.context.Categories
+            var company = await this.context.Companies
+                .Include(c => c.Category)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (company == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(category);
+            return this.View(company);
         }
 
-        // GET: Administration/Categories/Create
+        // GET: Administration/Companies/Create
         public IActionResult Create()
         {
+            this.ViewData["CategoryId"] = new SelectList(this.context.Categories, "Id", "Description");
+            this.ViewData["UserId"] = new SelectList(this.context.Users, "Id", "Id");
             return this.View();
         }
 
-        // POST: Administration/Categories/Create
+        // POST: Administration/Companies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description,LogoImage,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category)
+        public async Task<IActionResult> Create([Bind("Name,Description,LogoImage,OfficialSite,UserId,CategoryId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Company company)
         {
             if (this.ModelState.IsValid)
             {
-                this.context.Add(category);
+                this.context.Add(company);
                 await this.context.SaveChangesAsync();
                 return this.RedirectToAction(nameof(this.Index));
             }
-            return this.View(category);
+
+            this.ViewData["CategoryId"] = new SelectList(this.context.Categories, "Id", "Description", company.CategoryId);
+            this.ViewData["UserId"] = new SelectList(this.context.Users, "Id", "Id", company.UserId);
+            return this.View(company);
         }
 
-        // GET: Administration/Categories/Edit/5
+        // GET: Administration/Companies/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +81,24 @@
                 return this.NotFound();
             }
 
-            var category = await this.context.Categories.FindAsync(id);
-            if (category == null)
+            var company = await this.context.Companies.FindAsync(id);
+            if (company == null)
             {
                 return this.NotFound();
             }
-            return this.View(category);
+            this.ViewData["CategoryId"] = new SelectList(this.context.Categories, "Id", "Description", company.CategoryId);
+            this.ViewData["UserId"] = new SelectList(this.context.Users, "Id", "Id", company.UserId);
+            return this.View(company);
         }
 
-        // POST: Administration/Categories/Edit/5
+        // POST: Administration/Companies/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,LogoImage,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Description,LogoImage,OfficialSite,UserId,CategoryId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Company company)
         {
-            if (id != category.Id)
+            if (id != company.Id)
             {
                 return this.NotFound();
             }
@@ -96,12 +107,12 @@
             {
                 try
                 {
-                    this.context.Update(category);
+                    this.context.Update(company);
                     await this.context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.CategoryExists(category.Id))
+                    if (!this.CompanyExists(company.Id))
                     {
                         return this.NotFound();
                     }
@@ -114,10 +125,12 @@
                 return this.RedirectToAction(nameof(this.Index));
             }
 
-            return this.View(category);
+            this.ViewData["CategoryId"] = new SelectList(this.context.Categories, "Id", "Description", company.CategoryId);
+            this.ViewData["UserId"] = new SelectList(this.context.Users, "Id", "Id", company.UserId);
+            return this.View(company);
         }
 
-        // GET: Administration/Categories/Delete/5
+        // GET: Administration/Companies/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,31 +138,33 @@
                 return this.NotFound();
             }
 
-            var category = await this.context.Categories
+            var company = await this.context.Companies
+                .Include(c => c.Category)
+                .Include(c => c.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (category == null)
+            if (company == null)
             {
                 return this.NotFound();
             }
 
-            return this.View(category);
+            return this.View(company);
         }
 
-        // POST: Administration/Categories/Delete/5
+        // POST: Administration/Companies/Delete/5
         [HttpPost]
         [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await this.context.Categories.FindAsync(id);
-            this.context.Categories.Remove(category);
+            var company = await this.context.Companies.FindAsync(id);
+            this.context.Companies.Remove(company);
             await this.context.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        private bool CategoryExists(int id)
+        private bool CompanyExists(int id)
         {
-            return this.context.Categories.Any(e => e.Id == id);
+            return this.context.Companies.Any(e => e.Id == id);
         }
     }
 }

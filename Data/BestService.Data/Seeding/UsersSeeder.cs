@@ -1,7 +1,9 @@
 ﻿namespace BestService.Data.Seeding
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using BestService.Common;
@@ -27,6 +29,8 @@
                     Email = GlobalConstants.AdminEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
+                    FullName = "Admin Name",
+                    ProfileImage = "v1587651732/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent_uq9uhf.png",
                 }, GlobalConstants.Pass);
 
             await userManager.CreateAsync(
@@ -36,6 +40,8 @@
                     Email = GlobalConstants.CompanyEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
+                    FullName = "Company Name",
+                    ProfileImage = "v1587651732/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent_uq9uhf.png",
                 }, GlobalConstants.Pass);
 
             await userManager.CreateAsync(
@@ -45,6 +51,8 @@
                     Email = GlobalConstants.UserEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
+                    FullName = "User Name",
+                    ProfileImage = "v1587651732/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent_uq9uhf.png",
                 }, GlobalConstants.Pass);
 
             var adminUser = this.GetUserByUserName(dbContext, GlobalConstants.AdminName);

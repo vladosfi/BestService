@@ -10,8 +10,11 @@ namespace BestService.Web.Areas.Identity.Pages.Account
     using System.Threading.Tasks;
     using BestService.Common;
     using BestService.Data.Models;
+    using BestService.Services.CloudinaryHelper;
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.UI.Services;
     using Microsoft.AspNetCore.Mvc;
@@ -26,17 +29,20 @@ namespace BestService.Web.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ILogger<RegisterModel> logger;
         private readonly IEmailSender emailSender;
+        private readonly Cloudinary cloudinary;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            Cloudinary cloudinary)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.logger = logger;
             this.emailSender = emailSender;
+            this.cloudinary = cloudinary;
         }
 
         [BindProperty]
@@ -71,6 +77,10 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "Profile Image:")]
+            public IFormFile ProfileImage { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -85,16 +95,21 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             this.ExternalLogins = (await this.signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (this.ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = this.Input.UserName, Email = this.Input.Email };
+                var imageUri = await CloudinaryExtension.UploadImageAsync(this.cloudinary, this.Input.ProfileImage);
+                if (imageUri == string.Empty)
+                {
+                    return this.Page();
+                }
+                var user = new ApplicationUser { 
+                    UserName = this.Input.UserName, 
+                    Email = this.Input.Email, 
+                    FullName = this.Input.FullName,
+                    ProfileImage = imageUri.Replace(GlobalConstants.CloudinaryUploadDir, string.Empty),
+                };
                 var result = await this.userManager.CreateAsync(user, this.Input.Password);
                 var addUserToRoleResult = await this.userManager.AddToRoleAsync(user, GlobalConstants.UserRoleName);
 
-                var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.NameIdentifier, this.Input.FullName),
-                    };
 
-                var addClaims = await this.userManager.AddClaimsAsync(user, claims);
                 if (result.Succeeded && addUserToRoleResult.Succeeded)
                 {
                     this.logger.LogInformation("User created a new account with password.");

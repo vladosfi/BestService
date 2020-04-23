@@ -1,4 +1,6 @@
 ﻿@model BestService.Web.ViewModels.Companies.CompanyDetailsViewModel
+@using BestService.Common;
+
 @{
     ViewData["Title"] = @Model.Name + " Details";
 
@@ -15,7 +17,7 @@
             <ul class="comment-list">
                 <li class="comment">
                     <div class="vcard bio">
-                        <img src="/images/person_1.jpg" alt="Image placeholder">
+                        <img src="@GlobalConstants.CloudinaryUploadDir@comment.UserProfileImage" alt="@comment.UserUserName profile image">
                     </div>
                     <div class="comment-body">
                         <h3>@comment.UserUserName</h3>
@@ -66,18 +68,18 @@
                     }
                 }
                 <!-- the actual blog post: title/author/date/content -->
-            <div>
-                <h2 class="mb-3 text-left">@Model.Name</h2>
-            </div>
-            <span class="float-left">
-                @{
-                    if (Model.IsContentEditor)
-                    {
-                        <a asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" class="mr-md-2">[ Edit ]</a>
+                <div>
+                    <h2 class="mb-3 text-left">@Model.Name</h2>
+                </div>
+                <span class="float-left">
+                    @{
+                        if (Model.IsContentEditor)
+                        {
+                            <a asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" class="mr-md-2">[ Edit ]</a>
+                        }
                     }
-                }
-                <i class="fa fa-user"></i> by <a href="#">@Model.UserUsername</a>
-            </span>
+                    <i class="fa fa-user"></i> by <a href="#">@Model.UserUsername</a>
+                </span>
                 @{ if (@Model.IsRateAllowed)
                     {
                         <span id="rating" class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">

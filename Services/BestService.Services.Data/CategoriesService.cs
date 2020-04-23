@@ -2,10 +2,12 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoriesService : ICategoriesService
     {
@@ -36,5 +38,8 @@
                 .Where(x => x.Name.Replace(" ", "-") == name.Replace(" ", "-"))
                 .To<T>()
                 .FirstOrDefault();
+
+        public async Task<int> GetCountAsync() => await this.categoriesRepository.AllAsNoTracking().CountAsync();
+
     }
 }

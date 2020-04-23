@@ -1,4 +1,6 @@
 ﻿@model BestService.Web.ViewModels.Testimonial.TestimonialsViewModel
+@using BestService.Common;
+
 @{
     ViewData["Title"] = "What Our Users Says";
 }
@@ -10,15 +12,15 @@
             {
                 <div class="item">
                     <div class="testimony-wrap d-flex">
-                        <div class="user-img" style="background-image: url(images/person_1.jpg)">
+                        <div class="user-img" style="background-image: url(@GlobalConstants.CloudinaryUploadDir@comment.UserProfileImage")">
                         </div>
                         <div class="text pl-4">
                             <span class="quote d-flex align-items-center justify-content-center">
                                 <i class="icon-quote-left"></i>
                             </span>
                             <p>@comment.ShortContent</p>
-                            <p class="name">@comment.UserName</p>
-                            <span class="position">Father</span>
+                            <p class="name">@comment.UserFullName</p>
+                            <span class="position">@comment.UserUserName</span>
                         </div>
                     </div>
                 </div>
