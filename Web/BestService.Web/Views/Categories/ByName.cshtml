@@ -37,19 +37,11 @@
                             <p>@company.ShortDescription</p>
                         </div>
                         <div class="card-footer">
-                            <small class="text-muted float-left">
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                                <i class="text-warning fa fa-star"></i>
-                            </small>
-                            <small class="text-muted float-right">
-                                <a href="#" class="mr-2"><span class="icon-eye"></span> @company.VisitCount</a>
-                                <a href="#" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
-                            </small>
-                            <div class="clearfix"></div>
-                        </div>
+                            <span><i style="font-size:1rem; color: #FFB300;" class="star1 fa fa-star"></i><small><small class="ml-md-auto">(@company.RatingAvg / 5)</small></small></span>
+                            <span class="text-muted float-right"><small class="mr-2"><span class="icon-eye"></span> @company.VisitsCount</small></span>
+                            <span class="text-muted float-right"><small class="mr-2"><span class="icon-chat"></span> @company.CommentsCount</small></span>
+                                <div class="clearfix"></div>
+</div>
                     </div>
                 </div>
             }
