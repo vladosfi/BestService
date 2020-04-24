@@ -1,5 +1,6 @@
 ﻿namespace BestService.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
 
     using BestService.Data.Models;
@@ -40,13 +41,15 @@
 
             var userId = this.userManager.GetUserId(this.User);
             await this.ratingsService.RateAsync(input.CompanyId, userId, input.Stars);
-            var stars = this.ratingsService.GetRating(input.CompanyId);
+            var rateSum = await this.ratingsService.GetCompanyRates(input.CompanyId);
+            var rateAvg = await this.ratingsService.GetAvgCompanyRate(input.CompanyId);
 
             return new RateResponseModel
             {
                 CompanyId = input.CompanyId,
                 RateValue = input.Stars,
-                RateSum = this.ratingsService.GetCompanyReview(input.CompanyId),
+                RateSum = rateSum,
+                RateAvg = Math.Round(rateAvg, 1, MidpointRounding.AwayFromZero),
             };
         }
     }

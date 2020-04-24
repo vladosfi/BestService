@@ -1,6 +1,5 @@
 ﻿namespace BestService.Services.Data
 {
-    using System;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -10,8 +9,6 @@
 
     public class RatingsService : IRatingsService
     {
-        private const int DefaultCompanyRating = 1;
-
         private readonly IRepository<Rate> ratingRepository;
 
         public RatingsService(IRepository<Rate> ratingRepository)
@@ -19,20 +16,19 @@
             this.ratingRepository = ratingRepository;
         }
 
-        public int GetRating(int companyId)
-            => this.ratingRepository
-            .All()
-            .Where(p => p.CompanyId == companyId)
-            .Select(p => p.Stars)
-            .FirstOrDefault();
-
         public async Task RateAsync(int companyId, string userId, int stars)
         {
             var rating = this.ratingRepository.All().FirstOrDefault(x => x.CompanyId == companyId && x.UserId == userId);
 
             if (rating == null)
             {
-                rating = CreateRate(companyId, userId, stars);
+                rating = new Rate
+                {
+                    CompanyId = companyId,
+                    UserId = userId,
+                    Stars = stars,
+                };
+
                 await this.ratingRepository.AddAsync(rating);
             }
             else
@@ -44,15 +40,15 @@
             await this.ratingRepository.SaveChangesAsync();
         }
 
-        public int GetAvgCompanyRate(int companyId)
+        public async Task<double> GetAvgCompanyRate(int companyId)
         {
-            var rateSum = this.GetCompanyReview(companyId);
-            var userCount = this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).Count();
+            var averageStars = await this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).AverageAsync(x => x.Stars);
 
-            return (int)Math.Round((double)rateSum / userCount);
+            return averageStars;
         }
 
-        public int GetCompanyReview(int companyId) => this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).Count();
+        public async Task<int> GetCompanyRates(int companyId)
+            => await this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).CountAsync();
 
         public async Task<int> GetCountAsync() => await this.ratingRepository.AllAsNoTracking().CountAsync();
 
@@ -60,13 +56,5 @@
             => !this.ratingRepository
             .AllAsNoTracking()
             .Any(x => x.CompanyId == companyId && x.UserId == userId);
-
-        private static Rate CreateRate(int companyId, string userId, int stars)
-            => new Rate
-            {
-                CompanyId = companyId,
-                UserId = userId,
-                Stars = stars,
-            };
     }
 }

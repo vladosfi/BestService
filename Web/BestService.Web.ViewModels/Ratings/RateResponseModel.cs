@@ -7,5 +7,7 @@
         public int RateValue { get; set; }
 
         public int RateSum { get; set; }
+
+        public double RateAvg { get; set; }
     }
 }

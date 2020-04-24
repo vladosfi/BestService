@@ -3,42 +3,57 @@
     this.ViewData["Title"] = "Admin dashboard";
 }
 
-<div class="row">
-    <div class="row d-flex">
-        <div class="col-md-12 wrap-about pr-md-4 ftco-animate fadeInUp ftco-animated">
-            <h1 class="mb-0">@ViewData["Title"]</h1>
-            <ul>
-                <li><a asp-area="Administration" asp-controller="Categories" asp-action="Index">View Categories</a></li>
-                <li><a asp-area="Administration" asp-controller="Companies" asp-action="Index">View Companies</a></li>
-                <li><a asp-area="Administration" asp-controller="Comments" asp-action="Index">View Comments</a></li>
-                <li><a asp-area="Administration" asp-controller="Subscribes" asp-action="Index">View Subscribes</a></li>
-            </ul>
-
-            <table class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">Users</th>
-                        <th scope="col">Companies</th>
-                        <th scope="col">Categories</th>
-                        <th scope="col">Comments</th>
-                        <th scope="col">Subscribes</th>
-                        <th scope="col">Settings</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>@this.Model.UsersCount</td>
-                        <td>@this.Model.CompaniesCount</td>
-                        <td>@this.Model.CategoriesCount</td>
-                        <td>@this.Model.CommentsCount</td>
-                        <td>@this.Model.SubscribesCount</td>
-                        <td>@this.Model.SettingsCount</td>
-                    </tr>
-                </tbody>
-            </table>
-
+<section class="ftco-section mt-0 pt-0 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center pb-5">@ViewData["Title"]</h1>
+                <div class="list-group mt-">
+                    <a href="#" class="list-group-item list-group-item-action active">Tables</a>
+                    <a asp-area="Administration" asp-controller="Categories" asp-action="Index" class="list-group-item list-group-item-action" style="border-top-width: 1px">Categories <span class="badge badge-primary badge-pill float-right">@this.Model.CategoriesCount</span></a>
+                    <a asp-area="Administration" asp-controller="Companies" asp-action="Index" class="list-group-item list-group-item-action ">Companies <span class="badge badge-primary badge-pill float-right">@this.Model.CompaniesCount</span></a>
+                    <a asp-area="Administration" asp-controller="Comments" asp-action="Index" class="list-group-item list-group-item-action">Comments <span class="badge badge-primary badge-pill float-right">@this.Model.CommentsCount</span></a>
+                    <a asp-area="Administration" asp-controller="Subscribes" asp-action="Index" class="list-group-item list-group-item-action ">Subscribers <span class="badge badge-primary badge-pill float-right">@this.Model.SubscribesCount</span></a>
+                    <a asp-area="Administration" asp-controller="ContactFormEntries" asp-action="Index" class="list-group-item list-group-item-action ">ContactForm Entries <span class="badge badge-primary badge-pill float-right">@this.Model.ContactFormEntries</span></a>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<section class="ftco-section mt-0 pt-0 pb-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Summary</h2>
+                <table class="table table-striped table-hover table-bordered table-responsive-xg">
+                    <thead>
+                        <tr>
+                            <th scope="col">Users</th>
+                            <th scope="col">Companies</th>
+                            <th scope="col">Categories</th>
+                            <th scope="col">Comments</th>
+                            <th scope="col">Subscribes</th>
+                            <th scope="col">ContactForm Entries</th>
+                            <th scope="col">Settings</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="w-10">@this.Model.UsersCount</td>
+                            <td class="w-10">@this.Model.CompaniesCount</td>
+                            <td class="w-10">@this.Model.CategoriesCount</td>
+                            <td class="w-10">@this.Model.CommentsCount</td>
+                            <td class="w-10">@this.Model.SubscribesCount</td>
+                            <td class="w-30">@this.Model.ContactFormEntries</td>
+                            <td class="w-10">@this.Model.SettingsCount</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
 
 

@@ -10,6 +10,7 @@
     using BestService.Common;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using BestService.Web.ViewModels.Categories;
 
     public class CompaniesDetailsViewModel : IMapFrom<Company>, IMapTo<Company>, IHaveCustomMappings
     {
@@ -39,9 +40,11 @@
 
         public string UserUsername { get; set; }
 
-        public Category Category { get; set; }
+        public CategoriesViewModel Category { get; set; }
 
         public double RatingAvg { get; set; }
+
+        public double ArverageStars => Math.Round(this.RatingAvg, 1, MidpointRounding.AwayFromZero);
 
         public int Rating => (int)Math.Round(this.RatingAvg);
 

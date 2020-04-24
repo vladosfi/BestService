@@ -41,7 +41,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-2 bread">@ViewData["Title"]</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a asp-controller="Companies" asp-action="GetList">Companies <i class="ion-ios-arrow-forward"></i></a></span> <span> @ViewData["Title"] <i class="ion-ios-arrow-forward"></i></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a asp-controller="Companies" asp-action="GetList">Companies <i class="ion-ios-arrow-forward"></i></a></span></p>
             </div>
         </div>
     </div>
@@ -83,7 +83,7 @@
                 @{ if (@Model.IsRateAllowed)
                     {
                         <span id="rating" class="starrating risingstar d-flex flex-row-reverse float-right list-inline-item">
-                            <span class="ml-md-2"><small>@Model.RatingAvg / 5</small></span>
+                            <span class="ml-md-2"><small Id="rateAvg">(@Model.ArverageStars / 5)</small></span>
                             <span class='set'>
                                 <input id="rad5" class="rad" name="rad" type="radio">
                                 <label onclick="doRate(5,@Model.Id)" for="rad5" class="star fa fa-star-o"></label>
@@ -115,7 +115,7 @@
                                 <span style="color: #FFB300;"><i id="star3" class="fa fa-star-o"></i></span>
                                 <span style="color: #FFB300;"><i id="star4" class="fa fa-star-o"></i></span>
                                 <span style="color: #FFB300;"><i id="star5" class="fa fa-star-o"></i></span>
-                                <span><small>@Model.RatingAvg / 5</small></span>
+                                <span><small>(@Model.ArverageStars / 5)</small></span>
                             </span>
                         </span>
                     }
@@ -147,14 +147,6 @@
                             <small><i class="icon-eye"></i><span id="AjaxViews"> Views: @Model.Visit </span></small>
                             @*<span><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a> <a href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a> <a href=""><span class="badge badge-info">HTML</span></a></span>*@
                         </div>
-                    </div>
-                </div>
-                <div class="tag-widget post-tag-container mb-5 mt-5">
-                    <div class="tagcloud">
-                        <a href="#" class="tag-cloud-link">Life</a>
-                        <a href="#" class="tag-cloud-link">Sport</a>
-                        <a href="#" class="tag-cloud-link">Tech</a>
-                        <a href="#" class="tag-cloud-link">Travel</a>
                     </div>
                 </div>
 
@@ -194,68 +186,13 @@
             </div> <!-- .col-md-8 -->
 
             <div class="col-lg-4 sidebar ftco-animate">
-                <div class="sidebar-box">
-                    <form action="#" class="search-form">
-                        <div class="form-group">
-                            <span class="icon icon-search"></span>
-                            <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
-                        </div>
-                    </form>
-                </div>
+
 
                 <vc:side-bar></vc:side-bar>
 
                 <vc:recent-companies count="3"></vc:recent-companies>
 
-                <div class="sidebar-box ftco-animate">
-                    <h3>Popular Articles</h3>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(/images/image_1.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> June 27, 2019</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(/images/image_2.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> June 27, 2019</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="block-21 mb-4 d-flex">
-                        <a class="blog-img mr-4" style="background-image: url(/images/image_3.jpg);"></a>
-                        <div class="text">
-                            <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                            <div class="meta">
-                                <div><a href="#"><span class="icon-calendar"></span> June 27, 2019</a></div>
-                                <div><a href="#"><span class="icon-person"></span> Dave Lewis</a></div>
-                                <div><a href="#"><span class="icon-chat"></span> 19</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar-box ftco-animate">
-                    <h3>Tag Cloud</h3>
-                    <ul class="tagcloud m-0 p-0">
-                        <a href="#" class="tag-cloud-link">School</a>
-                        <a href="#" class="tag-cloud-link">Kids</a>
-                        <a href="#" class="tag-cloud-link">Nursery</a>
-                        <a href="#" class="tag-cloud-link">Daycare</a>
-                        <a href="#" class="tag-cloud-link">Care</a>
-                        <a href="#" class="tag-cloud-link">Kindergarten</a>
-                        <a href="#" class="tag-cloud-link">Teacher</a>
-                    </ul>
-                </div>
+                
             </div><!-- END COL -->
         </div>
     </div>
@@ -276,8 +213,10 @@
                 headers: { 'X-CSRF-TOKEN': token },
                 success: function (data) {
                     console.log(data.companyId);
-                    $('#rateValue' + data.companyId).html(data.rateValue);
+                    //$('#rateValue' + data.companyId).html(data.rateValue);
                     $('#rateSum').html('Rates: ' + data.rateSum);
+                    $('#rateAvg').html(data.rateAvg + ' / 5');
+                    $('#rating-stars').html(data.rateAvg);                    
                 }
             })
         };
@@ -317,9 +256,7 @@
             })
         };
 
-        document.body.onload = function () {
-            increaseVisits();
-            //$("#rad" + $('#rating-stars').val()).click();
+        function claculateStars() {
             var ratingStars = document.getElementById("rating-stars").value;
 
             for (var id = 1; id <= ratingStars; id++) {
@@ -327,6 +264,11 @@
                 element.classList.remove("fa-star-o");
                 element.classList.add("fa-star");
             }
+        }
+
+        document.body.onload = function () {
+            increaseVisits();
+            claculateStars();
         };
     </script>
 }

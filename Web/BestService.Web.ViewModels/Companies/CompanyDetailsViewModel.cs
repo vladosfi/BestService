@@ -39,6 +39,8 @@
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
 
+        public double ArverageStars => Math.Round(this.RatingAvg, 1, MidpointRounding.AwayFromZero);
+
         public double RatingAvg { get; set; }
 
         public int Rating => (int)Math.Round(this.RatingAvg);

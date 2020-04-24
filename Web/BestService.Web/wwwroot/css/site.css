@@ -54,3 +54,9 @@ body {
     height: 60px;
     line-height: 60px; /* Vertically center the text there */
 }
+
+/* List group styles
+-------------------------------------------------- */
+.list-group-item + .list-group-item {
+    border-top-width: 1px;
+}

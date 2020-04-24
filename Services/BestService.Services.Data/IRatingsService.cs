@@ -6,11 +6,9 @@
     {
         Task RateAsync(int companyId, string userId, int stars);
 
-        int GetRating(int companyId);
+        Task<double> GetAvgCompanyRate(int companyId);
 
-        int GetAvgCompanyRate(int companyId);
-
-        int GetCompanyReview(int companyId);
+        Task<int> GetCompanyRates(int companyId);
 
         Task<int> GetCountAsync();
 

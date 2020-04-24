@@ -13,5 +13,7 @@
         public int CommentsCount { get; set; }
 
         public int SubscribesCount { get; set; }
+
+        public int ContactFormEntries { get; set; }
     }
 }
