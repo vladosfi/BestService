@@ -23,21 +23,23 @@
 
         public string SanitizedContent => new HtmlSanitizer().Sanitize(this.Description);
 
-        public string UserUsername { get; set; }
-
-        public string UserId { get; set; }
-
         public string ImageUri => GlobalConstants.CloudinaryUploadDir + this.LogoImage;
 
         public DateTime CreatedOn { get; set; }
 
         public string CategoryId { get; set; }
 
+        public string CategoryName { get; set; }
+
+        public string CategoryUrl => $"/c/{this.CategoryName.Replace(' ', '-')}";
+
         public long Visit { get; set; }
 
         public bool IsContentEditor { get; set; }
 
         public IEnumerable<CommentViewModel> Comments { get; set; }
+
+        public virtual ApplicationUser User { get; set; }
 
         public double ArverageStars => Math.Round(this.RatingAvg, 1, MidpointRounding.AwayFromZero);
 

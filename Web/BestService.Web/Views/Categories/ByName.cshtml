@@ -10,7 +10,7 @@
         <div class="row no-gutters slider-text align-items-center justify-content-center">
             <div class="col-md-9 ftco-animate text-center">
                 <h1 class="mb-2 bread">@ViewData["Title"]</h1>
-                <p class="breadcrumbs"><span class="mr-2"><a asp-controller="Home" asp-action="Index">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a asp-controller="Categories" asp-action="GetList">All Categories <i class="ion-ios-arrow-forward"></i></a></span></p>
+                <p class="breadcrumbs"><span class="mr-2"><a asp-controller="Home" asp-action="Index">Home <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a asp-controller="Categories" asp-action="All">All Categories <i class="ion-ios-arrow-forward"></i></a></span></p>
                 <p class="text-white">@Model.Description</p>
             </div>
         </div>
@@ -37,11 +37,11 @@
                             <p>@company.ShortDescription</p>
                         </div>
                         <div class="card-footer">
-                            <span><i style="font-size:1rem; color: #FFB300;" class="star1 fa fa-star"></i><small><small class="ml-md-auto">(@company.RatingAvg / 5)</small></small></span>
+                            <span><i style="font-size:1rem; color: #FFB300;" class="star1 fa fa-star"></i><small><small class="ml-md-auto">(@company.ArverageStars / 5)</small></small></span>
                             <span class="text-muted float-right"><small class="mr-2"><span class="icon-eye"></span> @company.VisitsCount</small></span>
                             <span class="text-muted float-right"><small class="mr-2"><span class="icon-chat"></span> @company.CommentsCount</small></span>
-                                <div class="clearfix"></div>
-</div>
+                            <div class="clearfix"></div>
+                        </div>
                     </div>
                 </div>
             }

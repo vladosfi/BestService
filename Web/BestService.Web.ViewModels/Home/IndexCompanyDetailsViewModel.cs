@@ -54,23 +54,21 @@
 
         public Category Category { get; set; }
 
-        public double Rating { get; set; }
+        public double Ratings { get; set; }
 
-        public int VisitCount => this.Visits.Where(c => c.CompanyId == this.Id).Sum(v => v.Count);
+        public double ArverageStars => Math.Round(this.Ratings, 1, MidpointRounding.AwayFromZero);
 
-        public virtual ICollection<Visit> Visits { get; set; }
+        public int VisitsCount { get; set; }
 
-        public virtual ICollection<Rate> Ratings { get; set; }
-
-        public virtual ICollection<Comment> Comments { get; set; }
+        public int CommentsCount { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Company, IndexCompanyDetailsViewModel>()
-                .ForMember(x => x.Rating, options =>
+                .ForMember(x => x.Ratings, options =>
                {
                    options.MapFrom(c => c.Ratings.Average(r => r.Stars));
-                });
+               });
         }
     }
 }

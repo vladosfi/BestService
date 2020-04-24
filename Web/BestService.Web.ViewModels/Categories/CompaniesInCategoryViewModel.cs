@@ -53,6 +53,8 @@
 
         public int CommentsCount { get; set; }
 
+        public double ArverageStars => Math.Round(this.RatingAvg, 1, MidpointRounding.AwayFromZero);
+
         public double RatingAvg { get; set; }
 
         public void CreateMappings(IProfileExpression configuration)

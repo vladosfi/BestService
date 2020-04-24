@@ -56,7 +56,7 @@
                 var company = this.companiesService.GetById<CompanyDetailsViewModel>(id);
 
                 if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) ||
-                    (this.User.IsInRole(GlobalConstants.CompanyRoleName) && user.Id == company.UserId))
+                    (this.User.IsInRole(GlobalConstants.CompanyRoleName) && user.Id == company.User.Id))
                 {
                     viewModel.IsContentEditor = true;
                 }

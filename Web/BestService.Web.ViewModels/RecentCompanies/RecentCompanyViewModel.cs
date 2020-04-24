@@ -13,7 +13,9 @@
 
         public string Name { get; set; }
 
-        public float Rating { get; set; }
+        public double Rating { get; set; }
+
+        public double ArverageStars => Math.Round(this.Rating, 1, MidpointRounding.AwayFromZero);
 
         public string LogoImage { get; set; }
 

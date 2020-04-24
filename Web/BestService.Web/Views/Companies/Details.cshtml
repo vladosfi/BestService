@@ -78,7 +78,7 @@
                             <a asp-controller="Companies" asp-action="Edit" asp-route-id="@Model.Id" class="mr-md-2">[ Edit ]</a>
                         }
                     }
-                    <i class="fa fa-user"></i> by <a href="#">@Model.UserUsername</a>
+                    <i class="fa fa-user"></i> by <a href="#">@Model.User.FullName</a>
                 </span>
                 @{ if (@Model.IsRateAllowed)
                     {
@@ -145,17 +145,33 @@
 
                         <div class="col col-lg-2">
                             <small><i class="icon-eye"></i><span id="AjaxViews"> Views: @Model.Visit </span></small>
-                            @*<span><i class="fa fa-tags"></i> Tags: <a href=""><span class="badge badge-info">Bootstrap</span></a> <a href=""><span class="badge badge-info">Web</span></a> <a href=""><span class="badge badge-info">CSS</span></a> <a href=""><span class="badge badge-info">HTML</span></a></span>*@
                         </div>
                     </div>
                 </div>
 
-                @*<input id="showAddCommentForm" type="submit" value="Leave a comment" class="btn btn-primary btn-lg btn-block">*@
-                @*<button id="showAddCommentForm(0)" type="button" class="btn btn-primary btn-lg btn-block">Leave a comment</button>*@
+                <div class="tag-widget post-tag-container mb-5 mt-5">
+                    <div class="tagcloud">
+                        <a asp-controller="Companies" asp-action="GetList" class="tag-cloud-link">Companies</a>
+                        <a href="@Model.CategoryUrl" class="tag-cloud-link">@Model.CategoryName</a>
+                    </div>
+                </div>
+
+                <div class="about-author d-flex p-4 bg-light">
+                    <div class="bio mr-5">
+                        <img src="@GlobalConstants.CloudinaryUploadDir@Model.User.ProfileImage" width="134" alt="@Model.User.FullName image" class="img-fluid mb-4">
+                    </div>
+                    <div class="desc">
+                        <h3>@Model.User.FullName - Manager</h3>
+                    </div>
+                </div>
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <div class="tag-widget post-tag-container mb-5 mt-5"> <button type="button" class="btn btn-primary btn-lg btn-block" onclick="showAddCommentForm(0)">Leave a comment</button> </div>
                 }
+
+                <h3 class="mb-5 h4 font-weight-bold pt-5 mt-5">@Model.Comments.Count() Comments</h3>
+
                 <div class="pt-2 mt-2">
                     @{DisplayComments(null);}
                 </div>
@@ -192,7 +208,7 @@
 
                 <vc:recent-companies count="3"></vc:recent-companies>
 
-                
+
             </div><!-- END COL -->
         </div>
     </div>
@@ -216,7 +232,7 @@
                     //$('#rateValue' + data.companyId).html(data.rateValue);
                     $('#rateSum').html('Rates: ' + data.rateSum);
                     $('#rateAvg').html(data.rateAvg + ' / 5');
-                    $('#rating-stars').html(data.rateAvg);                    
+                    $('#rating-stars').html(data.rateAvg);
                 }
             })
         };

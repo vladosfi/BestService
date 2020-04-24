@@ -59,7 +59,7 @@
                                 <p class="mb-0"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
                                 <p class="ml-auto mb-0">
                                     <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="mr-2">Rating</a>
-                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="meta-chat"><span class="icon-star"></span> @company.Rating</a>
+                                    <span><i style="font-size:1rem;" class="star1 fa fa-star"></i><small><small class="ml-md-auto">(@company.ArverageStars / 5)</small></small></span>
                                 </p>
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                                 <p class="mb-0"><a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id"  class="btn btn-primary">Read More <span class="ion-ios-arrow-round-forward"></span></a></p>
                                 <p class="ml-auto mb-0">
                                     <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="mr-2">Comments</a>
-                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="meta-chat"><span class="icon-chat"></span> @company.Comments.Count</a>
+                                    <a asp-controller="Companies" asp-action="Details" asp-route-id="@company.Id" class="meta-chat"><span class="icon-chat"></span> @company.CommentsCount</a>
                                 </p>
                             </div>
                         </div>

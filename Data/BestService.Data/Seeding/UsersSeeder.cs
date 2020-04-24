@@ -40,8 +40,8 @@
                     Email = GlobalConstants.CompanyEmail,
                     EmailConfirmed = true,
                     PhoneNumber = GlobalConstants.PhoneNumber,
-                    FullName = "Company Name",
-                    ProfileImage = "v1587651732/24-248729_stockvader-predicted-adig-user-profile-image-png-transparent_uq9uhf.png",
+                    FullName = "Jonh Roger",
+                    ProfileImage = "v1587721709/aztbiyxgujqb8e7dbweb.jpg",
                 }, GlobalConstants.Pass);
 
             await userManager.CreateAsync(
