@@ -42,7 +42,7 @@
 
         [Theory]
         [InlineData("companyName", "Description", "logoImg", "officialSite", "userId", 1)]
-        public async Task AddCompanyShouldReturnCorrectDataFromDbContext(
+        public async Task AddAsyncCompanyShouldReturnCorrectDataFromDbContext(
             string name,
             string description,
             string logoImg,
@@ -99,6 +99,24 @@
             var repository = new EfDeletableEntityRepository<Company>(dbContext);
             var service = new CompaniesService(repository);
             Assert.Equal(3, await service.GetCountAsync());
+        }
+
+        [Fact]
+        public async Task<int> EditByIdAsyncShouldReturnTrueWithCorrectInputUsingDbContext()
+        {
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+               .UseInMemoryDatabase(databaseName: "CompanyTest123").Options;
+            var dbContext = new ApplicationDbContext(options);
+            dbContext.Companies.Add(new Company { 
+                Id = 1, Name = "C1", Description = "desc", LogoImage = "image", OfficialSite = "officialSite", CategoryId = 1 });
+            await dbContext.SaveChangesAsync();
+
+            var repository = new EfDeletableEntityRepository<Company>(dbContext);
+            var service = new CompaniesService(repository);
+            var result = await service.EditById(1, "C11", "desc", "image", "officialSite", 1);
+
+            Assert.Equal(1, result);
+            return result;
         }
     }
 }
