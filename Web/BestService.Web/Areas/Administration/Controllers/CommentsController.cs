@@ -164,7 +164,8 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var comment = await this.context.Comments.FindAsync(id);
-            this.context.Comments.Remove(comment);
+            comment.IsDeleted = true;
+            this.context.Companies.Update(comment);
             await this.context.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }

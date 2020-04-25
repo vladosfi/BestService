@@ -145,7 +145,7 @@
             var subscribe = await this.context.Subscribes.FindAsync(id);
             this.context.Subscribes.Remove(subscribe);
             await this.context.SaveChangesAsync();
-            return this.RedirectToAction(nameof(Index));
+            return this.RedirectToAction(nameof(this.Index));
         }
 
         private bool SubscribeExists(int id)

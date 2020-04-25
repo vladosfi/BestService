@@ -157,7 +157,8 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var company = await this.context.Companies.FindAsync(id);
-            this.context.Companies.Remove(company);
+            company.IsDeleted = true;
+            this.context.Companies.Update(company);
             await this.context.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }

@@ -46,7 +46,7 @@
             <tr>
                 <td>
                     @{
-                        var shortContent = item.Content.Substring(0, 50) + "...";
+                        var shortContent = item.Content?.Length > 50 ? item.Content.Substring(0, 50) + "..." : item.Content;
                     }
                     @Html.DisplayFor(modelItem => shortContent)
                 </td>

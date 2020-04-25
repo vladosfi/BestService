@@ -61,6 +61,7 @@
                 await this.context.SaveChangesAsync();
                 return this.RedirectToAction(nameof(this.Index));
             }
+
             return this.View(category);
         }
 
@@ -142,7 +143,8 @@
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var category = await this.context.Categories.FindAsync(id);
-            this.context.Categories.Remove(category);
+            category.IsDeleted = true;
+            this.context.Companies.Update(category);
             await this.context.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }
