@@ -11,13 +11,19 @@
     {
         private readonly IRepository<Rate> ratingRepository;
 
-        public RatingsService(IRepository<Rate> ratingRepository)
+        public RatingsService(
+            IDeletableEntityRepository<Rate> ratingRepository)
         {
             this.ratingRepository = ratingRepository;
         }
 
         public async Task RateAsync(int companyId, string userId, int stars)
         {
+            if (stars < 1 || stars > 5)
+            {
+                return;
+            }
+
             var rating = this.ratingRepository.All().FirstOrDefault(x => x.CompanyId == companyId && x.UserId == userId);
 
             if (rating == null)
@@ -47,10 +53,10 @@
             return averageStars;
         }
 
-        public async Task<int> GetCompanyRates(int companyId)
-            => await this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).CountAsync();
+        public int GetCompanyRates(int companyId)
+            => this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).Count();
 
-        public async Task<int> GetCountAsync() => await this.ratingRepository.AllAsNoTracking().CountAsync();
+        public int GetCount() => this.ratingRepository.AllAsNoTracking().Count();
 
         public bool IsRateAllowed(int companyId, string userId)
             => !this.ratingRepository

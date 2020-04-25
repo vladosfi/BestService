@@ -148,5 +148,10 @@
         }
 
         public int GetCountByCategoryId(int categoryId) => this.companyRepository.All().Count(c => c.CategoryId == categoryId);
+
+        public Task<bool> Exist(int companyId)
+        {
+            return this.companyRepository.AllAsNoTracking().AnyAsync(x => x.Id == companyId);
+        }
     }
 }

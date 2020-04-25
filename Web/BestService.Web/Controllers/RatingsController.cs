@@ -41,7 +41,7 @@
 
             var userId = this.userManager.GetUserId(this.User);
             await this.ratingsService.RateAsync(input.CompanyId, userId, input.Stars);
-            var rateSum = await this.ratingsService.GetCompanyRates(input.CompanyId);
+            var rateSum = this.ratingsService.GetCompanyRates(input.CompanyId);
             var rateAvg = await this.ratingsService.GetAvgCompanyRate(input.CompanyId);
 
             return new RateResponseModel

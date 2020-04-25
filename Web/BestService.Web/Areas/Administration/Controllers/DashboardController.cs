@@ -39,7 +39,7 @@
         {
             var viewModel = new IndexViewModel
             {
-                SettingsCount = await this.settingsService.GetCountAsync(),
+                SettingsCount = this.settingsService.GetCount(),
                 UsersCount = await this.usersRepository.All().CountAsync(),
                 CompaniesCount = await this.companiesService.GetCountAsync(),
                 CategoriesCount = await this.categoriesService.GetCountAsync(),

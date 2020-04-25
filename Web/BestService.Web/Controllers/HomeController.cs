@@ -37,7 +37,7 @@
             {
                 CompaniesCount = await this.companiesService.GetCountAsync(),
                 CommentsCount = await this.commentsService.GetCountAsync(),
-                RateCount = await this.ratingsService.GetCountAsync(),
+                RateCount = this.ratingsService.GetCount(),
                 Subscribers = await this.subscribesService.GetCountAsync(),
                 MostRecentCompanies = this.companiesService.GetRecentlyAdded<IndexCompanyDetailsViewModel>(3),
                 MostCommentedCompanies = this.companiesService.GetMostCommented<IndexCompanyDetailsViewModel>(3),
