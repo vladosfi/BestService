@@ -1,4 +1,6 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
+@using BestService.Common;
+
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
@@ -12,4 +14,13 @@
     }
     <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+    @{
+        var user = await SignInManager.UserManager.GetUserAsync(this.User);
+        var isComapnyUser = await this.SignInManager.UserManager.IsInRoleAsync(user, GlobalConstants.CompanyRoleName);
+        
+        if (isComapnyUser)
+        {
+            <li class="nav-item"><a class="nav-link" id="company-add" href="/Companies/Add">Add Company</a></li>
+        }
+    }
 </ul>

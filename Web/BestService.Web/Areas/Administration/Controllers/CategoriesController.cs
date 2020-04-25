@@ -144,7 +144,7 @@
         {
             var category = await this.context.Categories.FindAsync(id);
             category.IsDeleted = true;
-            this.context.Companies.Update(category);
+            this.context.Categories.Update(category);
             await this.context.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }

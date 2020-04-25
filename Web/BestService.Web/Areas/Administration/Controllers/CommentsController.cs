@@ -165,7 +165,7 @@
         {
             var comment = await this.context.Comments.FindAsync(id);
             comment.IsDeleted = true;
-            this.context.Companies.Update(comment);
+            this.context.Comments.Update(comment);
             await this.context.SaveChangesAsync();
             return this.RedirectToAction(nameof(this.Index));
         }
