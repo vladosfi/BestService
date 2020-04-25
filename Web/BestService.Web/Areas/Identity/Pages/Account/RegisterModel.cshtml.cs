@@ -81,6 +81,9 @@ namespace BestService.Web.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Profile Image:")]
             public IFormFile ProfileImage { get; set; }
+
+            [Display(Name = "I want to publish information about company")]
+            public bool IsCompany { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -114,6 +117,17 @@ namespace BestService.Web.Areas.Identity.Pages.Account
                 {
                     this.logger.LogInformation("User created a new account with password.");
                     this.logger.LogInformation("User added to users role.");
+
+                    if (this.Input.IsCompany)
+                    {
+                        var addUserToRoleCompanyResult = await this.userManager.AddToRoleAsync(user, GlobalConstants.CompanyRoleName);
+                        
+                        if (addUserToRoleCompanyResult.Succeeded)
+                        {
+                            this.logger.LogInformation("User added to companies role.");
+                            returnUrl = "/Companies/Add";
+                        }
+                    }
 
                     var code = await this.userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

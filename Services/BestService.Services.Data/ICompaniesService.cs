@@ -17,9 +17,7 @@
 
         T GetById<T>(int id);
 
-        Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId);
-
-        Task<int> EditAsync(Company company);
+        Task<int> EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId);
 
         IEnumerable<T> GetRecentlyAdded<T>(int? count = null);
 

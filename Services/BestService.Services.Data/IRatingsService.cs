@@ -8,9 +8,9 @@
 
         Task<double> GetAvgCompanyRate(int companyId);
 
-        Task<int> GetCompanyRates(int companyId);
+        int GetCompanyRates(int companyId);
 
-        Task<int> GetCountAsync();
+        int GetCount();
 
         bool IsRateAllowed(int companyId, string userId);
     }

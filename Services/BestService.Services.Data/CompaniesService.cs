@@ -78,7 +78,7 @@
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
 
-        public async Task EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId)
+        public async Task<int> EditById(int id, string name, string description, string logoImage, string officialSite, int categoryId)
         {
             var company = this.GetById(id);
 
@@ -93,15 +93,9 @@
             }
 
             this.companyRepository.Update(company);
-            await this.companyRepository.SaveChangesAsync();
+            return await this.companyRepository.SaveChangesAsync();
         }
 
-        public async Task<int> EditAsync(Company company)
-        {
-            this.companyRepository.Update(company);
-            await this.companyRepository.SaveChangesAsync();
-            return company.Id;
-        }
 
         public IEnumerable<T> GetRecentlyAdded<T>(int? count = null)
         {
