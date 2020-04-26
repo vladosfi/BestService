@@ -60,3 +60,9 @@ body {
 .list-group-item + .list-group-item {
     border-top-width: 1px;
 }
+
+/* CookieConsent styles
+-------------------------------------------------- */
+#cookieConsent{
+    margin-bottom:0;
+}
