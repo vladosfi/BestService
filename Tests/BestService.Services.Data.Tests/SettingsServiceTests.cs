@@ -4,11 +4,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using BestService.Services.Data;
     using BestService.Data;
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Data.Repositories;
+    using BestService.Services.Data;
     using Microsoft.EntityFrameworkCore;
     using Moq;
     using Xunit;
