@@ -31,6 +31,8 @@
     <ProjectReference Include="..\..\Data\BestService.Data\BestService.Data.csproj" />
     <ProjectReference Include="..\..\Services\BestService.Services.Data\BestService.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\BestService.Services\BestService.Services.csproj" />
+    <ProjectReference Include="..\..\Web\BestService.Web.ViewModels\BestService.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\..\Web\BestService.Web\BestService.Web.csproj" />
   </ItemGroup>
 
 </Project>
