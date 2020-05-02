@@ -56,7 +56,7 @@
         public int GetCompanyRates(int companyId)
             => this.ratingRepository.AllAsNoTracking().Where(x => x.CompanyId == companyId).Count();
 
-        public int GetCount() => this.ratingRepository.AllAsNoTracking().Count();
+        public int GetAllCount() => this.ratingRepository.AllAsNoTracking().Count();
 
         public bool IsRateAllowed(int companyId, string userId)
             => !this.ratingRepository

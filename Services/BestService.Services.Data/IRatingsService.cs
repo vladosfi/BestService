@@ -10,7 +10,7 @@
 
         int GetCompanyRates(int companyId);
 
-        int GetCount();
+        int GetAllCount();
 
         bool IsRateAllowed(int companyId, string userId);
     }
