@@ -8,7 +8,7 @@
     using BestService.Data.Repositories;
     using Microsoft.EntityFrameworkCore;
     using Xunit;
-    
+
     public class RatingServiceTests
     {
         [Fact]
