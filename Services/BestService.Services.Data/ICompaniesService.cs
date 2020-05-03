@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
-    using BestService.Data.Models;
-
     public interface ICompaniesService
     {
         IEnumerable<T> GetAll<T>(int? count = null);
@@ -26,5 +24,7 @@
         IEnumerable<T> GetByCategoryId<T>(int categoryId, int? take = null, int skip = 0);
 
         int GetCountByCategoryId(int categoryId);
+
+        T GetByName<T>(string companyName);
     }
 }

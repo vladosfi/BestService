@@ -96,7 +96,6 @@
             return await this.companyRepository.SaveChangesAsync();
         }
 
-
         public IEnumerable<T> GetRecentlyAdded<T>(int? count = null)
         {
             IQueryable<Company> companies = this.companyRepository
@@ -146,6 +145,11 @@
         public Task<bool> Exist(int companyId)
         {
             return this.companyRepository.AllAsNoTracking().AnyAsync(x => x.Id == companyId);
+        }
+
+        public T GetByName<T>(string companyName)
+        {
+            return this.companyRepository.AllAsNoTracking().Where(c => c.Name == companyName).To<T>().FirstOrDefault();
         }
     }
 }

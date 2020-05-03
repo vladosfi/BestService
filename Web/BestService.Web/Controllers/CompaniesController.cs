@@ -39,8 +39,20 @@
             this.ratingsService = ratingsService;
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string companyName = null)
         {
+            if (companyName != null)
+            {
+                var model = this.companiesService.GetByName<CompanyDetailsViewModel>(companyName);
+
+                if (model == null)
+                {
+                    return this.NotFound();
+                }
+
+                return this.View(model);
+            }
+
             var viewModel = this.companiesService.GetById<CompanyDetailsViewModel>(id);
 
             if (viewModel == null)

@@ -82,9 +82,9 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
-            <form action="#" class="searchform order-lg-last">
+            <form asp-controller="Companies" asp-action="Details" class="searchform order-lg-last">
                 <div class="form-group d-flex">
-                    <input type="text" class="form-control pl-3" placeholder="Search">
+                    <input type="text" id="companyName" name="companyName" class="form-control pl-3" placeholder="Search">
                     <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
                 </div>
             </form>
@@ -121,10 +121,10 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <vc:footer-recent count="2"></vc:footer-recent>
-                
-                
+
+
                 <div class="col-md-6 col-lg-3">
                     <div class="ftco-footer-widget mb-5 ml-md-4">
                         <h2 class="ftco-heading-2">Links</h2>
@@ -137,7 +137,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="ftco-footer-widget mb-5">
                         <h2 class="ftco-heading-2">Subscribe Us!</h2>
-                        <form  id="subscribe" class="subscribe-form" name="subscribe" onsubmit="return makeSubscribe()" method="post">
+                        <form id="subscribe" class="subscribe-form" name="subscribe" onsubmit="return makeSubscribe()" method="post">
                             <div class="form-group">
                                 <input id="subscriber-email" type="text" class="form-control mb-2 text-center" placeholder="Enter email address">
                                 <input type="submit" value="Subscribe" class="form-control submit px-3">
@@ -167,8 +167,21 @@
             </div>
         </div>
     </footer>
-        
+
+    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
+    @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
     <script>
+        //Search
+        //https://www.yogihosting.com/jquery-autocomplete/
+        $(document).ready(function () {
+            $("#companyName").autocomplete({
+                source: 'api/search/search'
+            })
+        })
+    </script>
+
+    <script>
+        //Subscribes
         function makeSubscribe() {
             var token = $("#subscribe input[name=__RequestVerificationToken]").val();
             var subscriberEmail = $("#subscriber-email").val();
@@ -188,7 +201,6 @@
             return false;
         };
     </script>
-
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 

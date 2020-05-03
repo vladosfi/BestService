@@ -2,6 +2,7 @@
 {
     using System.Diagnostics;
     using System.Threading.Tasks;
+
     using BestService.Common;
     using BestService.Services.Data;
     using BestService.Web.ViewModels;
@@ -11,20 +12,17 @@
 
     public class HomeController : BaseController
     {
-        private readonly ICategoriesService categoriesService;
         private readonly ICompaniesService companiesService;
         private readonly ICommentsService commentsService;
         private readonly IRatingsService ratingsService;
         private readonly ISubscribesService subscribesService;
 
         public HomeController(
-            ICategoriesService categoriesService,
             ICompaniesService companiesService,
             ICommentsService commentsService,
             IRatingsService ratingsService,
             ISubscribesService subscribesService)
         {
-            this.categoriesService = categoriesService;
             this.companiesService = companiesService;
             this.commentsService = commentsService;
             this.ratingsService = ratingsService;
