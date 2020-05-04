@@ -47,7 +47,7 @@
 
                 if (model == null)
                 {
-                    return this.NotFound();
+                    return this.StatusCode(StatusCodes.Status204NoContent);
                 }
 
                 return this.View(model);
