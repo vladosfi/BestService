@@ -82,7 +82,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
-            <form asp-controller="Companies" asp-action="Details" class="searchform order-lg-last">
+            <form asp-controller="Companies" asp-action="Details" method="get" class="searchform order-lg-last">
                 <div class="form-group d-flex">
                     <input type="text" id="companyName" name="companyName" class="form-control pl-3" placeholder="Search">
                     <button type="submit" placeholder="" class="form-control search"><span class="ion-ios-search"></span></button>
@@ -168,18 +168,6 @@
         </div>
     </footer>
 
-    @*<script src="https://code.jquery.com/jquery-1.12.4.js"></script>*@
-    @*<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
-    <script>
-        //Search
-        //https://www.yogihosting.com/jquery-autocomplete/
-        $(document).ready(function () {
-            $("#companyName").autocomplete({
-                source: 'api/search/search'
-            })
-        })
-    </script>
-
     <script>
         //Subscribes
         function makeSubscribe() {
@@ -233,6 +221,17 @@
     <script src="~/js/scrollax.min.js" asp-append-version="true"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
     <script src="~/lib/moment/min/moment-with-locales.min.js" asp-append-version="true"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        //Search
+        $(document).ready(function () {
+            $("#companyName").autocomplete({
+                source: 'api/search/autocomplete'
+            })
+        })
+    </script>
 
     @this.RenderSection("Scripts", required: false)
 </body>
