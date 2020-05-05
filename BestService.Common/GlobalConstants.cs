@@ -10,7 +10,7 @@
 
         public const string UserRoleName = "User";
 
-        public const string CloudinaryUploadDir = "http://res.cloudinary.com/duvkeibua/image/upload/";
+        public const string CloudinaryUploadDir = "https://res.cloudinary.com/duvkeibua/image/upload/";
 
         public const int ImageWidth = 1024;
 
