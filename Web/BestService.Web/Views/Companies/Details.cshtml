@@ -204,10 +204,10 @@
             <div class="col-lg-4 sidebar ftco-animate">
 
                 <div class="sidebar-box">
-                    <form action="#" class="search-form">
-                        <div class="form-group">
+                    <form asp-controller="Companies" asp-action="Details" method="get" class="search-form" autocomplete="off">
+                        <div class="form-group d-flex ui-widget">
                             <span class="icon icon-search"></span>
-                            <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                            <input type="text" id="companyName" name="companyName" class="form-control pl-3 ui-autocomplete-input" placeholder="Type a keyword and hit enter">
                         </div>
                     </form>
                 </div>
@@ -223,6 +223,8 @@
 </section>
 
 @section Scripts{
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script type="text/javascript">
         function doRate(value, companyId) {
             var token = $("#AddCommentForm input[name=__RequestVerificationToken]").val();
@@ -294,5 +296,12 @@
             increaseVisits();
             claculateStars();
         };
+
+        //Autocomplete
+        $(document).ready(function () {
+            $("#companyName").autocomplete({
+                source: '/api/search/autocomplete'
+            })
+        })
     </script>
 }

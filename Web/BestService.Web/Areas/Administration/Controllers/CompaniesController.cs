@@ -86,6 +86,7 @@
             {
                 return this.NotFound();
             }
+
             this.ViewData["CategoryId"] = new SelectList(this.context.Categories, "Id", "Description", company.CategoryId);
             this.ViewData["UserId"] = new SelectList(this.context.Users, "Id", "Id", company.UserId);
             return this.View(company);

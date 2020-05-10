@@ -20,7 +20,7 @@
         /// <summary>
         /// Request body: {"term": "test"}.
         /// </summary>
-        /// <returns>List of company names</returns>
+        /// <returns>List of company names.</returns>
         [Produces("application/json")]
         [HttpGet("autocomplete")]
         public async Task<IActionResult> Autocomplete()

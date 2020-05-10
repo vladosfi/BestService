@@ -78,6 +78,7 @@
             {
                 return this.NotFound();
             }
+
             return this.View(category);
         }
 
