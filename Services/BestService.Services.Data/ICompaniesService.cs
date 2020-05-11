@@ -5,6 +5,8 @@
 
     public interface ICompaniesService
     {
+        IEnumerable<T> SearchText<T>(string propertyReference, string freeText);
+
         IEnumerable<T> GetAll<T>(int? count = null);
 
         Task<int> GetCountAsync();

@@ -77,6 +77,25 @@
             return this.View(viewModel);
         }
 
+        public IActionResult FullTextSearch(string search)
+        {
+            var companiesResult = this.companiesService.SearchText<CompaniesDetailsViewModel>("Description", search);
+
+            if (companiesResult == null)
+            {
+                return this.NotFound();
+            }
+
+            var viewModel = new CompanyViewModel
+            {
+                Companies = companiesResult,
+                CurrentPage = 1,
+                PagesCount = 1,
+            };
+
+            return this.View(viewModel);
+        }
+
         public async Task<IActionResult> GetList(int page)
         {
             page = page <= 0 ? 1 : page;

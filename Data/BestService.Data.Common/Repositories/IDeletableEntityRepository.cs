@@ -17,5 +17,7 @@
         void HardDelete(TEntity entity);
 
         void Undelete(TEntity entity);
+
+        IQueryable<TEntity> FullTextSearch(string propertyReference, string freeText);
     }
 }

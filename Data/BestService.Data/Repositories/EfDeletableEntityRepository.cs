@@ -46,5 +46,10 @@
             entity.DeletedOn = DateTime.UtcNow;
             this.Update(entity);
         }
+
+        public IQueryable<TEntity> FullTextSearch(string propertyReference, string freeText)
+        {
+            return this.DbSet.Where(f => EF.Functions.FreeText(EF.Property<string>(f, propertyReference), freeText));
+        }
     }
 }

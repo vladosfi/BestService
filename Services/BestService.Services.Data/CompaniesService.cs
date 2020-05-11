@@ -19,10 +19,23 @@
             this.companyRepository = companyRepository;
         }
 
+        public IEnumerable<T> SearchText<T>(string propertyReference, string serchedText)
+        {
+            var result = _context.Database.SqlQuery("Search @SearchTerm, @CurrentPage", param1, param2).ToList();
+            return result;
+
+            //IQueryable<Company> query = this.companyRepository.AllAsNoTracking().Where(f => EF.Functions.FreeText(f.Description, "Tek Experts"));
+            return this.companyRepository
+                .FullTextSearch(propertyReference, serchedText)
+                .OrderByDescending(c => c.CreatedOn)
+                .To<T>()
+                .ToList();
+        }
+
         public IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0)
         {
             var query = this.companyRepository
-                .All()
+                .AllAsNoTracking()
                 .OrderByDescending(c => c.CreatedOn)
                 .Skip(skip);
 
