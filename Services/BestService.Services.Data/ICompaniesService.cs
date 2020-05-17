@@ -11,7 +11,7 @@
 
         Task<int> GetCountAsync();
 
-        IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0);
+        IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null);
 
         Task<int> AddAsync(string name, string description, string image, string officialSite, string userId, int categoryId);
 

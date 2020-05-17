@@ -12,6 +12,7 @@ a.navbar-brand {
 html {
     font-size: 14px;
 }
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -21,6 +22,7 @@ html {
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
     border-bottom: 1px solid #e5e5e5;
 }
@@ -45,6 +47,7 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -63,8 +66,8 @@ body {
 
 /* CookieConsent styles
 -------------------------------------------------- */
-#cookieConsent{
-    margin-bottom:0;
+#cookieConsent {
+    margin-bottom: 0;
 }
 
 /* Search Autocomplete custom style
@@ -120,3 +123,48 @@ body {
     position: absolute;
     width: 1px;
 }
+
+.companies-top-bar .form-group {
+    margin: 0;
+}
+
+.companies-top-bar .form-group label{
+    padding-left: 20px;
+}
+
+.companies-top-bar {
+    background: #e8e9ef;
+    border-radius: 0.25rem;
+    clear: both;
+    display: flex;
+    padding: 2px 10px;
+    margin-bottom: 30px;
+}
+
+    .companies-top-bar select.sorting {
+        border-radius: 0.25rem !important;
+        display: inline-block;
+        clear: none;
+        border: 1px solid #eeeeee;
+        border-radius: 0px;
+        height: 40px;
+        width: 210px;
+    }
+
+    .companies-top-bar select.show {
+        border-radius: 0.25rem !important;
+        clear: none;
+        display: inline-block;
+        clear: none;
+        border: 1px solid #eeeeee;
+        border-radius: 0px;
+        height: 40px;
+        width: 120px;
+        padding-left: 20px;
+        margin-left: 10px;
+    }
+
+    .companies-top-bar .btn{
+        color: #808080;
+        padding: 5px;
+    }

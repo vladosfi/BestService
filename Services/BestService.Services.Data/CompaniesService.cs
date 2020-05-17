@@ -21,7 +21,6 @@
 
         public IEnumerable<T> SearchText<T>(string propertyReference, string serchedText)
         {
-            //IQueryable<Company> query = this.companyRepository.AllAsNoTracking().Where(f => EF.Functions.FreeText(f.Description, "Tek Experts"));
             return this.companyRepository
                 .FullTextSearch(propertyReference, serchedText)
                 .OrderByDescending(c => c.CreatedOn)
@@ -29,12 +28,37 @@
                 .ToList();
         }
 
-        public IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0)
+        public IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null)
         {
-            var query = this.companyRepository
-                .AllAsNoTracking()
-                .OrderByDescending(c => c.CreatedOn)
-                .Skip(skip);
+            IQueryable<Company> query = null;
+
+            switch (sortOrder)
+            {
+                case "Name_asc":
+                    query = this.companyRepository
+                        .AllAsNoTracking()
+                        .OrderBy(c => c.Name)
+                        .Skip(skip);
+                    break;
+                case "Name_desc":
+                    query = this.companyRepository
+                        .AllAsNoTracking()
+                        .OrderByDescending(c => c.Name)
+                        .Skip(skip);
+                    break;
+                case "Oldest":
+                    query = this.companyRepository
+                        .AllAsNoTracking()
+                        .OrderBy(c => c.Name)
+                        .Skip(skip);
+                    break;
+                default:
+                    query = this.companyRepository
+                        .AllAsNoTracking()
+                        .OrderByDescending(c => c.CreatedOn)
+                        .Skip(skip);
+                    break;
+            }
 
             if (take.HasValue)
             {

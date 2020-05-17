@@ -18,6 +18,7 @@
     public class CompaniesController : Controller
     {
         private const int ItemsPerPage = 6;
+        private const string DefaultSortOrder = "Newest";
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICompaniesService companiesService;
@@ -96,14 +97,16 @@
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> GetList(int page)
+        public async Task<IActionResult> GetList(int page, string sortOrder = DefaultSortOrder, int show = ItemsPerPage)
         {
             page = page <= 0 ? 1 : page;
 
             var viewModel = new CompanyViewModel
             {
+                SortOrder = sortOrder,
+                ItemsCount = show,
                 Companies = this.companiesService
-                .GetByPages<CompaniesDetailsViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage),
+                .GetByPages<CompaniesDetailsViewModel>(show, (page - 1) * show, sortOrder),
             };
 
             if (viewModel == null)
@@ -113,7 +116,7 @@
 
             int count = await this.companiesService.GetCountAsync();
 
-            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / show);
 
             if (viewModel.PagesCount == 0)
             {
