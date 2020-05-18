@@ -7,16 +7,20 @@
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
+    using BestService.Web.ViewModels.Tags;
     using Microsoft.EntityFrameworkCore;
 
     public class CompaniesService : ICompaniesService
     {
         private readonly IDeletableEntityRepository<Company> companyRepository;
+        private readonly IDeletableEntityRepository<Tag> tagRepository;
 
         public CompaniesService(
-            IDeletableEntityRepository<Company> companyRepository)
+            IDeletableEntityRepository<Company> companyRepository,
+            IDeletableEntityRepository<Tag> tagRepository)
         {
             this.companyRepository = companyRepository;
+            this.tagRepository = tagRepository;
         }
 
         public IEnumerable<T> SearchText<T>(string propertyReference, string serchedText)
@@ -186,5 +190,34 @@
         {
             return this.companyRepository.AllAsNoTracking().Where(c => c.Name == companyName).To<T>().FirstOrDefault();
         }
+
+        //public TagCloud GetTagCloud()
+        //{
+        //    var tagCloud = new TagCloud();
+        //    tagCloud.EventsCount = this.ListPublicEvents().Count();
+        //    this.tagRepository.AllAsNoTracking()
+        //        .Where(x=>x.Company)
+
+        //    var query = from t in Tags
+        //                where t.Events.Count() > 0
+        //                orderby t.Title
+        //                select new MenuTag
+        //                {
+        //                    Tag = t.Title,
+        //                    Count = t.Events.Count()
+        //                };
+        //    tagCloud.MenuTags = query.ToList();
+        //    return tagCloud;
+        //}
+
+        //private IQueryable<Event> ListPublicEvents()
+        //{
+        //    var query = from e in events
+        //                where e.PublishDate <= DateTime.Now
+        //                        && e.Visible
+        //                orderby e.StartDate descending
+        //                select e;
+        //    return query;
+        //}
     }
 }

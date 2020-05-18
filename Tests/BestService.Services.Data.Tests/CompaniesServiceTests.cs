@@ -26,10 +26,12 @@
 
             AutoMapperConfig.RegisterMappings(typeof(MyTestCompany).Assembly);
             var repository = new EfDeletableEntityRepository<Company>(new ApplicationDbContext(options.Options));
+            var tagRepository = new EfDeletableEntityRepository<Tag>(new ApplicationDbContext(options.Options));
             repository.AddAsync(new Company { Name = "test" }).GetAwaiter().GetResult();
+            tagRepository.AddAsync(new Tag { Title = "test" }).GetAwaiter().GetResult();
 
             repository.SaveChangesAsync();
-            var companyService = new CompaniesService(repository);
+            var companyService = new CompaniesService(repository, tagRepository);
             var company = companyService.GetById<MyTestCompany>(1);
             Assert.Equal("test", company.Name);
         }
@@ -55,7 +57,8 @@
             var dbContext = new ApplicationDbContext(options);
 
             var repository = new EfDeletableEntityRepository<Company>(dbContext);
-            var service = new CompaniesService(repository);
+            var tagRepository = new EfDeletableEntityRepository<Tag>(dbContext);
+            var service = new CompaniesService(repository, tagRepository);
             int companyId = await service.AddAsync(name, description, logoImg, officialSite, userId, categoryId);
             var result = service.GetById(companyId);
 
@@ -81,7 +84,8 @@
             await dbContext.SaveChangesAsync();
 
             var repository = new EfDeletableEntityRepository<Company>(dbContext);
-            var service = new CompaniesService(repository);
+            var tagRepository = new EfDeletableEntityRepository<Tag>(dbContext);
+            var service = new CompaniesService(repository, tagRepository);
             Assert.Equal(3, await service.GetCountAsync());
         }
 
@@ -97,7 +101,8 @@
             await dbContext.SaveChangesAsync();
 
             var repository = new EfDeletableEntityRepository<Company>(dbContext);
-            var service = new CompaniesService(repository);
+            var tagRepository = new EfDeletableEntityRepository<Tag>(dbContext);
+            var service = new CompaniesService(repository, tagRepository);
             Assert.Equal(3, await service.GetCountAsync());
         }
 
@@ -107,12 +112,20 @@
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                .UseInMemoryDatabase(databaseName: "CompanyTest123").Options;
             var dbContext = new ApplicationDbContext(options);
-            dbContext.Companies.Add(new Company { 
-                Id = 1, Name = "C1", Description = "desc", LogoImage = "image", OfficialSite = "officialSite", CategoryId = 1 });
+            dbContext.Companies.Add(new Company
+            {
+                Id = 1,
+                Name = "C1",
+                Description = "desc",
+                LogoImage = "image",
+                OfficialSite = "officialSite",
+                CategoryId = 1
+            });
             await dbContext.SaveChangesAsync();
 
             var repository = new EfDeletableEntityRepository<Company>(dbContext);
-            var service = new CompaniesService(repository);
+            var tagRepository = new EfDeletableEntityRepository<Tag>(dbContext);
+            var service = new CompaniesService(repository, tagRepository);
             var result = await service.EditById(1, "C11", "desc", "image", "officialSite", 1);
 
             Assert.Equal(1, result);
