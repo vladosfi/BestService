@@ -8,6 +8,10 @@
 
         public int CurrentPage { get; set; }
 
+        public int ItemsCount { get; set; }
+
+        public string SortOrder { get; set; }
+
         public IEnumerable<CompaniesDetailsViewModel> Companies { get; set; }
     }
 }
