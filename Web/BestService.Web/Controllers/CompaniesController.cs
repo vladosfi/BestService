@@ -1,6 +1,7 @@
 ﻿namespace BestService.Web.Controllers
 {
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using BestService.Common;
@@ -78,13 +79,18 @@
             return this.View(viewModel);
         }
 
-        public IActionResult FullTextSearch(string search)
+        public IActionResult Search(string search)
         {
             var companiesResult = this.companiesService.SearchText<CompaniesDetailsViewModel>("Description", search);
 
-            if (companiesResult == null)
+            if (!companiesResult.Any())
             {
-                return this.NotFound();
+                return this.View(new CompanyViewModel
+                {
+                    Companies = companiesResult,
+                    CurrentPage = 1,
+                    PagesCount = 1,
+                });
             }
 
             var viewModel = new CompanyViewModel

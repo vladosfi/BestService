@@ -4,18 +4,23 @@
 
     public class TagCloud
     {
-        public int EventsCount;
+        public TagCloud()
+        {
+            this.MenuTags = new List<MenuTag>();
+        }
 
-        public List<MenuTag> MenuTags = new List<MenuTag>();
+        public int CompaniesCount { get; set; }
+
+        public List<MenuTag> MenuTags { get; set; }
 
         public int GetRankForTag(MenuTag tag)
         {
-            if (this.EventsCount == 0)
+            if (this.CompaniesCount == 0)
             {
                 return 1;
             }
 
-            var result = (tag.Count * 100) / this.EventsCount;
+            var result = (tag.Count * 100) / this.CompaniesCount;
             if (result <= 1)
             {
                 return 1;

@@ -1,5 +1,6 @@
 ﻿namespace BestService.Web.Controllers
 {
+    using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
 
@@ -9,6 +10,7 @@
     using BestService.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.WebUtilities;
+    using Microsoft.Extensions.Logging;
 
     public class HomeController : BaseController
     {
@@ -16,17 +18,20 @@
         private readonly ICommentsService commentsService;
         private readonly IRatingsService ratingsService;
         private readonly ISubscribesService subscribesService;
+        private readonly ILogger<HomeController> logger;
 
         public HomeController(
             ICompaniesService companiesService,
             ICommentsService commentsService,
             IRatingsService ratingsService,
-            ISubscribesService subscribesService)
+            ISubscribesService subscribesService,
+            ILogger<HomeController> logger)
         {
             this.companiesService = companiesService;
             this.commentsService = commentsService;
             this.ratingsService = ratingsService;
             this.subscribesService = subscribesService;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -52,13 +57,14 @@
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            this.logger.LogError($"Request ID:{Activity.Current?.Id ?? this.HttpContext.TraceIdentifier}: {Environment.StackTrace}");
+
             return this.View(
                 new ErrorViewModel { RequestId = Activity.Current?.Id ?? this.HttpContext.TraceIdentifier });
         }
 
         public IActionResult HttpError(int? statusCode)
         {
-
             var statusMessage = string.Empty;
 
             switch (statusCode)

@@ -1,5 +1,6 @@
 ﻿namespace BestService.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -25,7 +26,6 @@
 
         public IEnumerable<T> SearchText<T>(string propertyReference, string serchedText)
         {
-            //IQueryable<Company> query = this.companyRepository.AllAsNoTracking().Where(f => EF.Functions.FreeText(f.Description, "Tek Experts"));
             return this.companyRepository
                 .FullTextSearch(propertyReference, serchedText)
                 .OrderByDescending(c => c.CreatedOn)
@@ -191,33 +191,34 @@
             return this.companyRepository.AllAsNoTracking().Where(c => c.Name == companyName).To<T>().FirstOrDefault();
         }
 
-        //public TagCloud GetTagCloud()
-        //{
-        //    var tagCloud = new TagCloud();
-        //    tagCloud.EventsCount = this.ListPublicEvents().Count();
-        //    this.tagRepository.AllAsNoTracking()
-        //        .Where(x=>x.Company)
+        /// <summary>
+        /// TagClud.
+        /// </summary>
+        /// <returns></returns>
+        public TagCloud GetTagCloud()
+        {
+            var tagCloud = new TagCloud();
+            tagCloud.CompaniesCount = this.ListPublicCompanies().Count();
+            var query = this.tagRepository.AllAsNoTracking()
+                .Where(x => x.CompanyTags.Count() > 0)
+                .OrderBy(x => x.Title)
+                .Select(t => new MenuTag
+                {
+                    Tag = t.Title,
+                    Count = t.CompanyTags.Count(),
+                });
 
-        //    var query = from t in Tags
-        //                where t.Events.Count() > 0
-        //                orderby t.Title
-        //                select new MenuTag
-        //                {
-        //                    Tag = t.Title,
-        //                    Count = t.Events.Count()
-        //                };
-        //    tagCloud.MenuTags = query.ToList();
-        //    return tagCloud;
-        //}
+            tagCloud.MenuTags = query.ToList();
+            return tagCloud;
+        }
 
-        //private IQueryable<Event> ListPublicEvents()
-        //{
-        //    var query = from e in events
-        //                where e.PublishDate <= DateTime.Now
-        //                        && e.Visible
-        //                orderby e.StartDate descending
-        //                select e;
-        //    return query;
-        //}
+        private IQueryable<Company> ListPublicCompanies()
+        {
+            var query = this.companyRepository.AllAsNoTracking().Where(x => x.CreatedOn <= DateTime.UtcNow)
+                .OrderByDescending(x => x.CreatedOn)
+                .To<Company>();
+
+            return query;
+        }
     }
 }
