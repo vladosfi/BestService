@@ -9,6 +9,7 @@
     using BestService.Data.Models;
     using BestService.Services.Mapping;
     using BestService.Web.ViewModels.Comments;
+    using BestService.Web.ViewModels.Tags;
     using Ganss.XSS;
 
     public class CompanyDetailsViewModel : IMapFrom<Company>, IHaveCustomMappings
@@ -30,6 +31,8 @@
         public string CategoryId { get; set; }
 
         public string CategoryName { get; set; }
+
+        public TagCloud TagCloud { get; set; }
 
         public string CategoryUrl => $"/c/{this.CategoryName.Replace(' ', '-')}";
 

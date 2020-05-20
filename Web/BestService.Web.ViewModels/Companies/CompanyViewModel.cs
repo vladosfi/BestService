@@ -12,6 +12,8 @@
 
         public string SortOrder { get; set; }
 
+        public string SearchTerm { get; set; }
+
         public IEnumerable<CompaniesDetailsViewModel> Companies { get; set; }
     }
 }

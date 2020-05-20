@@ -24,53 +24,73 @@
             this.tagRepository = tagRepository;
         }
 
-        public IEnumerable<T> SearchText<T>(string propertyReference, string serchedText)
-        {
-            return this.companyRepository
-                .FullTextSearch(propertyReference, serchedText)
-                .OrderByDescending(c => c.CreatedOn)
-                .To<T>()
-                .ToList();
-        }
-
-        public IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null)
+        public async Task<IEnumerable<T>> SearchText<T>(string propertyReference, string serchedText, int? take = null, int skip = 0, string sortOrder = null)
         {
             IQueryable<Company> query = null;
 
-            switch (sortOrder)
+            query = sortOrder switch
             {
-                case "Name_asc":
-                    query = this.companyRepository
-                        .AllAsNoTracking()
-                        .OrderBy(c => c.Name)
-                        .Skip(skip);
-                    break;
-                case "Name_desc":
-                    query = this.companyRepository
-                        .AllAsNoTracking()
-                        .OrderByDescending(c => c.Name)
-                        .Skip(skip);
-                    break;
-                case "Oldest":
-                    query = this.companyRepository
-                        .AllAsNoTracking()
-                        .OrderBy(c => c.Name)
-                        .Skip(skip);
-                    break;
-                default:
-                    query = this.companyRepository
-                        .AllAsNoTracking()
-                        .OrderByDescending(c => c.CreatedOn)
-                        .Skip(skip);
-                    break;
-            }
+                "Name_asc" => this.companyRepository
+                                       .FullTextSearch(propertyReference, serchedText)
+                                       .OrderBy(c => c.Name)
+                                       .Skip(skip),
+                "Name_desc" => this.companyRepository
+                                        .FullTextSearch(propertyReference, serchedText)
+                                        .OrderByDescending(c => c.Name)
+                                        .Skip(skip),
+                "Oldest" => this.companyRepository
+                                        .FullTextSearch(propertyReference, serchedText)
+                                        .OrderBy(c => c.Name)
+                                        .Skip(skip),
+                _ => this.companyRepository
+                                        .FullTextSearch(propertyReference, serchedText)
+                                        .OrderByDescending(c => c.CreatedOn)
+                                        .Skip(skip),
+            };
 
             if (take.HasValue)
             {
                 query = query.Take(take.Value);
             }
 
-            return query.To<T>().ToList();
+            return await query.To<T>().ToListAsync();
+        }
+
+        public async Task<int> GetSearchCountAsync(string propertyReference, string serchedText)
+            => await this.companyRepository
+                        .FullTextSearch(propertyReference, serchedText)
+                        .CountAsync();
+
+        public async Task<IEnumerable<T>> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null)
+        {
+            IQueryable<Company> query = null;
+
+            query = sortOrder switch
+            {
+                "Name_asc" => this.companyRepository
+                                       .AllAsNoTracking()
+                                       .OrderBy(c => c.Name)
+                                       .Skip(skip),
+                "Name_desc" => this.companyRepository
+                                        .AllAsNoTracking()
+                                        .OrderByDescending(c => c.Name)
+                                        .Skip(skip),
+                "Oldest" => this.companyRepository
+                                        .AllAsNoTracking()
+                                        .OrderBy(c => c.Name)
+                                        .Skip(skip),
+                _ => this.companyRepository
+                                        .AllAsNoTracking()
+                                        .OrderByDescending(c => c.CreatedOn)
+                                        .Skip(skip),
+            };
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
+
+            return await query.To<T>().ToListAsync();
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -195,12 +215,11 @@
         /// TagClud.
         /// </summary>
         /// <returns></returns>
-        public TagCloud GetTagCloud()
+        public TagCloud GetTagCloud(int companyId)
         {
             var tagCloud = new TagCloud();
-            tagCloud.CompaniesCount = this.ListPublicCompanies().Count();
             var query = this.tagRepository.AllAsNoTracking()
-                .Where(x => x.CompanyTags.Count() > 0)
+                .Where(x => x.CompanyTags.Count() > 0 && x.CompanyTags.All(c => c.CompanyId == companyId))
                 .OrderBy(x => x.Title)
                 .Select(t => new MenuTag
                 {
@@ -210,15 +229,6 @@
 
             tagCloud.MenuTags = query.ToList();
             return tagCloud;
-        }
-
-        private IQueryable<Company> ListPublicCompanies()
-        {
-            var query = this.companyRepository.AllAsNoTracking().Where(x => x.CreatedOn <= DateTime.UtcNow)
-                .OrderByDescending(x => x.CreatedOn)
-                .To<Company>();
-
-            return query;
         }
     }
 }

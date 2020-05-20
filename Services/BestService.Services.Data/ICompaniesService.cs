@@ -3,15 +3,19 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using BestService.Web.ViewModels.Tags;
+
     public interface ICompaniesService
     {
-        IEnumerable<T> SearchText<T>(string propertyReference, string freeText);
-
         IEnumerable<T> GetAll<T>(int? count = null);
 
         Task<int> GetCountAsync();
 
-        IEnumerable<T> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null);
+        Task<IEnumerable<T>> SearchText<T>(string propertyReference, string freeText, int? take = null, int skip = 0, string sortOrder = null);
+
+        Task<int> GetSearchCountAsync(string propertyReference, string serchedText);
+
+        Task<IEnumerable<T>> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null);
 
         Task<int> AddAsync(string name, string description, string image, string officialSite, string userId, int categoryId);
 
@@ -28,5 +32,7 @@
         int GetCountByCategoryId(int categoryId);
 
         T GetByName<T>(string companyName);
+
+        TagCloud GetTagCloud(int companyId);
     }
 }

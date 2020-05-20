@@ -25,6 +25,11 @@
 
         public IQueryable<TEntity> AllAsNoTrackingWithDeleted() => base.AllAsNoTracking().IgnoreQueryFilters();
 
+        public IQueryable<TEntity> FullTextSearch(string propertyReference, string freeText)
+        {
+            return this.AllAsNoTracking().Where(f => EF.Functions.FreeText(EF.Property<string>(f, propertyReference), freeText));
+        }
+
         public Task<TEntity> GetByIdWithDeletedAsync(params object[] id)
         {
             var getByIdPredicate = EfExpressionHelper.BuildByIdPredicate<TEntity>(this.Context, id);
@@ -45,11 +50,6 @@
             entity.IsDeleted = true;
             entity.DeletedOn = DateTime.UtcNow;
             this.Update(entity);
-        }
-
-        public IQueryable<TEntity> FullTextSearch(string propertyReference, string freeText)
-        {
-            return this.DbSet.Where(f => EF.Functions.FreeText(EF.Property<string>(f, propertyReference), freeText));
         }
     }
 }

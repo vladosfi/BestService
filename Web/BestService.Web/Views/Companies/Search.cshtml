@@ -17,9 +17,10 @@
 
 <section class="ftco-section bg-light">
     <div class="container">
-        @if (!Model.Companies.Any())
+        @if (TempData.ContainsKey("NoResults"))
         {
             <h3>No search result!</h3>
+            TempData.Remove("NoResults");
         }
         else
         {
@@ -73,73 +74,74 @@
                     </div>
                 </div>
             }
-        }
-        <div class="row mt-5">
-            <div class="col text-center">
-                <div class="block-27">
-                    <ul>
-                        @if (Model.CurrentPage == 1)
-                        {
-                            <li class="disabled"><a href="#">&lt;</a></li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-route="bestServiceCompany" asp-route-page="@(Model.CurrentPage-1)">
-                                    &lt;
-                                </a>
-                            </li>
-                        }
-                        @{
-                            const int MorePagesToShow = 3;
-                            var pagesToShow = new List<int>();
-                            for (var i = 1; i <= MorePagesToShow; i++)
+            <div class="row mt-5">
+                <div class="col text-center">
+                    <div class="block-27">
+                        <ul>
+                            @if (Model.CurrentPage == 1)
                             {
-                                pagesToShow.Add(i);
+                                <li class="disabled"><a href="#">&lt;</a></li>
                             }
-                            for (var i = this.Model.CurrentPage - MorePagesToShow; i <= this.Model.CurrentPage + MorePagesToShow; i++)
+                            else
                             {
-                                if (i > 0 && i <= Model.PagesCount)
+                                <li>
+                                    <a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@Model.SearchTerm" asp-route-page="@(Model.CurrentPage - 1)">
+                                        &lt;
+                                    </a>
+                                </li>
+                            }
+                            @{
+                                const int MorePagesToShow = 3;
+                                var pagesToShow = new List<int>();
+                                for (var i = 1; i <= MorePagesToShow; i++)
                                 {
                                     pagesToShow.Add(i);
                                 }
-                            }
-                            for (var i = this.Model.PagesCount - MorePagesToShow + 1; i <= this.Model.PagesCount; i++)
-                            {
-                                if (i > 0)
+                                for (var i = this.Model.CurrentPage - MorePagesToShow; i <= this.Model.CurrentPage + MorePagesToShow; i++)
                                 {
-                                    pagesToShow.Add(i);
+                                    if (i > 0 && i <= Model.PagesCount)
+                                    {
+                                        pagesToShow.Add(i);
+                                    }
                                 }
+                                for (var i = this.Model.PagesCount - MorePagesToShow + 1; i <= this.Model.PagesCount; i++)
+                                {
+                                    if (i > 0)
+                                    {
+                                        pagesToShow.Add(i);
+                                    }
+                                }
+                                pagesToShow = pagesToShow.Where(x => x <= this.Model.PagesCount).Distinct().OrderBy(x => x).ToList();
                             }
-                            pagesToShow = pagesToShow.Where(x => x <= this.Model.PagesCount).Distinct().OrderBy(x => x).ToList();
-                        }
-                        @for (var i = 0; i < pagesToShow.Count; i++)
-                        {
-                            var pageNumber = pagesToShow[i];
-                            var active = pageNumber == Model.CurrentPage ? "active" : string.Empty;
-                            if (i > 0 && pageNumber - 1 != pagesToShow[i - 1])
+                            @for (var i = 0; i < pagesToShow.Count; i++)
                             {
-                                <li><a asp-route="bestServiceCompany" asp-route-page="@(pagesToShow[i - 1] + 1)">...</a></li>
+                                var pageNumber = pagesToShow[i];
+                                var active = pageNumber == Model.CurrentPage ? "active" : string.Empty;
+                                if (i > 0 && pageNumber - 1 != pagesToShow[i - 1])
+                                {
+                                    <li><a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@Model.SearchTerm" asp-route-page="@(pagesToShow[i - 1] + 1)">...</a></li>
+                                }
+                                <li class="@active"><a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@Model.SearchTerm" asp-route-page="@pageNumber">@pageNumber</a></li>
                             }
-                            <li class="@active"><a asp-route="bestServiceCompany" asp-route-page="@pageNumber">@pageNumber</a></li>
-                        }
 
-                        @if (Model.CurrentPage == Model.PagesCount)
-                        {
-                            <li class="disabled"><a href="#">&gt;</a></li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-route="bestServiceCompany"
-                                   asp-route-page="@(Model.CurrentPage+1)">
-                                    &gt;
-                                </a>
-                            </li>
-                        }
-                    </ul>
+                            @if (Model.CurrentPage == Model.PagesCount)
+                            {
+                                <li class="disabled"><a href="#">&gt;</a></li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a asp-route="bestServiceCompanySearch"
+                                       asp-route-SearchTerm="@Model.SearchTerm"
+                                       asp-route-page="@(Model.CurrentPage + 1)">
+                                        &gt;
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </section>

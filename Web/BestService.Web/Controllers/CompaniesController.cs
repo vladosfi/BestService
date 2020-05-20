@@ -20,6 +20,7 @@
     {
         private const int ItemsPerPage = 6;
         private const string DefaultSortOrder = "Newest";
+        private const string NoResultKey = "NoResults";
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly ICompaniesService companiesService;
@@ -76,29 +77,41 @@
                 }
             }
 
+            viewModel.TagCloud = this.companiesService.GetTagCloud(id);
+
             return this.View(viewModel);
         }
 
-        public IActionResult Search(string search)
+        public async Task<IActionResult> Search(int page, string sortOrder = DefaultSortOrder, int show = ItemsPerPage, string searchTerm = null, bool searchByTag = false)
         {
-            var companiesResult = this.companiesService.SearchText<CompaniesDetailsViewModel>("Description", search);
+            page = page <= 0 ? 1 : page;
 
-            if (!companiesResult.Any())
+            string propertyReference = searchByTag == true ? "Title" : "Description";
+
+            CompanyViewModel viewModel = new CompanyViewModel
             {
-                return this.View(new CompanyViewModel
-                {
-                    Companies = companiesResult,
-                    CurrentPage = 1,
-                    PagesCount = 1,
-                });
+                SortOrder = sortOrder,
+                ItemsCount = show,
+                SearchTerm = searchTerm,
+                Companies = await this.companiesService.SearchText<CompaniesDetailsViewModel>(propertyReference, searchTerm, show, (page - 1) * show),
+            };
+
+            int count = await this.companiesService.GetSearchCountAsync(propertyReference, searchTerm);
+
+            viewModel.PagesCount = (int)Math.Ceiling((double)count / show);
+
+            if (viewModel.PagesCount == 0)
+            {
+                viewModel.PagesCount = 1;
             }
 
-            var viewModel = new CompanyViewModel
+            viewModel.CurrentPage = page;
+
+            if (count == 0)
             {
-                Companies = companiesResult,
-                CurrentPage = 1,
-                PagesCount = 1,
-            };
+                this.TempData[NoResultKey] = true;
+                return this.View(viewModel);
+            }
 
             return this.View(viewModel);
         }
@@ -107,12 +120,11 @@
         {
             page = page <= 0 ? 1 : page;
 
-            var viewModel = new CompanyViewModel
+            CompanyViewModel viewModel = new CompanyViewModel
             {
                 SortOrder = sortOrder,
                 ItemsCount = show,
-                Companies = this.companiesService
-                .GetByPages<CompaniesDetailsViewModel>(show, (page - 1) * show, sortOrder),
+                Companies = await this.companiesService.GetByPages<CompaniesDetailsViewModel>(show, (page - 1) * show, sortOrder),
             };
 
             if (viewModel == null)
