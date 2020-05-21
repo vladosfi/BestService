@@ -13,6 +13,8 @@
 
         Task<IEnumerable<T>> SearchText<T>(string propertyReference, string freeText, int? take = null, int skip = 0, string sortOrder = null);
 
+        Task<IEnumerable<T>> SearchByTag<T>(string text);
+
         Task<int> GetSearchCountAsync(string propertyReference, string serchedText);
 
         Task<IEnumerable<T>> GetByPages<T>(int? take = null, int skip = 0, string sortOrder = null);

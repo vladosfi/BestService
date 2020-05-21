@@ -15,17 +15,48 @@
     {
         private readonly IDeletableEntityRepository<Company> companyRepository;
         private readonly IDeletableEntityRepository<Tag> tagRepository;
+        private readonly IDeletableEntityRepository<CompanyTag> companyTagRepository;
 
         public CompaniesService(
             IDeletableEntityRepository<Company> companyRepository,
-            IDeletableEntityRepository<Tag> tagRepository)
+            IDeletableEntityRepository<Tag> tagRepository,
+            IDeletableEntityRepository<CompanyTag> companyTagRepository)
         {
             this.companyRepository = companyRepository;
             this.tagRepository = tagRepository;
+            this.companyTagRepository = companyTagRepository;
+        }
+
+        public async Task<IEnumerable<T>> SearchByTag<T>(string text)
+        {
+
+            //var companies = await this.companyTagRepository.All().Include(u => u.Company).Include(u => u.Tag)
+            //      .Where(x => x.Tag.Title == text)
+            //      .Select(c => new Company
+            //      {
+            //          Name = c.Company.Name,
+            //      })
+            //      .ToListAsync();
+
+            //var companies = this.companyRepository
+            //    .All()
+            //    .Select(c => new Company
+            //    {
+            //        Name = c.Name,
+            //        Description = c.Description,
+            //        CompanyTags = new
+            //        {
+            //            Tag =
+            //        }
+            //    })
+
+            return null;
         }
 
         public async Task<IEnumerable<T>> SearchText<T>(string propertyReference, string serchedText, int? take = null, int skip = 0, string sortOrder = null)
         {
+
+
             IQueryable<Company> query = null;
 
             query = sortOrder switch

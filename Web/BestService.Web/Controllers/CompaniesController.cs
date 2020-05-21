@@ -88,15 +88,33 @@
 
             string propertyReference = searchByTag == true ? "Title" : "Description";
 
-            CompanyViewModel viewModel = new CompanyViewModel
-            {
-                SortOrder = sortOrder,
-                ItemsCount = show,
-                SearchTerm = searchTerm,
-                Companies = await this.companiesService.SearchText<CompaniesDetailsViewModel>(propertyReference, searchTerm, show, (page - 1) * show),
-            };
+            CompanyViewModel viewModel;
+            int count;
 
-            int count = await this.companiesService.GetSearchCountAsync(propertyReference, searchTerm);
+            if (searchByTag)
+            {
+                viewModel = new CompanyViewModel
+                {
+                    SortOrder = sortOrder,
+                    ItemsCount = show,
+                    SearchTerm = searchTerm,
+                    Companies = await this.companiesService.SearchByTag<CompaniesDetailsViewModel>(searchTerm),
+                };
+
+                count = viewModel.Companies.Count();
+            }
+            else
+            {
+                viewModel = new CompanyViewModel
+                {
+                    SortOrder = sortOrder,
+                    ItemsCount = show,
+                    SearchTerm = searchTerm,
+                    Companies = await this.companiesService.SearchText<CompaniesDetailsViewModel>(propertyReference, searchTerm, show, (page - 1) * show),
+                };
+
+                count = await this.companiesService.GetSearchCountAsync(propertyReference, searchTerm);
+            }
 
             viewModel.PagesCount = (int)Math.Ceiling((double)count / show);
 
