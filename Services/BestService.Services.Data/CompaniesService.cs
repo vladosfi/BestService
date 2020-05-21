@@ -50,7 +50,12 @@
             //        }
             //    })
 
-            return null;
+            var company = this.companyRepository.All()
+                .Select(c => c.CompanyTags.Where(x => x.Tag.Title == text))
+                .To<T>()
+                .ToList();
+
+            return company;
         }
 
         public async Task<IEnumerable<T>> SearchText<T>(string propertyReference, string serchedText, int? take = null, int skip = 0, string sortOrder = null)
