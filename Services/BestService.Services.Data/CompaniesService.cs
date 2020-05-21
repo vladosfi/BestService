@@ -8,23 +8,19 @@
     using BestService.Data.Common.Repositories;
     using BestService.Data.Models;
     using BestService.Services.Mapping;
-    using BestService.Web.ViewModels.Tags;
     using Microsoft.EntityFrameworkCore;
 
     public class CompaniesService : ICompaniesService
     {
         private readonly IDeletableEntityRepository<Company> companyRepository;
         private readonly IDeletableEntityRepository<Tag> tagRepository;
-        private readonly IDeletableEntityRepository<CompanyTag> companyTagRepository;
 
         public CompaniesService(
             IDeletableEntityRepository<Company> companyRepository,
-            IDeletableEntityRepository<Tag> tagRepository,
-            IDeletableEntityRepository<CompanyTag> companyTagRepository)
+            IDeletableEntityRepository<Tag> tagRepository)
         {
             this.companyRepository = companyRepository;
             this.tagRepository = tagRepository;
-            this.companyTagRepository = companyTagRepository;
         }
 
         public async Task<IEnumerable<T>> SearchByTag<T>(string text)
@@ -50,18 +46,16 @@
             //        }
             //    })
 
-            var company = this.companyRepository.All()
-                .Select(c => c.CompanyTags.Where(x => x.Tag.Title == text))
-                .To<T>()
-                .ToList();
+            //var company = this.companyRepository.All()
+            //    .Select(c => c.CompanyTags.Where(x => x.Tag.Title == text))
+            //    .To<T>()
+            //    .ToList();
 
-            return company;
+            return null;
         }
 
         public async Task<IEnumerable<T>> SearchText<T>(string propertyReference, string serchedText, int? take = null, int skip = 0, string sortOrder = null)
         {
-
-
             IQueryable<Company> query = null;
 
             query = sortOrder switch
@@ -251,20 +245,14 @@
         /// TagClud.
         /// </summary>
         /// <returns></returns>
-        public TagCloud GetTagCloud(int companyId)
+        public async Task<IQueryable> GetTags(int companyId)
         {
-            var tagCloud = new TagCloud();
-            var query = this.tagRepository.AllAsNoTracking()
-                .Where(x => x.CompanyTags.Count() > 0 && x.CompanyTags.All(c => c.CompanyId == companyId))
-                .OrderBy(x => x.Title)
-                .Select(t => new MenuTag
-                {
-                    Tag = t.Title,
-                    Count = t.CompanyTags.Count(),
-                });
+            var tags = await this.tagRepository.AllAsNoTracking()
+                .Where(t => t.CompanyId == companyId)
+                .Select(t => t.Title)
+                .ToListAsync();
 
-            tagCloud.MenuTags = query.ToList();
-            return tagCloud;
+            return tags;
         }
     }
 }

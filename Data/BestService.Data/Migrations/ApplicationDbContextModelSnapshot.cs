@@ -284,42 +284,6 @@ namespace BestService.Data.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("BestService.Data.Models.CompanyTag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("CompanyTags");
-                });
-
             modelBuilder.Entity("BestService.Data.Models.ContactFormEntry", b =>
                 {
                     b.Property<int>("Id")
@@ -469,6 +433,9 @@ namespace BestService.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -482,9 +449,13 @@ namespace BestService.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("IsDeleted");
 
@@ -668,21 +639,6 @@ namespace BestService.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BestService.Data.Models.CompanyTag", b =>
-                {
-                    b.HasOne("BestService.Data.Models.Company", "Company")
-                        .WithMany("CompanyTags")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BestService.Data.Models.Tag", "Tag")
-                        .WithMany("CompanyTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("BestService.Data.Models.Rate", b =>
                 {
                     b.HasOne("BestService.Data.Models.Company", "Company")
@@ -694,6 +650,15 @@ namespace BestService.Data.Migrations
                     b.HasOne("BestService.Data.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BestService.Data.Models.Tag", b =>
+                {
+                    b.HasOne("BestService.Data.Models.Company", "Company")
+                        .WithMany("Tags")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

@@ -35,6 +35,6 @@
 
         T GetByName<T>(string companyName);
 
-        TagCloud GetTagCloud(int companyId);
+        Task<IEnumerable<string>> GetTags(int companyId);
     }
 }

@@ -77,7 +77,7 @@
                 }
             }
 
-            viewModel.TagCloud = this.companiesService.GetTagCloud(id);
+            viewModel.TagCloud = await this.companiesService.GetTags(id);
 
             return this.View(viewModel);
         }

@@ -119,6 +119,16 @@
     <Compile Remove="Migrations\20200414063745_AddEntities.Designer.cs" />
     <Compile Remove="Migrations\20200420053253_AddSubscribe.cs" />
     <Compile Remove="Migrations\20200420053253_AddSubscribe.Designer.cs" />
+    <Compile Remove="Migrations\20200518083832_AddTags.cs" />
+    <Compile Remove="Migrations\20200518083832_AddTags.Designer.cs" />
+    <Compile Remove="Migrations\20200518084439_EditTags.cs" />
+    <Compile Remove="Migrations\20200518084439_EditTags.Designer.cs" />
+    <Compile Remove="Migrations\20200518142436_EditTagsRalation.cs" />
+    <Compile Remove="Migrations\20200518142436_EditTagsRalation.Designer.cs" />
+    <Compile Remove="Migrations\20200518142853_EditTagsRalations.cs" />
+    <Compile Remove="Migrations\20200518142853_EditTagsRalations.Designer.cs" />
+    <Compile Remove="Migrations\20200520111439_EditTagsCloud.cs" />
+    <Compile Remove="Migrations\20200520111439_EditTagsCloud.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

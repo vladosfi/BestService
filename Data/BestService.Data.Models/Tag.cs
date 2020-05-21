@@ -7,15 +7,12 @@
 
     public class Tag : BaseDeletableModel<int>
     {
-        public Tag()
-        {
-            this.CompanyTags = new HashSet<CompanyTag>();
-        }
-
         [Required]
         [MaxLength(30)]
         public string Title { get; set; }
 
-        public virtual ICollection<CompanyTag> CompanyTags { get; set; }
+        public int CompanyId { get; set; }
+
+        public virtual Company Company { get; set; }
     }
 }
