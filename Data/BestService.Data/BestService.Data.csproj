@@ -129,6 +129,8 @@
     <Compile Remove="Migrations\20200518142853_EditTagsRalations.Designer.cs" />
     <Compile Remove="Migrations\20200520111439_EditTagsCloud.cs" />
     <Compile Remove="Migrations\20200520111439_EditTagsCloud.Designer.cs" />
+    <Compile Remove="Migrations\20200522063115_Add Tags.cs" />
+    <Compile Remove="Migrations\20200522063115_Add Tags.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

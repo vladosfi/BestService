@@ -14,6 +14,8 @@
 
         public string SearchTerm { get; set; }
 
+        public bool SearchByTag { get; set; }
+
         public IEnumerable<CompaniesDetailsViewModel> Companies { get; set; }
     }
 }

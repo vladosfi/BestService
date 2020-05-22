@@ -216,14 +216,14 @@
 
                 <vc:recent-companies count="3"></vc:recent-companies>
 
-            @if (@Model.TagCloud.MenuTags.Count > 0)
+            @if (@Model.TagCloud.Count() > 0)
             {
                 <div class="sidebar-box ftco-animate fadeInUp ftco-animated">
                     <h3>Tag Cloud</h3>
                     <ul class="tagcloud m-0 p-0">
-                        @foreach (var tags in @Model.TagCloud.MenuTags)
+                        @foreach (var tag in @Model.TagCloud)
                         {
-                            <a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@tags.Tag" asp-route-SearchByTag="true" class="tag-cloud-link">@tags.Tag</a>
+                            <a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@tag" asp-route-SearchByTag="true" class="tag-cloud-link">@tag</a>
                         }
                     </ul>
                 </div>

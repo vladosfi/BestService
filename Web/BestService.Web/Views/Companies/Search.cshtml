@@ -85,9 +85,10 @@
                             else
                             {
                                 <li>
-                                    <a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@Model.SearchTerm" asp-route-page="@(Model.CurrentPage - 1)">
-                                        &lt;
-                                    </a>
+                                    <a asp-route="bestServiceCompanySearch"
+                                       asp-route-SearchTerm="@Model.SearchTerm"
+                                       asp-route-SearchByTag="@(Model.SearchByTag ? true : false)"
+                                       asp-route-page="@(Model.CurrentPage - 1)">&lt;</a>
                                 </li>
                             }
                             @{
@@ -119,9 +120,23 @@
                                 var active = pageNumber == Model.CurrentPage ? "active" : string.Empty;
                                 if (i > 0 && pageNumber - 1 != pagesToShow[i - 1])
                                 {
-                                    <li><a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@Model.SearchTerm" asp-route-page="@(pagesToShow[i - 1] + 1)">...</a></li>
+                                    <li>
+                                        <a asp-route="bestServiceCompanySearch"
+                                           asp-route-SearchTerm="@Model.SearchTerm"
+                                           asp-route-SearchByTag="@(Model.SearchByTag ? true : false)"
+                                           asp-route-page="@(pagesToShow[i - 1] + 1)">
+                                            ...
+                                        </a>
+                                    </li>
                                 }
-                                <li class="@active"><a asp-route="bestServiceCompanySearch" asp-route-SearchTerm="@Model.SearchTerm" asp-route-page="@pageNumber">@pageNumber</a></li>
+                                <li class="@active">
+                                    <a asp-route="bestServiceCompanySearch"
+                                       asp-route-SearchTerm="@Model.SearchTerm"
+                                       asp-route-SearchByTag="@(Model.SearchByTag ? true : false)"
+                                       asp-route-page="@pageNumber">
+                                        @pageNumber
+                                    </a>
+                                </li>
                             }
 
                             @if (Model.CurrentPage == Model.PagesCount)
@@ -133,6 +148,7 @@
                                 <li>
                                     <a asp-route="bestServiceCompanySearch"
                                        asp-route-SearchTerm="@Model.SearchTerm"
+                                       asp-route-SearchByTag="@(Model.SearchByTag ? true : false)"
                                        asp-route-page="@(Model.CurrentPage + 1)">
                                         &gt;
                                     </a>

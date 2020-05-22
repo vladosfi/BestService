@@ -15,11 +15,6 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Users.Any())
-            {
-                return;
-            }
-
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             await userManager.CreateAsync(

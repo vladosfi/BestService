@@ -11,9 +11,11 @@
 
         Task<int> GetCountAsync();
 
-        Task<IEnumerable<T>> SearchText<T>(string propertyReference, string freeText, int? take = null, int skip = 0, string sortOrder = null);
+        Task<IEnumerable<T>> SearchTextAsync<T>(string propertyReference, string freeText, int? take = null, int skip = 0, string sortOrder = null);
 
-        Task<IEnumerable<T>> SearchByTag<T>(string text);
+        Task<IEnumerable<T>> SearchByTagAsync<T>(string text, int? take = null, int skip = 0, string sortOrder = null);
+
+        Task<int> SearchByTagCountAsync(string text);
 
         Task<int> GetSearchCountAsync(string propertyReference, string serchedText);
 

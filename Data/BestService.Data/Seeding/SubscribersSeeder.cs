@@ -12,11 +12,6 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Subscribes.Any())
-            {
-                return;
-            }
-
             var subscribers = new List<Subscribe>();
 
             for (int i = 0; i < 123; i++)

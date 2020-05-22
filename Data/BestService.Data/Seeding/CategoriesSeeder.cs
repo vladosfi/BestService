@@ -11,11 +11,6 @@
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Categories.Any())
-            {
-                return;
-            }
-
             var categories = new List<(string Name, string Description, string LogoImage)>
             {
                 ("IT", "The information technology (IT) is comprised of companies that produce software, hardware or semiconductor equipment, or companies that provide internet or related services.", "v1587617166/Categories/IT_w2i8w4.jpg"),

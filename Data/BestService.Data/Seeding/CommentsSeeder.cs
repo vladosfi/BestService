@@ -13,11 +13,6 @@
 
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Comments.Any())
-            {
-                return;
-            }
-
             var companies = dbContext.Companies.ToList();
             var users = dbContext.Users.ToList();
             var comments = new List<Comment>();

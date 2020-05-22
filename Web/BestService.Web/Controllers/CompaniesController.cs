@@ -98,10 +98,11 @@
                     SortOrder = sortOrder,
                     ItemsCount = show,
                     SearchTerm = searchTerm,
-                    Companies = await this.companiesService.SearchByTag<CompaniesDetailsViewModel>(searchTerm),
+                    SearchByTag = searchByTag,
+                    Companies = await this.companiesService.SearchByTagAsync<CompaniesDetailsViewModel>(searchTerm, show, (page - 1) * show),
                 };
 
-                count = viewModel.Companies.Count();
+                count = await this.companiesService.SearchByTagCountAsync(searchTerm);
             }
             else
             {
@@ -110,7 +111,9 @@
                     SortOrder = sortOrder,
                     ItemsCount = show,
                     SearchTerm = searchTerm,
-                    Companies = await this.companiesService.SearchText<CompaniesDetailsViewModel>(propertyReference, searchTerm, show, (page - 1) * show),
+                    SearchByTag = searchByTag,
+                    Companies = await this.companiesService
+                        .SearchTextAsync<CompaniesDetailsViewModel>(propertyReference, searchTerm, show, (page - 1) * show),
                 };
 
                 count = await this.companiesService.GetSearchCountAsync(propertyReference, searchTerm);

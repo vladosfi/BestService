@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,11 @@
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
+            if (dbContext.Users.Any())
+            {
+                return;
+            }
+
             var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger(typeof(ApplicationDbContextSeeder));
 
             var seeders = new List<ISeeder>
@@ -32,6 +38,7 @@
                               new CompaniesSeeder(),
                               new SubscribersSeeder(),
                               new CommentsSeeder(),
+                              new TagsSeeder(),
                           };
 
             foreach (var seeder in seeders)

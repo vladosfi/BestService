@@ -23,38 +23,26 @@
             this.tagRepository = tagRepository;
         }
 
-        public async Task<IEnumerable<T>> SearchByTag<T>(string text)
+        public async Task<IEnumerable<T>> SearchByTagAsync<T>(string text, int? take = null, int skip = 0, string sortOrder = null)
         {
+            IQueryable<Company> query = this.companyRepository.All()
+                .Where(c => c.CompanyTags.Any(x => x.Title == text))
+                .Skip(skip);
 
-            //var companies = await this.companyTagRepository.All().Include(u => u.Company).Include(u => u.Tag)
-            //      .Where(x => x.Tag.Title == text)
-            //      .Select(c => new Company
-            //      {
-            //          Name = c.Company.Name,
-            //      })
-            //      .ToListAsync();
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
+            }
 
-            //var companies = this.companyRepository
-            //    .All()
-            //    .Select(c => new Company
-            //    {
-            //        Name = c.Name,
-            //        Description = c.Description,
-            //        CompanyTags = new
-            //        {
-            //            Tag =
-            //        }
-            //    })
-
-            //var company = this.companyRepository.All()
-            //    .Select(c => c.CompanyTags.Where(x => x.Tag.Title == text))
-            //    .To<T>()
-            //    .ToList();
-
-            return null;
+            return await query.To<T>().ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> SearchText<T>(string propertyReference, string serchedText, int? take = null, int skip = 0, string sortOrder = null)
+        public async Task<int> SearchByTagCountAsync(string text)
+            => await this.companyRepository.All()
+                        .Where(c => c.CompanyTags.Any(x => x.Title == text))
+                        .CountAsync();
+
+        public async Task<IEnumerable<T>> SearchTextAsync<T>(string propertyReference, string serchedText, int? take = null, int skip = 0, string sortOrder = null)
         {
             IQueryable<Company> query = null;
 
@@ -245,7 +233,7 @@
         /// TagClud.
         /// </summary>
         /// <returns></returns>
-        public async Task<IQueryable> GetTags(int companyId)
+        public async Task<IEnumerable<string>> GetTags(int companyId)
         {
             var tags = await this.tagRepository.AllAsNoTracking()
                 .Where(t => t.CompanyId == companyId)

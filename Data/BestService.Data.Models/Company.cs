@@ -11,7 +11,7 @@
         {
             this.Comments = new HashSet<Comment>();
             this.Ratings = new HashSet<Rate>();
-            this.Tags = new HashSet<Tag>();
+            this.CompanyTags = new HashSet<Tag>();
         }
 
         [Required]
@@ -41,6 +41,6 @@
 
         public IEnumerable<Visit> Visits { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tag> CompanyTags { get; set; }
     }
 }
