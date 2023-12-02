@@ -14,31 +14,31 @@ Welcome to the repository for the BestService-Web-Project! This project is built
    * Organizing the project into MVC (Model-View-Controller) areas for better structure and maintainability.
         
 4.	**ASP.NET Identity System:**
-   Markup : * Implementing the ASP.NET Identity System for robust management of users and roles.
+  * Implementing the ASP.NET Identity System for robust management of users and roles.
 
 5.	**Dependency Injection:**
-   Markup : * Utilizing Dependency Injection to promote modularity and maintainability in the codebase.
+   * Utilizing Dependency Injection to promote modularity and maintainability in the codebase.
 
 6.	**AutoMapping:**
-   Markup : * Incorporating AutoMapping to simplify the process of mapping between objects.
+   * Incorporating AutoMapping to simplify the process of mapping between objects.
 
 7.	**Custom Error Handling:**   
-   Markup : * Implementing custom error handling for a more user-friendly experience.
+   * Implementing custom error handling for a more user-friendly experience.
 
 8.	**Sections, Partial Views, View Components:**
-   Markup : * Leveraging various view components for a modular and dynamic user interface.
+   * Leveraging various view components for a modular and dynamic user interface.
 
 9.	**API: Rating System:**
-   Markup : * Developing an API for a rating system to gather and display user feedback.
+   * Developing an API for a rating system to gather and display user feedback.
 
 10.	**Ajax, jQuery:**
-   Markup : * Employing Ajax and jQuery for asynchronous data retrieval and enhanced user interactions.
+   * Employing Ajax and jQuery for asynchronous data retrieval and enhanced user interactions.
 
 11.	**Integration with External Services:**
-   Markup : * Integrating seamlessly with external services such as Cloudinary for image management, Google Maps for location services, and Google Recaptcha v3 for enhanced security.
+   * Integrating seamlessly with external services such as Cloudinary for image management, Google Maps for location services, and Google Recaptcha v3 for enhanced security.
 
 12.	**Responsive Design:**
-   Markup : * Implementing a responsive design based on Twitter Bootstrap for optimal user experience across different devices.
+   * Implementing a responsive design based on Twitter Bootstrap for optimal user experience across different devices.
 
 ## Live Version ##
 Explore the live version of the project at BestService Live.
