@@ -19,8 +19,7 @@ This project is built using ASP.NET Core 3.1, aiming to provide a comprehensive 
    * Implementing the ASP.NET Identity System for robust management of users and roles.
   
 5. **Dependency Injection:**
-   * Utilizing Dependency Injection to promote modularity and maintainability in the codebase.
-  
+   * Utilizing Dependency Injection to promote modularity and maintainability in the codebase.  
 
 6. **AutoMapping:**
    * Incorporating AutoMapping to simplify the process of mapping between objects.
@@ -42,6 +41,14 @@ This project is built using ASP.NET Core 3.1, aiming to provide a comprehensive 
 
 12. **Responsive Design:**
    * Implementing a responsive design based on Twitter Bootstrap for optimal user experience across different devices. 
+   
+13. **Admin Panel:**
+   * Administrative section for content management, allowing the users to update and add new content easily. 
+   
+14. **Multiple User Roles:**
+   * Implementing different roles for Administrator, Companies, and standard Users to control access and permissions within the system.
+   
+   
 
 
 ## Live Version ##
