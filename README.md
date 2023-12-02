@@ -1,5 +1,7 @@
 #BestService-Web-Project
+
 Welcome to the repository for the BestService-Web-Project! This project is built using ASP.NET Core 3.1, aiming to provide a comprehensive web service for users. Below are key features and technologies used in the development of this project.
+
 ## Technologies Used
 
 1. **Microsoft SQL Server as Database Service:**
@@ -8,11 +10,10 @@ Welcome to the repository for the BestService-Web-Project! This project is built
 2. **Entity Framework Core:**
    - Employing Entity Framework Core for seamless interaction with the database through an Object-Relational Mapping (ORM) framework.   
 
-3.	MVC Areas:
-   
-•	Organizing the project into MVC (Model-View-Controller) areas for better structure and maintainability.
+3.	**MVC Areas:**
+   - Organizing the project into MVC (Model-View-Controller) areas for better structure and maintainability.
 
-4.	ASP.NET Identity System:
+5.	ASP.NET Identity System:
    
 •	Implementing the ASP.NET Identity System for robust management of users and roles.
 
