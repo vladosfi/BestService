@@ -5,8 +5,8 @@ Welcome to the repository for the BestService-Web-Project! This project is built
 1. **Microsoft SQL Server as Database Service:**
    - Utilizing Microsoft SQL Server to store and manage data efficiently.
 
-2.	Entity Framework Core:
-   - Employing Entity Framework Core for seamless interaction with the database through an Object-Relational Mapping (ORM) framework.
+2. **Entity Framework Core:**
+   - Employing Entity Framework Core for seamless interaction with the database through an Object-Relational Mapping (ORM) framework.   
 
 3.	MVC Areas:
    
