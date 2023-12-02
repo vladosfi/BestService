@@ -43,6 +43,6 @@ Welcome to the repository for the BestService-Web-Project! This project is built
 
 
 ## Live Version ##
-Explore the live version of the project at BestService Live.
+Explore the live version of the project at [BestService]https://bestservice-biz.azurewebsites.net/ Live.
 Feel free to browse the code, contribute, or provide feedback. If you have any questions or issues, please don't hesitate to open an issue. Enjoy using BestService!
 
