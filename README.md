@@ -2,6 +2,12 @@
 
 Welcome to the repository for the BestService-Web-Project! This project is built using ASP.NET Core 3.1, aiming to provide a comprehensive web service for users. Below are key features and technologies used in the development of this project.
 
+ Markup : * Bullet list
+              * Nested bullet
+                  * Sub-nested bullet etc
+          * Bullet list item 2
+
+
 ## Key Features
 
 1. **Microsoft SQL Server as Database Service:**
