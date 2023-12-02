@@ -14,15 +14,18 @@ Welcome to the repository for the BestService-Web-Project! This project is built
    - Organizing the project into MVC (Model-View-Controller) areas for better structure and maintainability.
         
 4.	**ASP.NET Identity System:**
-   - Utilizing
+   - Utilizing Microsoft SQL Server to store and manage data efficiently.
+
    - Implementing the ASP.NET Identity System for robust management of users and roles.
 
 5.	**Dependency Injection:**
-   - Utilizing
+   - Utilizing Microsoft SQL Server to store and manage data efficiently.
+
    - Utilizing Dependency Injection to promote modularity and maintainability in the codebase.
 
 6.	**AutoMapping:**
-   - Utilizing
+   - Utilizing Microsoft SQL Server to store and manage data efficiently.
+
    - Incorporating AutoMapping to simplify the process of mapping between objects.
 
 7.	**Custom Error Handling:**
