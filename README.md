@@ -45,3 +45,7 @@ Welcome to the repository for the BestService-Web-Project! This project is built
 ## Live Version ##
 Explore the live version of the project at [BestService](https://bestservice-biz.azurewebsites.net/) Live.
 Feel free to browse the code, contribute, or provide feedback. If you have any questions or issues, please don't hesitate to open an issue. Enjoy using BestService!
+
+
+## Preview Web App ##
+![demo](https://github.com/vladosfi/BestService/assets/4414067/075559bf-1a69-4343-a991-f97aaffad50e)
