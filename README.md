@@ -28,8 +28,8 @@ Welcome to the repository for the BestService-Web-Project! This project is built
 
    - Incorporating AutoMapping to simplify the process of mapping between objects.
 
-7.	**Custom Error Handling:**
-   - Utilizing
+7.	**Custom Error Handling:**   
+   - Utilizing Microsoft SQL Server to store and manage data efficiently.
    - Implementing custom error handling for a more user-friendly experience.
 
 8.	**Sections, Partial Views, View Components:**
