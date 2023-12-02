@@ -57,4 +57,4 @@ Feel free to browse the code, contribute, or provide feedback. If you have any q
 
 
 ## Preview Web App ##
-![demo](https://github.com/vladosfi/BestService/assets/4414067/075559bf-1a69-4343-a991-f97aaffad50e)
+![image](https://github.com/vladosfi/BestService/assets/4414067/2067b4ab-6c28-4638-a60d-34afc6af8165)
