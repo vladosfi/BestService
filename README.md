@@ -1,6 +1,8 @@
 # BestService-Web-Project #
 
-Welcome to the repository for the BestService-Web-Project! This project is built using ASP.NET Core 3.1, aiming to provide a comprehensive web service for users. Below are key features and technologies used in the development of this project.
+Welcome to the repository for the BestService-Web-Project! 
+This is my SoftUni graduation project defense!
+This project is built using ASP.NET Core 3.1, aiming to provide a comprehensive web service for users. Below are key features and technologies used in the development of this project.
 
 ## Key Features ##
 
