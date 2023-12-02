@@ -11,7 +11,7 @@ Welcome to the repository for the BestService-Web-Project! This project is built
    - Employing Entity Framework Core for seamless interaction with the database through an Object-Relational Mapping (ORM) framework.   
 
 3.	**MVC Areas:**
-      - Organizing the project into MVC (Model-View-Controller) areas for better structure and maintainability.
+   - Organizing the project into MVC (Model-View-Controller) areas for better structure and maintainability.
         
 4.	**ASP.NET Identity System:**
    - Implementing the ASP.NET Identity System for robust management of users and roles.
